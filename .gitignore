@@ -11,6 +11,7 @@ data/chroma_db/
 # PDF fajlovi — ne idu na git (privatni materijali)
 data/raw/
 data/processed/
+data/slide_images
 
 # Python cache
 __pycache__/
