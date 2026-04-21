@@ -1,0 +1,30 @@
+# Virtuelno okruženje
+venv/
+.venv/
+
+# Environment varijable — NIKAD ne pushuješ ovo
+.env
+
+# Vector baza — velika je, ne ide na git
+data/chroma_db/
+
+# PDF fajlovi — ne idu na git (privatni materijali)
+data/raw/
+data/processed/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
