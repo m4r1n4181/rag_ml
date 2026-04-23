@@ -7,7 +7,6 @@ data/chroma_db/
 
 data/raw/
 data/processed/
-data/slide_images
 
 __pycache__/
 *.pyc
