@@ -182,12 +182,12 @@ def search(query: str, collection, n_results: int = 5) -> list[dict]:
             "similarity": round(1 - dist, 3)
         })
 
-        # 2) reranking
-        try:
-            hits = rerank(query, hits, top_n=n_results)
-        except Exception as e:
-            logger.error(f"Reranker failed, falling back to pure vector ranking: {e}")
-            # fallback
-            hits = sorted(hits, key=lambda x: x["similarity"], reverse=True)[:n_results]
+        # # 2) reranking
+        # try:
+        #     hits = rerank(query, hits, top_n=n_results)
+        # except Exception as e:
+        #     logger.error(f"Reranker failed, falling back to pure vector ranking: {e}")
+        #     # fallback
+        hits = sorted(hits, key=lambda x: x["similarity"], reverse=True)[:n_results]
 
     return hits
