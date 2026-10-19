@@ -1,0 +1,403 @@
+{
+ "I.2": {
+  "coverage": [
+   "partial",
+   "yes",
+   "partial",
+   "partial",
+   "yes",
+   "no",
+   "partial"
+  ],
+  "completeness": 0.5714285714285714,
+  "unsupported": [
+   "Kompleksniji klasifikator je postigao 99.99% tačnosti na trening podacima (kontekst samo kaže da je ostvario stepen ispravne klasifikacije od 99.99%, ne navodi da je to na trening podacima).",
+   "Generalizacija je ključni cilj svakog sistema za mašinsko učenje.",
+   "Što je veće λ, to se više penalizuju veliki koeficijenti."
+  ],
+  "faithfulness": 0.8636363636363636
+ },
+ "I.4": {
+  "coverage": [
+   "partial",
+   "yes",
+   "partial",
+   "partial",
+   "no",
+   "no",
+   "partial"
+  ],
+  "completeness": 0.42857142857142855,
+  "unsupported": [
+   "Predviđanje količine kg žita koju će poljoprivredni proizvođač prodati u naredna tri meseca (Predavanje, slajd 25)",
+   "Predviđanje da li će pacijent razviti dijabetes ili ne na osnovu medicinskih podataka (Predavanje, slajd 25)",
+   "Regresioni problem se može ilustrovati predviđanjem vrednosti na osnovu poznate funkcije t(x) = sin(2πx) + N(0,1), gde se na pravu funkciju dodaje šum (Predavanje, slajd 9)",
+   "Cilj je dodeliti novi uzorak jednoj od unapred definisanih klasa"
+  ],
+  "faithfulness": 0.8181818181818181
+ },
+ "II.3": {
+  "coverage": [
+   "partial",
+   "partial",
+   "no",
+   "yes",
+   "partial",
+   "partial",
+   "no"
+  ],
+  "completeness": 0.42857142857142855,
+  "unsupported": [
+   "Stohastičko poduzorkovanje je nasumična podela skupa na podskupove za obuku i testiranje (opis nije u kontekstu, kontekst samo navodi naziv)"
+  ],
+  "faithfulness": 0.9285714285714286
+ },
+ "II.4": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "partial",
+   "yes",
+   "yes",
+   "yes"
+  ],
+  "completeness": 0.875,
+  "unsupported": [
+   "Pošto je svaki uzorak obučen na približno 2/3 uzoraka iz skupa za obuku, preostaje oko 1/3 uzoraka za testiranje, što omogućuje efikasnu procenu greške (the 'efficient estimate' claim and the sloppy 'each sample trained on' phrasing; the source speaks of trees trained on bootstrap sets in random forests)"
+  ],
+  "faithfulness": 0.95
+ },
+ "III.2": {
+  "coverage": [
+   "yes",
+   "partial",
+   "no",
+   "no",
+   "no",
+   "no",
+   "yes"
+  ],
+  "completeness": 0.35714285714285715,
+  "unsupported": [
+   "Ovaj pristup (gradijentni silazak) je pogodniji za velike skupove podataka i veći broj obeležja."
+  ],
+  "faithfulness": 0.9285714285714286
+ },
+ "III.4": {
+  "coverage": [
+   "yes",
+   "partial",
+   "no",
+   "partial",
+   "partial",
+   "yes",
+   "partial"
+  ],
+  "completeness": 0.5714285714285714,
+  "unsupported": [
+   "Regularizacija rešava problem veliki broj obeležja (d > N) tako što inverzija postaje računski zahtevna (the source ties the computational cost to a very large number of features, typically over 10,000, not to d > N)",
+   "Ridge regresija ... dodeljuje manje koeficijente (smanjuje koeficijente ali ih ne anulira) – implied, not explicitly stated in the context"
+  ],
+  "faithfulness": 0.8823529411764706
+ },
+ "IV.3": {
+  "coverage": [
+   "yes",
+   "partial",
+   "yes",
+   "yes",
+   "partial",
+   "partial",
+   "yes"
+  ],
+  "completeness": 0.7857142857142857,
+  "unsupported": [
+   "Integral of P(greške|x) is written without the p(x) weighting factor (∫ P(greške|x) dx) — the context slide has the same form, so this is supported; however the claim that LR test gives lower error than 'bilo kojeg drugog pravila' is a slight extension of the slide",
+   "Bayesova stopa greške je 'teorijska donja granica' greške — wording 'donja granica' is not in the context, though it follows from 'najbolje što ijedan klasifikator može da postigne'"
+  ],
+  "faithfulness": 0.8571428571428572
+ },
+ "IV.4": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "yes",
+   "partial",
+   "partial"
+  ],
+  "completeness": 0.7857142857142857,
+  "unsupported": [
+   "Bayesov rizik je E[C] = ΣΣ C_ij P[odabrano ω_i | prava klasa je ω_j] – u kontekstu je to zajednička verovatnoća (odabrano ω_i a stvarna klasa ω_j), a ne uslovna verovatnoća"
+  ],
+  "faithfulness": 0.9
+ },
+ "V.2": {
+  "coverage": [
+   "yes",
+   "partial",
+   "partial",
+   "yes",
+   "yes",
+   "partial"
+  ],
+  "completeness": 0.75,
+  "unsupported": [
+   "Granice odlučivanja u opštem slučaju daju kvadratne površi (citirano kao Predavanje slajd 8, ali taj slajd to ne navodi; ovu tvrdnju podržava Praktikum str. 49)"
+  ],
+  "faithfulness": 0.9090909090909091
+ },
+ "VI.3": {
+  "coverage": [
+   "yes",
+   "yes",
+   "partial",
+   "no",
+   "no",
+   "yes"
+  ],
+  "completeness": 0.5833333333333334,
+  "unsupported": [
+   "ML procena varijanse je pristrasna (biased) jer koristi N u imeniocu umesto N-1 (iz teorije statistike, ne iz konteksta)",
+   "Umesto ML procene najčešće se koristi nepristrasna procena sa deljenjem sa N-1",
+   "Nepristrasna procena koristi N-1 stepeni slobode (Beselova korekcija)"
+  ],
+  "faithfulness": 0.75
+ },
+ "VII.3": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "no",
+   "yes",
+   "yes"
+  ],
+  "completeness": 0.7857142857142857,
+  "unsupported": [
+   "KDE koristi fiksnu širinu kernela, dok kNN adaptivno određuje veličinu okoline u zavisnosti od lokalne gustine podataka"
+  ],
+  "faithfulness": 0.9166666666666666
+ },
+ "VII.6": {
+  "coverage": [
+   "yes",
+   "partial",
+   "yes",
+   "yes",
+   "no",
+   "no",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.5625,
+  "unsupported": [
+   "Glatki kerneli omogućavaju diferencijalno ponderisanje tačaka (u smislu da je procena i diferencijabilna) – tvrdnja o kontinuiranoj proceni je podržana, ali ne i diferencijabilnost/numeričke osobine",
+   "Izbor h je opisan kao rešen sa dva 'koraka' iz slajda 22 kao kompletna lista pristupa (implicira da su to jedini pristupi)"
+  ],
+  "faithfulness": 0.8823529411764706
+ },
+ "VII.8": {
+  "coverage": [
+   "partial",
+   "yes",
+   "yes",
+   "partial",
+   "partial",
+   "no",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.5625,
+  "unsupported": [
+   "Naivni Bayes pretpostavlja \"strogu, ali praktičniju\" pretpostavku (the source says it is much less strict than general independence, so \"strogu\" contradicts the context)",
+   "Na primer, za 3-dimenzionalni vektor: umesto 7 procena, potrebno je samo 6 (the numerical example is not stated in the context, and 2d = 6 is not a reduction in the sense described)"
+  ],
+  "faithfulness": 0.8333333333333334
+ },
+ "VIII.4": {
+  "coverage": [
+   "yes",
+   "yes",
+   "partial",
+   "no",
+   "yes",
+   "yes",
+   "yes",
+   "partial"
+  ],
+  "completeness": 0.75,
+  "unsupported": [],
+  "faithfulness": 1.0
+ },
+ "VIII.5": {
+  "coverage": [
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no"
+  ],
+  "completeness": 0.0,
+  "unsupported": [],
+  "faithfulness": 1.0
+ },
+ "IX.3": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "no",
+   "no",
+   "yes",
+   "partial"
+  ],
+  "completeness": 0.625,
+  "unsupported": [],
+  "faithfulness": 1.0
+ },
+ "IX.5": {
+  "coverage": [
+   "partial",
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "yes"
+  ],
+  "completeness": 0.9285714285714286,
+  "unsupported": [
+   "Pojedinačno ažuriranje w se vrši samo za pogrešno klasifikovani uzorak, tj. ažurira w nakon svakog pogrešno klasifikovanog uzorka (implicitno jedan po jedan, ali nije eksplicitno u kontekstu) – blago nadogradnja",
+   "Gradijent spuštanja se pominje kao metod minimizacije (nije eksplicitno navedeno u odgovoru, ali jeste u kontekstu) – nije problem"
+  ],
+  "faithfulness": 0.9090909090909091
+ },
+ "X.4": {
+  "coverage": [
+   "partial",
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "partial",
+   "partial"
+  ],
+  "completeness": 0.7142857142857143,
+  "unsupported": [
+   "Polinomijalno vreme rešavanja \"garantuje pronalaženje globalnog optimuma\" (kontekst ne govori o garanciji globalnog optimuma)",
+   "Odsustvo uzoraka daleko od granice \"drastično smanjuje broj potrebnih izračunavanja, posebno pri klasifikaciji novih uzoraka\" (kontekst to kaže za izračunavanje skalarnih proizvoda samo za vektore nosače, ne za ignorisanje udaljenih uzoraka)",
+   "Nezavisnost kontrole složenosti od dimenzionalnosti \"omogućava rad sa visokodimenzionalnim podacima bez problema\"",
+   "Elegantna teorijska osnova \"čini SVM pouzdanom i razumljivom metodom\""
+  ],
+  "faithfulness": 0.6923076923076923
+ },
+ "XI.2": {
+  "coverage": [
+   "yes",
+   "no",
+   "yes",
+   "yes",
+   "partial",
+   "partial"
+  ],
+  "completeness": 0.6666666666666666,
+  "unsupported": [
+   "Klasifikacija ili regresija novog uzorka zahteva samo prolazak kroz stablo od korena do terminalnog čvora, što je operacija linearne vremenske kompleksnosti u odnosu na dubinu stabla.",
+   "Ova karakteristika čini stabla odluke atraktivnom opcijom za sisteme gde je brzina predviđanja kritična, čak i ako je obuka računski zahtevna."
+  ],
+  "faithfulness": 0.8181818181818181
+ },
+ "XI.7": {
+  "coverage": [
+   "partial",
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "yes"
+  ],
+  "completeness": 0.9375,
+  "unsupported": [
+   "Umesto da svako stablo bude obučeno na slučajnom podskupu podataka (kao kod bagging-a) – the context says each tree is trained on its own bootstrap set, so this is only loosely supported",
+   "Proces se odvija u tri koraka (minor framing, though supported by the slide's three-step structure)"
+  ],
+  "faithfulness": 0.875
+ },
+ "XII.1": {
+  "coverage": [
+   "yes",
+   "partial",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no"
+  ],
+  "completeness": 0.21428571428571427,
+  "unsupported": [
+   "Perceptron se može nadograditi uvođenjem nelinearne aktivacione funkcije tako da vrši nelinearnu klasifikaciju (the answer presents this as a modification toward nonlinear classification, but the context says a single neuron still cannot realize a nonlinear boundary)",
+   "Neuronske mreže rešavaju ovaj problem kombinovanjem više neurona u mrežu (the supporting explanation given, one neuron per class with normalized responses, does not describe how networks solve the nonlinearity problem and is not supported as an answer to it)",
+   "Na taj način se nelinearni problem u originalnom prostoru transformiše u linearni problem u transformisanom prostoru (a paraphrase that goes slightly beyond the context)"
+  ],
+  "faithfulness": 0.75
+ },
+ "XII.2": {
+  "coverage": [
+   "yes",
+   "partial",
+   "yes",
+   "partial",
+   "yes",
+   "partial",
+   "yes"
+  ],
+  "completeness": 0.7857142857142857,
+  "unsupported": [
+   "Aktivaciona funkcija f je nelinearna transformacija koja omogućava mreži da uči kompleksne zavisnosti (the 'learning complex dependencies' part is not stated in the context; Praktikum p. 119 only says it enables small weight changes to have small impact)"
+  ],
+  "faithfulness": 0.95
+ },
+ "XIII.2": {
+  "coverage": [
+   "yes",
+   "partial",
+   "partial",
+   "partial",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.5833333333333334,
+  "unsupported": [
+   "Ovaj pristup fokusira se na očuvanje informacija iz originalnog prostora obeležja, nezavisno od toga da li su te informacije relevantne za klasifikaciju.",
+   "Ovaj pristup prioritizuje razdvajanje klasa, čak i ako to znači da se neke informacije iz originalnog prostora izgube."
+  ],
+  "faithfulness": 0.75
+ },
+ "XIII.4": {
+  "coverage": [
+   "partial",
+   "partial",
+   "partial",
+   "no",
+   "yes",
+   "no",
+   "no"
+  ],
+  "completeness": 0.35714285714285715,
+  "unsupported": [
+   "Kao što se vidi na slajdu 20, samo maksimizovanje rastojanja između srednjih vrednosti nije dovoljna mera separabilnosti (slajd 20 nije u kontekstu pod tom oznakom; sadržaj je na slajdu 19 u izvoru 2, ali tekst nosi broj 20)"
+  ],
+  "faithfulness": 0.9285714285714286
+ }
+}

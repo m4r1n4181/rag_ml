@@ -1,26 +1,24 @@
-import streamlit as st
+import html
 import sys
 from pathlib import Path
 
+import streamlit as st
+
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.generation.rag_chain import ask_stream
-from src.retrieval.vector_store import load_vector_store
+from src.config import settings  # noqa: E402
+from src.generation.rag_chain import ask_stream  # noqa: E402
+from src.retrieval.vector_store import get_embedder, load_vector_store  # noqa: E402
 
-# ------------------------------------------------------------------ #
-# Streamlit config
-# st.set_page_config mora biti PRVI Streamlit poziv u fajlu —
-# ako ga staviš posle bilo kog st.* poziva, dobijaš grešku.
-# ------------------------------------------------------------------ #
-st.set_page_config(
-    page_title="Faculty RAG Assistant",
-    page_icon="🎓",
-    layout="wide"
-)
+EXAMPLE_QUESTIONS = [
+    "Objasniti pojam regularizacije u kontekstu linearne regresije i na koje načine se ona primenjuje.",
+    "Objasniti ulogu parametra brzine učenja kod gradijentnog silaska.",
+    "Kako se vrši izbor modela kod stabla odluke ukoliko se koristi orezivanje?",
+    "Kako radi transformer arhitektura?",
+]
 
-# ------------------------------------------------------------------ #
-# CSS — minimalno stilizovanje da izgleda pristojno
-# ------------------------------------------------------------------ #
+st.set_page_config(page_title="Mašinsko učenje 1 asistent", page_icon="🎓", layout="wide")
+
 st.markdown("""
 <style>
     .source-card {
@@ -31,7 +29,7 @@ st.markdown("""
         margin-bottom: 8px;
         font-size: 0.85rem;
     }
-    .similarity-badge {
+    .rank-badge {
         background-color: #7c3aed;
         color: white;
         padding: 2px 8px;
@@ -44,78 +42,68 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# ------------------------------------------------------------------ #
-# Session state
-# ------------------------------------------------------------------ #
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-if "sources" not in st.session_state:
-    st.session_state.sources = []
-
-if "vector_store" not in st.session_state:
-    with st.spinner("Učitavam knowledge base..."):
-        st.session_state.vector_store = load_vector_store()
+@st.cache_resource(show_spinner="Učitavam model i bazu...")
+def load_resources():
+    # Shared by all sessions: the embedding model is ~1 GB and should load once per process.
+    get_embedder()
+    return load_vector_store()
 
 
-# ------------------------------------------------------------------ #
-# Layout — dva stupca: chat (levo) i sources (desno)
-# ------------------------------------------------------------------ #
+collection = load_resources()
+st.session_state.setdefault("messages", [])
+st.session_state.setdefault("sources", [])
+
+questions_asked = sum(m["role"] == "user" for m in st.session_state.messages)
+limit_reached = questions_asked >= settings.max_questions_per_session
+
 col_chat, col_sources = st.columns([2, 1])
 
 with col_chat:
-    st.title("🎓 Mašinsko učenje 1 FTN asistent")
-    st.caption("Postavi pitanje o gradivu — odgovaram na osnovu praktikuma i predavanja.")
+    st.title("🎓 Mašinsko učenje 1 asistent")
+    st.caption(
+        "Postavi pitanje o gradivu predmeta. Odgovori se zasnivaju samo na predavanjima i praktikumu, "
+        "a izvori se prikazuju desno."
+    )
 
-    # Prikaži chat istoriju
+    clicked = None
+    if not st.session_state.messages:
+        st.markdown("**Primeri pitanja:**")
+        for question in EXAMPLE_QUESTIONS:
+            if st.button(question, use_container_width=True):
+                clicked = question
+
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
-            # st.markdown renderuje LaTeX ako je okružen $$ ili $
             st.markdown(msg["content"])
 
-    # Input polje — st.chat_input se automatski fiksira na dno
-    if query := st.chat_input("Postavi pitanje..."):
+    if limit_reached:
+        st.info(f"Ovo je javni demo, ograničen na {settings.max_questions_per_session} pitanja po sesiji.")
 
-        # Prikaži korisnikovu poruku
+    typed = st.chat_input("Postavi pitanje...", disabled=limit_reached)
+    query = clicked or typed
+
+    if query and not limit_reached:
+        history = list(st.session_state.messages)
         st.session_state.messages.append({"role": "user", "content": query})
         with st.chat_message("user"):
             st.markdown(query)
 
-        # Generiši i stream-uj odgovor
         with st.chat_message("assistant"):
-            full_response = ""
-            sources = []
-
-            # st.write_stream ne možemo koristiti direktno jer naš
-            # generator vraća tuple (tip, vrednost).
-            # Koristimo placeholder koji updateujemo token po token.
+            answer, sources = "", []
             placeholder = st.empty()
-
-            for event_type, value in ask_stream(
-                query,
-                collection=st.session_state.vector_store
-            ):
-                if event_type == "token":
-                    full_response += value
-                    # Pišemo u placeholder — korisnik vidi streaming
-                    placeholder.markdown(full_response + "▌")
-
-                elif event_type == "sources":
+            for event, value in ask_stream(query, collection=collection, history=history):
+                if event == "query" and value != query:
+                    st.caption(f"🔎 Pretraga: {value}")
+                elif event == "token":
+                    answer += value
+                    placeholder.markdown(answer + "▌")
+                elif event == "sources":
                     sources = value
+            placeholder.markdown(answer)
 
-            # Ukloni kursor, prikaži finalni odgovor
-            placeholder.markdown(full_response)
-
-        # Sačuvaj u istoriju
-        st.session_state.messages.append({
-            "role": "assistant",
-            "content": full_response
-        })
+        st.session_state.messages.append({"role": "assistant", "content": answer})
         st.session_state.sources = sources
-
-        # Rerun da bi sources kolona bila ažurna
         st.rerun()
-
 
 with col_sources:
     st.subheader("📚 Izvori")
@@ -125,37 +113,25 @@ with col_sources:
     else:
         for i, source in enumerate(st.session_state.sources, 1):
             meta = source["metadata"]
-            similarity = source["similarity"]
-            source_name = meta.get("source", "?")
-            doc_type = meta.get("type", "?")
+            is_slide = meta.get("type") == "presentation"
+            icon = "📊" if is_slide else "📖"
+            location = f"Slajd {meta.get('slide', '?')}" if is_slide else f"Strana {meta.get('page', '?')}"
+            name = meta.get("lecture") or meta.get("source", "?")
+            name = name[:40] + "..." if len(name) > 40 else name
 
-            if doc_type == "presentation":
-                icon = "📊"
-                location = f"Slajd {meta.get('slide', '?')}"
-            else:
-                icon = "📖"
-                location = f"Strana {meta.get('page', '?')}"
+            st.markdown(
+                f'<div class="source-card">{icon} <strong>{html.escape(name)}</strong>'
+                f'<span class="rank-badge">#{i}</span><br><small>{location}</small></div>',
+                unsafe_allow_html=True,
+            )
 
-            # Skrati naziv fajla ako je predugačak
-            display_name = source_name[:35] + "..." if len(source_name) > 35 else source_name
-
-            st.markdown(f"""
-<div class="source-card">
-    {icon} <strong>{display_name}</strong>
-    <span class="similarity-badge">{similarity}</span><br>
-    <small>{location}</small>
-</div>
-""", unsafe_allow_html=True)
-            # Ako postoji slika slajda, prikaži je
             image_path = meta.get("image_path")
-            if image_path and doc_type == "presentation":
-                st.image(image_path, caption=f"{source_name} – slajd {meta.get('slide', '?')}", use_column_width=True)
+            if is_slide and image_path and Path(image_path).exists():
+                st.image(image_path, caption=f"{meta.get('source')}, slajd {meta.get('slide')}", use_column_width=True)
 
-            # Expander sa preview tekstom
             with st.expander("Prikaži tekst"):
                 st.caption(source["content"][:400] + "...")
 
-        # Dugme za čišćenje istorije
         st.divider()
         if st.button("🗑️ Očisti razgovor"):
             st.session_state.messages = []

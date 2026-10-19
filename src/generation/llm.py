@@ -1,9 +1,7 @@
 import anthropic
-from loguru import logger
+
 from src.config import settings
 
-# singleton pattern kao kod embeddera
-# Anthropic klijent interno upravljа connection poolingom
 _client = None
 
 
@@ -14,34 +12,24 @@ def get_client() -> anthropic.Anthropic:
     return _client
 
 
-def generate(prompt: str, system_prompt: str) -> str:
-    """For testing purposes."""
-    client = get_client()
-
-    message = client.messages.create(
+def _request(prompt: str, system_prompt: str | None, max_tokens: int | None) -> dict:
+    kwargs = dict(
         model=settings.llm_model,
-        max_tokens=settings.llm_max_tokens,
-        system=system_prompt,
-        messages=[
-            {"role": "user", "content": prompt}
-        ]
+        max_tokens=max_tokens or settings.llm_max_tokens,
+        messages=[{"role": "user", "content": prompt}],
     )
-    return message.content[0].text
+    # Newer Claude models reject sampling parameters; set LLM_TEMPERATURE=none for those.
+    if settings.llm_temperature is not None:
+        kwargs["temperature"] = settings.llm_temperature
+    if system_prompt:
+        kwargs["system"] = system_prompt
+    return kwargs
+
+
+def generate(prompt: str, system_prompt: str | None = None, max_tokens: int | None = None) -> str:
+    return get_client().messages.create(**_request(prompt, system_prompt, max_tokens)).content[0].text
 
 
 def generate_stream(prompt: str, system_prompt: str):
-    """
-    Streaming version for Streamlit
-    """
-    client = get_client()
-
-    with client.messages.stream(
-            model=settings.llm_model,
-            max_tokens=settings.llm_max_tokens,
-            system=system_prompt,
-            messages=[
-                {"role": "user", "content": prompt}
-            ]
-    ) as stream:
-        for text in stream.text_stream:
-            yield text
+    with get_client().messages.stream(**_request(prompt, system_prompt, None)) as stream:
+        yield from stream.text_stream

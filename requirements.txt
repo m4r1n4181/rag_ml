@@ -1,29 +1,29 @@
+# PDF parsing
 pymupdf==1.23.26
 pdfplumber==0.11.4
 
-langchain==0.2.16
-langchain-chroma==0.1.4
+# Chunking (only the text splitter, not the whole langchain)
+langchain-text-splitters==0.2.4
 
+# Vector store + keyword search
 chromadb==0.5.23
+rank-bm25==0.2.2
 
+# Embeddings / reranker
 sentence-transformers==2.7.0
 transformers==4.40.2
 huggingface-hub==0.24.7
 tokenizers==0.19.1
-
 torch==2.2.2
 numpy<2.0.0
 
-anthropic
+# LLM
+anthropic==0.96.0
 
-fastapi==0.115.0
-uvicorn==0.30.6
-
+# UI
 streamlit==1.38.0
 
-ragas==0.1.21
-datasets==2.21.0
-
+# Utils
 python-dotenv==1.0.1
 loguru==0.7.2
 pydantic==2.8.2

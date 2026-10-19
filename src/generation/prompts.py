@@ -1,43 +1,49 @@
-SYSTEM_PROMPT = """Ti si asistent koji pomaže studentima da uče gradivo sa fakulteta.
+NO_ANSWER = "Nisam pronašao odgovor u dostupnim materijalima."
 
-Odgovaraš ISKLJUČIVO na osnovu priloženog konteksta. Ako odgovor nije u kontekstu, reci: "Nisam pronašao odgovor u dostupnim materijalima."
+SYSTEM_PROMPT = f"""Ti si asistent koji pomaže studentima da uče gradivo iz predmeta Mašinsko učenje 1.
+
+Odgovaraš ISKLJUČIVO na osnovu priloženog konteksta. Ako odgovor nije u kontekstu, reci: "{NO_ANSWER}"
 
 PRAVILA:
-1. Sintetiši informacije iz svih relevantnih izvora u jedan koherentan odgovor
-2. Ne nabrајај izvore jedan po jedan — integriši ih
-3. Navedi izvor samo kad dodaje vrednost: (Slajd 5, L02) ili (Strana 45, knjiga)
-4. Ako kontekst sadrži samo naslove bez objašnjenja, reci da detalji nisu dostupni u retrieved materijalima
-5. Odgovaraj na srpskom jeziku
-6. Budi koncizan — student treba da razume, ne da čita esej
-7. Matematičke formule — prepiši u LaTeX formatu, npr: $J(\\theta_0, \\theta_1) = \\frac{1}{2N}\\sum_{i=1}^{N}$
-8. Ako pitanje traži "izvesti", "formulisati", "dokazati" ili sadrži matematičke/statističke oznake, odgovori formalno: prikaži nejednačine i formule iz konteksta, korak po korak.
-9. Ako je u kontekstu dostupna formula na slajdu, nemoj je zamenjivati opisom.
-10. Ako retrieved tekst deluje nepotpuno za formulu, reci da korisnik pogleda odgovarajući slajd iz izvora.
+1. Sintetiši informacije iz svih relevantnih izvora u jedan koherentan odgovor, kao dobar odgovor na usmenom ispitu.
+2. Ne nabrajaj izvore jedan po jedan, nego ih integriši.
+3. Navedi izvor kratko u zagradi kad je koristan, npr. (Linearna regresija, slajd 26) ili (Praktikum, str. 45).
+4. Ako pitanje ima više delova (npr. "objasniti pojam ... i na koje načine ... i šta se menja"), odgovori na svaki deo.
+5. Odgovaraj na srpskom jeziku.
+6. Budi jasan i strukturiran, bez uvoda tipa "Na osnovu dostupnih materijala".
+7. Matematičke formule piši u LaTeX formatu, npr: $J(\\theta) = \\frac{{1}}{{2N}}\\sum_{{i=1}}^{{N}}(h_\\theta(x^{{(i)}}) - y^{{(i)}})^2$
+8. Ako pitanje traži "izvesti", "formulisati" ili "dokazati", prikaži formule iz konteksta korak po korak.
+9. Tekst sa slajdova je izvučen iz PDF-a, pa formule mogu biti izlomljene. Rekonstruiši ih ako je jasno šta znače, a ako nije, uputi studenta na konkretan slajd.
+10. Ako kontekst pokriva samo deo pitanja, odgovori na taj deo i jasno reci šta nedostaje.
 """
 
-def build_prompt(query: str, context_chunks: list[dict]) -> str:
-    # Retrieved chunks + questions = final prompt
-    context_parts = []
+QUERY_REWRITE_PROMPT = """Na osnovu istorije razgovora i poslednjeg pitanja studenta, napiši JEDNO samostalno pitanje
+koje se može razumeti bez istorije (zameni "to", "ono", "a kod ..." stvarnim pojmovima).
+Ako je poslednje pitanje već samostalno, vrati ga nepromenjeno.
+Vrati SAMO pitanje, u jednom redu, bez objašnjenja.
 
-    for i, chunk in enumerate(context_chunks, 1):
-        meta = chunk["metadata"]
-        similarity = chunk["similarity"]
+<istorija>
+{history}
+</istorija>
 
-        # Formating source label
-        if meta.get("type") == "presentation":
-            source = f"Prezentacija: {meta.get('source', '?')}, Slajd {meta.get('slide', '?')}"
-        else:
-            source = f"Knjiga: {meta.get('source', '?')}, Strana {meta.get('page', '?')}"
+<poslednje_pitanje>
+{question}
+</poslednje_pitanje>"""
 
-        context_parts.append(
-            f"[Izvor {i} | {source} | relevantnost: {similarity}]\n"
-            f"{chunk['content']}"
-        )
 
-    context_str = "\n\n---\n\n".join(context_parts)
+def format_source(meta: dict) -> str:
+    lecture = meta.get("lecture") or meta.get("source", "?")
+    if meta.get("type") == "presentation":
+        return f"Predavanje: {lecture}, slajd {meta.get('slide', '?')}"
+    return f"Praktikum, strana {meta.get('page', '?')}"
 
+
+def build_prompt(query: str, chunks: list[dict]) -> str:
+    context = "\n\n---\n\n".join(
+        f"[Izvor {i} | {format_source(c['metadata'])}]\n{c['content']}" for i, c in enumerate(chunks, 1)
+    )
     return f"""<context>
-{context_str}
+{context}
 </context>
 
 <question>

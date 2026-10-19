@@ -1,0 +1,135 @@
+{
+ "original:VII.2": [
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "partial",
+  "yes",
+  "partial"
+ ],
+ "original:III.3": [
+  "no",
+  "partial",
+  "partial",
+  "no",
+  "no",
+  "partial",
+  "no",
+  "no"
+ ],
+ "original:III.7": [
+  "yes",
+  "partial",
+  "yes",
+  "yes",
+  "partial",
+  "no",
+  "no"
+ ],
+ "original:III.1": [
+  "yes",
+  "partial",
+  "yes",
+  "partial",
+  "yes",
+  "no"
+ ],
+ "current:I.1": [
+  "yes",
+  "yes",
+  "yes",
+  "partial",
+  "no",
+  "no",
+  "no"
+ ],
+ "original:IV.2": [
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "no",
+  "no"
+ ],
+ "original:I.3": [
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "partial",
+  "partial",
+  "partial"
+ ],
+ "current:XI.5": [
+  "no",
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "yes"
+ ],
+ "current:XII.4": [
+  "yes",
+  "no",
+  "partial",
+  "yes",
+  "yes",
+  "yes",
+  "partial"
+ ],
+ "current:II.5": [
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "partial",
+  "no",
+  "yes"
+ ],
+ "original:IV.7": [
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "no",
+  "no",
+  "no"
+ ],
+ "current:IV.6": [
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "partial",
+  "partial"
+ ],
+ "current:II.1": [
+  "partial",
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "partial"
+ ],
+ "original:XI.6": [
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "no",
+  "yes"
+ ],
+ "current:VIII.6": [
+  "no",
+  "no",
+  "no",
+  "no",
+  "no",
+  "no",
+  "no"
+ ]
+}

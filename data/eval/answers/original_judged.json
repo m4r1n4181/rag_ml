@@ -1,0 +1,817 @@
+{
+ "I.1": {
+  "coverage": [
+   "partial",
+   "partial",
+   "partial",
+   "partial",
+   "no",
+   "no",
+   "no"
+  ],
+  "completeness": 0.2857142857142857,
+  "unsupported": [
+   "Ako uzorak ima n obeležja, on se nalazi u n-dimenzionalnom prostoru obeležja."
+  ],
+  "faithfulness": 0.9090909090909091
+ },
+ "I.3": {
+  "coverage": [
+   "yes",
+   "yes",
+   "partial",
+   "partial",
+   "partial",
+   "partial",
+   "partial"
+  ],
+  "completeness": 0.6428571428571429,
+  "unsupported": [
+   "Klase se mogu razdvojiti linearnom hiperravni (opis linearne separabilnosti nije eksplicitno u slajdu 10, samo naziv)",
+   "Klase zahtevaju nelinearne granice odlučivanja (opis nelinearne separabilnosti nije u kontekstu slajda)",
+   "Jako korelisana obeležja su loše svojstvo / međusobno zavisna (slajd samo navodi naziv)",
+   "Multimodalna obeležja imaju više modusa u distribuciji (slajd samo navodi naziv)",
+   "Loš vektor obeležja ne poseduje separabilnost, što čini klasifikaciju težom ili nemogućom"
+  ],
+  "faithfulness": 0.5454545454545454
+ },
+ "I.5": {
+  "coverage": [
+   "no",
+   "partial",
+   "partial",
+   "partial",
+   "no",
+   "no",
+   "no"
+  ],
+  "completeness": 0.21428571428571427,
+  "unsupported": [
+   "Utvrđivanje pripadnosti određenoj kategoriji je klasifikacija, a predviđanje izlazne vrednosti je regresija (the labeling of goals as classification/regression is not stated in the Source 5 slide, though Source 4 mentions classification and regression problems)",
+   "Problem je problem mašinskog učenja ako postoji baza podataka (stated as a necessary criterion for ML problem; not explicitly stated as a criterion in context)"
+  ],
+  "faithfulness": 0.7777777777777778
+ },
+ "I.6": {
+  "coverage": [
+   "partial",
+   "partial",
+   "partial",
+   "no",
+   "partial",
+   "no",
+   "no"
+  ],
+  "completeness": 0.2857142857142857,
+  "unsupported": [
+   "Mehanizam za predobradu čisti, normalizuje i transformiše podatke u oblik pogodan za analizu.",
+   "Senzori prikupljaju podatke iz okruženja (slike, talasni oblici ili druge vrednosti) koje predstavljaju uzorke.",
+   "Obeležja su svojstva koja omogućavaju sistemu da razlikuje između različitih uzoraka.",
+   "Trening skup predstavlja bazu znanja koja sadrži primere sa poznatim odgovorima na osnovu kojih se algoritam obučava."
+  ],
+  "faithfulness": 0.7142857142857143
+ },
+ "II.1": {
+  "coverage": [
+   "yes",
+   "partial",
+   "partial",
+   "partial",
+   "partial",
+   "no"
+  ],
+  "completeness": 0.5,
+  "unsupported": [
+   "Ključno je podeliti dostupne podatke na tri dela (prema Slajd 7, L03): skup za obuku, validaciju i testiranje. Slajd 7 samo postavlja pitanje kako iskoristiti podatke za obuku, izbor modela i procenu, ali ne navodi podelu na tri skupa.",
+   "Skup za validaciju se koristi za izbor optimalnih vrednosti parametara",
+   "Skup za testiranje se koristi za procenu stvarnih performansi modela",
+   "Na ovaj način se osigurava da procena greške na test skupu predstavlja stvarnu stopu greške modela na novim podacima",
+   "Stvarna stopa greške je mera greške modela na novim, neviđenim podacima na kojima model nije obučavan, i pravi je pokazatelj ponašanja modela u praksi"
+  ],
+  "faithfulness": 0.6428571428571428
+ },
+ "II.2": {
+  "coverage": [
+   "yes",
+   "no",
+   "yes",
+   "partial",
+   "yes",
+   "yes"
+  ],
+  "completeness": 0.75,
+  "unsupported": [
+   "Zbog toga je potrebno koristiti validacione postupke sa ponovnim uzorkovanjem, kao što su unakrsna validacija ili bootstrap metode."
+  ],
+  "faithfulness": 0.9090909090909091
+ },
+ "II.5": {
+  "coverage": [
+   "partial",
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "no",
+   "partial"
+  ],
+  "completeness": 0.6428571428571429,
+  "unsupported": [
+   "Ako bismo koristili samo dva skupa (obuka i testiranje), procena performansi na validacionom skupu bila bi pristrasna – ovo meša dva skupa i nije direktno tvrdnja iz konteksta (kontekst govori o validacionom skupu u trostrukoj podeli, ne o podeli na dva skupa)"
+  ],
+  "faithfulness": 0.9090909090909091
+ },
+ "III.1": {
+  "coverage": [
+   "yes",
+   "no",
+   "yes",
+   "partial",
+   "no",
+   "no"
+  ],
+  "completeness": 0.4166666666666667,
+  "unsupported": [
+   "θ0 je parametar preseka (bias), a θ1 parametar nagiba (težina obeležja)",
+   "Cilj je uspostaviti zavisnost između ulaznih promenljivih i izlazne promenljive (nije izričito navedeno kao formulacija cilja, ali je blisko kontekstu)"
+  ],
+  "faithfulness": 0.8571428571428572
+ },
+ "III.3": {
+  "coverage": [
+   "partial",
+   "no",
+   "partial",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no"
+  ],
+  "completeness": 0.125,
+  "unsupported": [
+   "Da, neophodno je aktivno prilagođavati brzinu učenja (zaključak o neophodnosti nije podržan kontekstom, koji kaže samo da adaptivna vrednost daje bolju kontrolu)",
+   "Fiksna brzina učenja može dovesti do oscilatornog ponašanja gradijenta između sukcesivnih koraka, što usporava konvergenciju (kontekst pripisuje oscilacije tome što se ne koristi moment, ne fiksnom α)",
+   "Kada se algoritam približava minimumu, fiksna brzina može izazvati oscilacije oko minimuma (kontekst kaže da moment izaziva oscilacije oko minimuma, ne fiksna brzina)",
+   "Kombinovanjem adaptivne brzine učenja i momenta postiže se optimalna kontrola konvergencije"
+  ],
+  "faithfulness": 0.75
+ },
+ "III.5": {
+  "coverage": [
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no"
+  ],
+  "completeness": 0.0,
+  "unsupported": [],
+  "faithfulness": 1.0
+ },
+ "III.6": {
+  "coverage": [
+   "no",
+   "yes",
+   "partial",
+   "partial",
+   "partial",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.5,
+  "unsupported": [
+   "Formula bias(θ^) = E[θ^] − θ, with θ^ as the estimate and θ as the true value (the context shows only a garbled formula, not a full explicit definition)"
+  ],
+  "faithfulness": 0.9166666666666666
+ },
+ "III.7": {
+  "coverage": [
+   "partial",
+   "partial",
+   "yes",
+   "yes",
+   "partial",
+   "partial",
+   "no"
+  ],
+  "completeness": 0.5714285714285714,
+  "unsupported": [
+   "Varijansa meri koliko se predviđanja modela razlikuju između različitih skupova podataka / odražava nestabilnost modela, osetljivost na fluktuacije u podacima",
+   "Pristrasnost meri sistematsku grešku modela, koliko je prosečna predikcija udaljena od prave funkcije",
+   "Pristrasnost odražava sposobnost modela da \"centrira\" predviđanje oko stvarne vrednosti",
+   "Veća pristrasnost znači da model sistematski pogrešno predviđa",
+   "Jednostavniji modeli imaju veću pristrasnost ali manju varijansu",
+   "Kompleksniji modeli imaju manju pristrasnost ali veću varijansu",
+   "Cilj je pronaći balans koji minimizuje ukupnu grešku, jer smanjenje jedne komponente često povećava drugu",
+   "Minimalna dostižna greška ostaje fiksna i predstavlja donju granicu performansi / ne može se izbeći bez obzira na model"
+  ],
+  "faithfulness": 0.5294117647058824
+ },
+ "IV.1": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "no",
+   "yes",
+   "partial"
+  ],
+  "completeness": 0.7142857142857143,
+  "unsupported": [
+   "Pokazuje koliko je dati uzorak \"tipičan\" za tu klasu"
+  ],
+  "faithfulness": 0.9411764705882353
+ },
+ "IV.2": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "yes",
+   "no",
+   "no"
+  ],
+  "completeness": 0.6428571428571429,
+  "unsupported": [
+   "Bayesova formula P(ωi|x) = p(x|ωi)P(ωi)/p(x) is used, but it is not stated in the context",
+   "Skraćivanje p(x) is not explained in the context, since the formula is not presented there"
+  ],
+  "faithfulness": 0.7777777777777778
+ },
+ "IV.5": {
+  "coverage": [
+   "no",
+   "partial",
+   "no",
+   "partial",
+   "partial",
+   "no"
+  ],
+  "completeness": 0.25,
+  "unsupported": [
+   "Bayesov rizik se može zapisati kao E[C] = ΣΣ C_ij P(ω_i | x) P(ω_j) (mešanje uslovne verovatnoće po x i apriorne verovatnoće nije u kontekstu)",
+   "Bayesov rizik se može zapisati kao E[C] = ΣΣ C_ij P(ω_j) p(x|ω_j) (neispravna ekspanzija, nije u kontekstu)",
+   "Uzorak x treba klasifikovati u ω1 ako važi C11 P(ω1)p(x|ω1) + C21 P(ω1)p(x|ω1) < C12 P(ω2)p(x|ω2) + C22 P(ω2)p(x|ω2) (neispravan uslov, nije u kontekstu)",
+   "Prag u boxed LR testu je (C21 − C11)P(ω1)/((C12 − C22)P(ω2)) (obrnut u odnosu na izvor)",
+   "Svodi se na LR test iz prethodnog izraza (izvođenje nije podržano kontekstom)"
+  ],
+  "faithfulness": 0.4444444444444444
+ },
+ "IV.6": {
+  "coverage": [
+   "no",
+   "no",
+   "partial",
+   "no",
+   "yes",
+   "partial",
+   "yes"
+  ],
+  "completeness": 0.42857142857142855,
+  "unsupported": [
+   "Uzorak x se klasifikuje u klasu ω_i ako p(x|ω_i)/p(x|ω_j) > (C_ji − C_jj)P(ω_j) / ((C_ij − C_ii)P(ω_i)). Indeksi cena su pogrešni i protivreče izvoru, gde je prag (C_ij − C_jj)/(C_ji − C_ii)·P(ω_j)/P(ω_i)."
+  ],
+  "faithfulness": 0.875
+ },
+ "IV.7": {
+  "coverage": [
+   "partial",
+   "yes",
+   "no",
+   "yes",
+   "no",
+   "no",
+   "no"
+  ],
+  "completeness": 0.35714285714285715,
+  "unsupported": [
+   "Diskriminantna funkcija se koristi za klasifikaciju uzorka x u jednu od K klasa (K je samo implicitno prisutno u slajdu kao g_K)."
+  ],
+  "faithfulness": 0.8888888888888888
+ },
+ "V.1": {
+  "coverage": [
+   "no",
+   "no",
+   "no",
+   "yes",
+   "partial",
+   "no",
+   "partial",
+   "no"
+  ],
+  "completeness": 0.25,
+  "unsupported": [
+   "Σ (kovarijansna matrica) određuje oblik i širinu raspodele",
+   "Za detaljne vizuelne primere 1-D i 2-D raspodela, preporučujem da pogledate Slajd 7 iz L05 Kvadratni klasifikatori (slajd 7 does not contain visual examples)",
+   "U klasifikaciji, parametri μ i Σ se procenjuju iz uzoraka korišćenjem ML estimacije (only the mean estimate is shown in the context, not Σ)"
+  ],
+  "faithfulness": 0.75
+ },
+ "V.3": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "partial"
+  ],
+  "completeness": 0.9166666666666666,
+  "unsupported": [
+   "Granice odlučivanja će biti linearne kada sve klase imaju istu kovarijansnu matricu (Σ_i = Σ_j = Σ).",
+   "Pri istoj kovarijansnoj matrici kvadratni članovi se poništavaju pri uslovu g_i(x) = g_j(x), što daje linearnu jednačinu.",
+   "Granice su nelinearne (kvadratne) kada klase imaju različite kovarijansne matrice, jer se kvadratni članovi ne poništavaju i dobija se kvadratna jednačina."
+  ],
+  "faithfulness": 0.625
+ },
+ "VI.1": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "yes",
+   "yes"
+  ],
+  "completeness": 0.9166666666666666,
+  "unsupported": [
+   "Neparametarske metode su fleksibilnije jer nisu ograničene pretpostavkom o obliku raspodele, ali često zahtevaju više podataka.",
+   "Gustina se u neparametarskom pristupu procenjuje direktno iz podataka (kontekst samo kaže da se ne pretpostavlja oblik raspodele)."
+  ],
+  "faithfulness": 0.8333333333333334
+ },
+ "VI.2": {
+  "coverage": [
+   "no",
+   "partial",
+   "partial",
+   "partial",
+   "yes"
+  ],
+  "completeness": 0.5,
+  "unsupported": [
+   "Funkcija izglednosti je definisana kao proizvod p(x_i|θ) po svim uzorcima (formula l(θ)=∏ p(x_i|θ)); kontekst ovu formulu za izglednost ne daje u ovom obliku",
+   "Log-izglednost se koristi jer je lakša za računanje (kontekst ovo ne navodi)",
+   "Ideja je pronaći vrednosti parametara koje čine da posmatrani uzorak bude najverovatniji (kontekst ovo eksplicitno ne navodi)"
+  ],
+  "faithfulness": 0.6666666666666667
+ },
+ "VI.4": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "no",
+   "no",
+   "no",
+   "yes"
+  ],
+  "completeness": 0.5714285714285714,
+  "unsupported": [
+   "Za jedan uzorak važi p(x|μ) = 1/√(2πσ) exp(...) — the normalization constant is written with √(2πσ) instead of √(2πσ²), so it is not supported by the context"
+  ],
+  "faithfulness": 0.8888888888888888
+ },
+ "VII.1": {
+  "coverage": [
+   "partial",
+   "yes",
+   "partial",
+   "partial",
+   "no",
+   "no",
+   "no"
+  ],
+  "completeness": 0.35714285714285715,
+  "unsupported": [
+   "Histogram je jednostavan, ali ove nedostatke čine ga manje fleksibilnim za praktične primene."
+  ],
+  "faithfulness": 0.9285714285714286
+ },
+ "VII.2": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "no",
+   "no",
+   "partial"
+  ],
+  "completeness": 0.6428571428571429,
+  "unsupported": [],
+  "faithfulness": 1.0
+ },
+ "VII.4": {
+  "coverage": [
+   "partial",
+   "no",
+   "no",
+   "partial",
+   "yes",
+   "no",
+   "yes"
+  ],
+  "completeness": 0.42857142857142855,
+  "unsupported": [
+   "Tačka na rubu prozora ima istu težinu kao tačka u centru, što nije realno (dodatno objašnjenje koje nije u kontekstu)"
+  ],
+  "faithfulness": 0.9090909090909091
+ },
+ "VII.5": {
+  "coverage": [
+   "no",
+   "yes",
+   "partial",
+   "yes",
+   "partial",
+   "partial"
+  ],
+  "completeness": 0.5833333333333334,
+  "unsupported": [
+   "Za konačno N, procena bi bila prekidna funkcija, što čini interpretaciju nemogućom (context says the estimate is a discontinuous function, but not that this makes interpretation impossible)",
+   "Skup impulsa je 'samo niz šiljaka bez praktične vrednosti' (embellishment not stated in context)"
+  ],
+  "faithfulness": 0.8181818181818181
+ },
+ "VII.7": {
+  "coverage": [
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no"
+  ],
+  "completeness": 0.0,
+  "unsupported": [
+   "Subjektivan izbor širine kernela je nepraktičan za višedimenzionalna obeležja jer bi ručno testiranje više vrednosti h za svaku dimenziju bilo previše kompleksno (the slide only says the method is impractical because features are multi-dimensional, not that per-dimension testing is too complex, and this is not the actual reason standard KDE fails)",
+   "Separabilni kerneli omogućavaju sistematsku primenu KDE metode u višedimenzionalnom prostoru koristeći analitičke formule za izbor širine kernela umesto subjektivnog pristupa (not stated in the context)",
+   "Separabilni kerneli predstavljaju praktično rešenje za rad sa višedimenzionalnim podacima (not explicitly supported by the context)"
+  ],
+  "faithfulness": 0.5714285714285714
+ },
+ "VIII.1": {
+  "coverage": [
+   "no",
+   "yes",
+   "no",
+   "no",
+   "yes",
+   "yes",
+   "yes",
+   "yes"
+  ],
+  "completeness": 0.625,
+  "unsupported": [
+   "Metoda koristi informacije o klasnoj pripadnosti k najbližih susednih uzoraka kako bi se aproksimirala gustina raspodele (the source describes this for kNN classification, not density estimation)"
+  ],
+  "faithfulness": 0.9090909090909091
+ },
+ "VIII.2": {
+  "coverage": [
+   "partial",
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.7857142857142857,
+  "unsupported": [],
+  "faithfulness": 1.0
+ },
+ "VIII.3": {
+  "coverage": [
+   "no",
+   "partial",
+   "partial",
+   "no",
+   "no",
+   "no",
+   "yes"
+  ],
+  "completeness": 0.2857142857142857,
+  "unsupported": [
+   "Procena postaje manje osetljiva na lokalne varijacije u podacima (za veliko k)",
+   "Većom osetljivošću na lokalne fluktuacije u podacima (za malo k)",
+   "Značajno se povećava računska složenost algoritma (context says 'ionako velika' – increased; 'značajno' is mild embellishment)"
+  ],
+  "faithfulness": 0.7692307692307692
+ },
+ "VIII.6": {
+  "coverage": [
+   "yes",
+   "partial",
+   "no",
+   "no",
+   "yes",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.5,
+  "unsupported": [
+   "Bucketing deli prostor obeležja na manje regije (buckete), što omogućava brže pronalaženje kandidata za k najbliže susede."
+  ],
+  "faithfulness": 0.9166666666666666
+ },
+ "IX.1": {
+  "coverage": [
+   "no",
+   "no",
+   "no",
+   "no",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.16666666666666666,
+  "unsupported": [
+   "Logistička regresija spada u grupu metoda koje koriste diskriminantne funkcije za klasifikaciju, i primenjuje princip maksimizacije diskriminantne funkcije (pravilo odlučivanja g_i(x) ≥ g_j(x)) - context slides on this rule are about Bayesian decision theory in general, not logistic regression explicitly",
+   "Vrednosti diskriminantnih funkcija u logističkoj regresiji predstavljaju uslovne verovatnoće p(y=k|x,θ) - the context shows the multinomial formula but never states this interpretation"
+  ],
+  "faithfulness": 0.7142857142857143
+ },
+ "IX.2": {
+  "coverage": [
+   "yes",
+   "no",
+   "no",
+   "no",
+   "partial",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.35714285714285715,
+  "unsupported": [
+   "Drugi deo (regularizacioni term) sprečava preuklanjanje (preprilagođavanje) – kontekst ne objašnjava njegovu ulogu u tom smislu za logističku regresiju",
+   "Formula sa regularizacijom λ/(2N) Σ_{j=1}^{L} (θ_j^(r))² prikazana je kao funkcija cene logističke regresije, dok kontekst taj izraz daje za neuronsku mrežu (sa slojevima r)",
+   "Prvi deo predstavlja 'entropijsku grešku' između predviđenih i stvarnih vrednosti"
+  ],
+  "faithfulness": 0.7272727272727273
+ },
+ "IX.4": {
+  "coverage": [
+   "yes",
+   "partial",
+   "partial",
+   "partial",
+   "no",
+   "partial",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.5,
+  "unsupported": [
+   "Alternativno, mogu se koristiti i standardni pristupi jedan-protiv-svih ili svaki-protiv-svakog, gde se problem sa više klasa svodi na niz binarnih klasifikacijskih problema (the cited source describes these as SVM approaches, not perceptron structures)",
+   "Za problem dve klase perceptron određuje težine algoritmom perceptronskog učenja sa funkcijom cene J_P(w) = -Σ(w^T x) (the context gives this, but the answer does not tie it to the perceptron's model)"
+  ],
+  "faithfulness": 0.8571428571428572
+ },
+ "X.1": {
+  "coverage": [
+   "partial",
+   "no",
+   "yes",
+   "no",
+   "partial",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.42857142857142855,
+  "unsupported": [
+   "Vektori nosači su uzorci koji se nalaze na margini — to su uzorci najbliži hiperravni odlučivanja (za maksimalnu marginu; kontekst to navodi samo za soft margin klasifikator).",
+   "Klasifikator maksimalne margine bira hiperravan sa maksimalnom marginom, tj. sa što većim rastojanjem do najbližih uzoraka (kontekst ne definiše margine u slajdovima o klasifikatoru maksimalne margine)."
+  ],
+  "faithfulness": 0.8571428571428572
+ },
+ "X.2": {
+  "coverage": [
+   "yes",
+   "partial",
+   "yes",
+   "partial",
+   "partial",
+   "partial"
+  ],
+  "completeness": 0.6666666666666666,
+  "unsupported": [
+   "Za razliku od klasifikatora maksimalne margine, njihov broj zavisi od vrednosti parametra C (kontrast prema klasifikatoru maksimalne margine nije u kontekstu)",
+   "Pogoršava se problem manjka podataka (curse of dimensionality) - oznaka 'curse of dimensionality' nije u kontekstu"
+  ],
+  "faithfulness": 0.8823529411764706
+ },
+ "X.3": {
+  "coverage": [
+   "yes",
+   "partial",
+   "no",
+   "yes",
+   "yes",
+   "partial",
+   "no"
+  ],
+  "completeness": 0.5714285714285714,
+  "unsupported": [
+   "Osnovna ideja je maksimizacija margine, tj. optimalna hiperravan maksimizuje marginu (u kontekstu se maksimalna margina pominje, ali ne kao deo ovog izlaganja)",
+   "Transformacija je data preko transformacione funkcije h(x) (oznaka h(x) postoji u slajdu, pa je uglavnom podržano)"
+  ],
+  "faithfulness": 0.8571428571428572
+ },
+ "XI.1": {
+  "coverage": [
+   "no",
+   "partial",
+   "no",
+   "no",
+   "partial",
+   "no",
+   "no"
+  ],
+  "completeness": 0.14285714285714285,
+  "unsupported": [
+   "Obuka počinje izborom obeležja koja će se koristiti za podelu (nije pitanje prvog koraka kako je opisano; kontekst samo navodi 'izbor obeležja' kao temu)",
+   "Kategorička pitanja su tipa 'Da li je x₁ = a?' (kontekst je prekinut, ali nije potpuno potvrđeno)",
+   "Izbor kriterijuma za veličinu stabla sprečava preobučavanje i osigurava da stablo bude dovoljno kompleksno da nauči pattern, ali ne previše da memoriše podatke",
+   "Preporučuje se unakrsna validacija, pretraga optimalnih parametara i analiza matrice konfuzije kao deo procedure obuke (to je zadatak iz praktikuma, ne opis procedure obuke)"
+  ],
+  "faithfulness": 0.7142857142857143
+ },
+ "XI.3": {
+  "coverage": [
+   "yes",
+   "partial",
+   "partial",
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "partial"
+  ],
+  "completeness": 0.75,
+  "unsupported": [
+   "Velika varijansa može dovesti do preobučavanja (the context does not link variance to overfitting)",
+   "Stabla odluke se često koriste kao osnova za ansambalsko učenje kako bi se poboljšale prediktivne performanse (the context only lists ensemble learning as a topic)",
+   "Obeležja ne trebaju normalizaciju (not stated explicitly; only inferred from invariance)"
+  ],
+  "faithfulness": 0.8125
+ },
+ "XI.4": {
+  "coverage": [
+   "partial",
+   "partial",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no"
+  ],
+  "completeness": 0.14285714285714285,
+  "unsupported": [
+   "Maksimalno razgranato stablo je duboko stablo sa svim mogućim granama",
+   "Kriterijumi izbora između orezanih verzija stabla mogu biti validaciona greška ili cost-complexity pruning"
+  ],
+  "faithfulness": 0.7142857142857143
+ },
+ "XI.5": {
+  "coverage": [
+   "partial",
+   "partial",
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "partial"
+  ],
+  "completeness": 0.7857142857142857,
+  "unsupported": [
+   "Ovim se smanjuje korelacija između stabala, što dodatno poboljšava performanse ansambla."
+  ],
+  "faithfulness": 0.9411764705882353
+ },
+ "XI.6": {
+  "coverage": [
+   "partial",
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "no"
+  ],
+  "completeness": 0.6666666666666666,
+  "unsupported": [
+   "Značajnost se meri kroz doprinos poboljšanju kvaliteta podela u svim stablima ansambla, što omogućava rangiranje obeležja po važnosti (rangiranje nije pomenuto u kontekstu)"
+  ],
+  "faithfulness": 0.8571428571428572
+ },
+ "XII.3": {
+  "coverage": [
+   "no",
+   "partial",
+   "no",
+   "no",
+   "partial",
+   "partial",
+   "no"
+  ],
+  "completeness": 0.21428571428571427,
+  "unsupported": [
+   "Konvergencija se dostiže kada se greška minimizuje i težine prestanu značajno da se menjaju tokom epoha (zaključak nije potkrepljen kontekstom).",
+   "Dropout regularizacija smanjuje rizik od prekompliciranog prilagođavanja lokalnom minimumu (kontekst govori o dropout-u u vezi sa natprilagođenjem, ne lokalnim minimumom)."
+  ],
+  "faithfulness": 0.8333333333333334
+ },
+ "XII.4": {
+  "coverage": [
+   "yes",
+   "no",
+   "no",
+   "partial",
+   "yes",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.5,
+  "unsupported": [
+   "Premala vrednost usporava konvergenciju (the context does not explicitly say that a too-small learning rate slows convergence)",
+   "Formula sa momentom: θ(novo) = θ(novo) + βΔθ(staro) − α Σ δ a, with a plus sign on the momentum term; the context formula is garbled and does not clearly give this sign"
+  ],
+  "faithfulness": 0.8571428571428572
+ },
+ "XII.5": {
+  "coverage": [
+   "partial",
+   "partial",
+   "yes",
+   "no",
+   "no",
+   "no",
+   "no"
+  ],
+  "completeness": 0.2857142857142857,
+  "unsupported": [
+   "Slide 44 is cited as the slide about regularization (\"slajd o regularizaciji (Slajd 44, L11)\"), but slide 44 is about choosing network complexity; regularization is only listed as a topic in the table of contents of slide 1."
+  ],
+  "faithfulness": 0.9090909090909091
+ },
+ "XIII.1": {
+  "coverage": [
+   "partial",
+   "no",
+   "yes",
+   "partial",
+   "no",
+   "no",
+   "no"
+  ],
+  "completeness": 0.2857142857142857,
+  "unsupported": [
+   "Smanjenje dimenzionalnosti smanjuje računsku složenost modela",
+   "Sprečava problem manjka podataka (curse of dimensionality)",
+   "Omogućava bolje razumevanje i vizuelizaciju podataka",
+   "Poboljšava generalizaciju modela"
+  ],
+  "faithfulness": 0.7142857142857143
+ },
+ "XIII.3": {
+  "coverage": [
+   "partial",
+   "yes",
+   "partial",
+   "no",
+   "no",
+   "yes",
+   "yes"
+  ],
+  "completeness": 0.5714285714285714,
+  "unsupported": [
+   "Postupak: izračunati kovarijansnu matricu podataka (korak 1 kao eksplicitan postupak nije naveden u kontekstu)",
+   "Rangirati karakteristične vektore prema veličini odgovarajućih karakterističnih vrednosti (eksplicitan korak rangiranja nije dat u kontekstu, mada je posredno u Izvoru 3)",
+   "Navođenje formule ε²(M) = E{||x^(M)||²} = Σ E{(a_i - b_i)²} kao posledice odabira sopstvenih vektora (Slajd 9) – formula je sa slajda 6 i ne pokazuje da je minimum postignut baš ovim izborom"
+  ],
+  "faithfulness": 0.7272727272727273
+ },
+ "XIII.5": {
+  "coverage": [
+   "no",
+   "no",
+   "no",
+   "no",
+   "partial",
+   "yes",
+   "partial"
+  ],
+  "completeness": 0.2857142857142857,
+  "unsupported": [
+   "Princip ostaje isti — algoritam maksimizuje separabilnost između klasa dok minimizuje varijansu unutar klasa, ali sada u kontekstu više klasa (nije eksplicitno navedeno za slučaj K klasa u kontekstu)"
+  ],
+  "faithfulness": 0.9090909090909091
+ }
+}

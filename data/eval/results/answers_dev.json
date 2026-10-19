@@ -1,0 +1,34 @@
+{
+ "subset": "dev",
+ "judge_model": "claude-sonnet-5-5",
+ "answer_model": "claude-haiku-4-5-20251001",
+ "pipelines": {
+  "current_k5": {
+   "system": "e5+header",
+   "k": 5,
+   "n": 24,
+   "completeness": 0.6087549603174603,
+   "fully_complete": 0.0,
+   "faithfulness": 0.8788771889874831,
+   "answers_with_unsupported_claims": 0.875
+  },
+  "current_k8": {
+   "system": "e5+header",
+   "k": 8,
+   "n": 24,
+   "completeness": 0.6465773809523809,
+   "fully_complete": 0.041666666666666664,
+   "faithfulness": 0.8925992047025328,
+   "answers_with_unsupported_claims": 0.875
+  },
+  "current_k10": {
+   "system": "e5+header",
+   "k": 10,
+   "n": 24,
+   "completeness": 0.6793154761904762,
+   "fully_complete": 0.041666666666666664,
+   "faithfulness": 0.9060862476303653,
+   "answers_with_unsupported_claims": 0.875
+  }
+ }
+}

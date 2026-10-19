@@ -1,0 +1,242 @@
+{
+ "method": "Each key point checked by hand against the slides and textbook (full text search + reading the relevant slides). 1 = the claim is stated in the materials, 0 = it is not. Labeled by Claude (claude-opus-5-5) in an assisted session, not by the LLM judge.",
+ "sampled_questions": "first 17 test questions + 9 drawn at random (seed 7) from the remaining 31",
+ "labels": {
+  "I.1": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "I.3": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   0,
+   0
+  ],
+  "I.5": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "I.6": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "II.1": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "II.2": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "II.5": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "III.1": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "III.3": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "III.5": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "III.6": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "III.7": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "IV.1": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "IV.2": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "IV.5": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "IV.6": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "IV.7": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "IX.1": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "VI.1": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "VI.4": [
+   1,
+   1,
+   1,
+   1,
+   0,
+   0,
+   1
+  ],
+  "VII.2": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "X.3": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "XI.4": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "XIII.1": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "XIII.3": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "XIII.5": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ "notes": {
+  "I.3:K6": "Slajd samo navodi 'Jako korelisana obeležja', bez tvrdnje o redundantnosti",
+  "I.3:K7": "Slajd samo navodi 'Multimodalna obeležja', bez objašnjenja",
+  "VI.4:K5": "Konzistentnost procene se ne pominje u materijalima",
+  "VI.4:K6": "Efikasnost / Cramér-Rao granica se ne pominje u materijalima"
+ }
+}

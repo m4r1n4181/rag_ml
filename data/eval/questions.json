@@ -1,0 +1,598 @@
+[
+ {
+  "id": "I.1",
+  "question": "Objasniti pojmove iz oblasti mašinskog učenja: uzorak, obeležje, prostor obeležja, model, cena, granica odlučivanja. Očekuje se i navođenje originalnih primera, gde je to predviđeno.",
+  "expected_sources": [
+   "L01_1",
+   "L01_2"
+  ],
+  "reference_answer": "Uzorak (sample) — jedna kompozicija osobina koja su karakteristična za određeni objekat. U problemu\n klasifikacije uzorak je predstavljen parom {x, ω}, gde je x vektor obeležja, a ω klasa kojoj pripada. Primer:\n jedna riba na pokretnoj traci fabrike za preradu — opisana dužinom i intenzitetom krljušti.\n Obeležje (feature) — bilo koji istaknut aspekt, osobina ili karakteristika ulaza. Može biti simboličko (npr.\n boja) ili numeričko (npr. dužina ribe, visina osobe).\n Prostor obeležja (feature space) — d-dimenzionalni prostor definisan vektorom obeležja x = (x1 , x2 , … , xd )T .\n Svaki uzorak je predstavljen kao tačka u tom prostoru. Grafički prikaz tačaka u prostoru obeležja naziva se\n dijagram rasturanja (scatter plot).\n Model — matematička struktura koja opisuje vezu između ulaznih obeležja i izlaza (predviđene vrednosti ili\n M\n klase). Primer: polinom y(x, w) = ∑j=0 wj xj koji aproksimira nepoznatu funkciju na osnovu trening podataka.\n Cena (cost / loss) — mera odstupanja predviđanja modela od stvarnih vrednosti na trening skupu.\n Minimizacijom cene pronalaze se optimalni parametri modela. Primer: suma kvadratnih grešaka E(w) =\n ∑Nn=1 (y(xn , w) − tn )2 .\n Granica odlučivanja (decision boundary) — površ (hiperavan ili kriva) u prostoru obeležja koja razdvaja\n regione različitih klasa. Klasifikator dodeljuje uzorak onoj klasi čijem regionu pripada. Primer: u 2D prostoru\n (dužina ribe, intenzitet krljušti) granica odlučivanja je linija koja razdvaja lososa od brancina."
+ },
+ {
+  "id": "I.2",
+  "question": "Objasniti pojmove natprilagođenje, generalizacija i regularizacija. Očekuje se i navođenje originalnih primera, gde je to predviđeno.",
+  "expected_sources": [
+   "L01_1",
+   "L01_2"
+  ],
+  "reference_answer": "Natprilagođenje (overfitting) — pojava kada model previše \"uči\" trening skup, prilagođavajući se šumu u\n podacima, što dovodi do loše klasifikacije novih uzoraka. Model ima malu grešku na trening skupu, ali veliku\n grešku na test skupu. Primer: polinom 9. reda koji prolazi kroz svih 10 trening tačaka, ali između njih pokazuje\n ekstremne oscilacije — na novim podacima pogrešuje u 25% slučajeva.\n Generalizacija — sposobnost modela da tačno predviđa izlaze za nove uzorke koji nisu korišćeni tokom\n obuke. Dobra generalizacija znači malu grešku i na trening i na test skupu. Primer: klasifikator ribe obučen na\n 100 primeraka koji ispravno klasifikuje i novu, nikada viđenu ribu.\n Regularizacija — tehnika za kontrolu natprilagođenja dodavanjem kaznenog člana u funkciju cene koji\n penalizuje prevelike vrednosti parametara modela. Na taj način model ostaje jednostavniji i bolje\n generalizuje. Primer regulizovane funkcije cene:\n N\n ~ 1 λ\n E (w) = ∑ {y(xn , w) − tn }2 + ∥w∥2\n 2 n=1 2\ngde parametar λ kontroliše relativni značaj regularizacionog člana. Veće λ → jednostavniji model (manji\nkoeficijenti) → manje natprilagođenje."
+ },
+ {
+  "id": "I.3",
+  "question": "Kada je, za određeni problem, određeni vektor obeležja dobar, a kada loš? Koja svojstva određeni vektor obeležja može, a ne mora imati?",
+  "expected_sources": [
+   "L01_1",
+   "L01_2"
+  ],
+  "reference_answer": "Kvalitet vektora obeležja se ocenjuje prema sposobnosti razdvajanja uzoraka različitih klasa:\n Dobar vektor obeležja: uzorci iz iste klase imaju slične vrednosti, a uzorci iz različitih klasa imaju različite\n vrednosti → klase su dobro razdvojene u prostoru obeležja.\n Loš vektor obeležja: klase se preklapaju u prostoru obeležja → klasifikator ne može pouzdano da ih\n razlikuje.\nDodatna svojstva koje vektor obeležja može, ali ne mora imati:\n Svojstvo Opis\n Linearna separabilnost Klase se mogu razdvojiti pravom linijom/hiperravni — idealno, ali se ne zahteva\n Nelinearna separabilnost Klase se mogu razdvojiti, ali samo nelinearnom granicom — prihvatljivo\n Jako korelisana obeležja Obeležja nose redundantnu informaciju — poželjno izbegavati\n Multimodalnost Jedna klasa ima više \"čvorišta\" u prostoru obeležja — otežava klasifikaciju\nDakle, linearna separabilnost je poželjna, ali nije neophodna. Nelinearna separabilnost je prihvatljiva uz\nodgovarajući klasifikator. Korelisanost i multimodalnost su nepovoljna, ali moguća svojstva."
+ },
+ {
+  "id": "I.4",
+  "question": "Navesti i objasniti razlike između pojedinih tipova predikcionih problema, uz navođenje odgovarajućih primera.",
+  "expected_sources": [
+   "L01_1",
+   "L01_2"
+  ],
+  "reference_answer": "Nadgledano učenje (supervised learning) — postoje označeni trening podaci (parovi ulaz–izlaz):\n Klasifikacija — izlaz je diskretna oznaka klase. Model uči da dodeli uzorak jednoj od unapred definisanih\n kategorija. Primer: dijagnoza tumora (benigni/maligni), filtriranje spam/ham mejlova, razvrstavanje ribe\n (losos/brancin).\n Regresija — izlaz je kontinualna realna vrednost. Model uči da predvidi numeričku veličinu. Primer:\n predviđanje cene kuće na osnovu kvadrature, predviđanje vrednosti akcija na berzi, predviđanje krvnog\n pritiska.\nNenadgledano učenje (unsupervised learning) — nema oznaka klasa, samo skup uzoraka {x1 , x2 , … , xN }:\n Klasterizacija (clustering) — grupisanje sličnih uzoraka bez unapred zadatih klasa. Primer: segmentacija\n tržišta kupaca, grupisanje novinskih članaka po tematici.\n Redukcija dimenzionalnosti — preslikavanje podataka u prostor nižih dimenzija uz što manje gubitka\n informacija. Primer: PCA za vizuelizaciju visokodimenzionalnih podataka.\nUčenje sa podsticanjem (reinforcement learning) — agent uči politiku ponašanja kroz nagrade i kazne iz\nokruženja, bez unapred zadatih optimalnih izlaza. Primer: autonomni helikopter, igranje video igara, sistem\nupravljanja hlađenjem."
+ },
+ {
+  "id": "I.5",
+  "question": "Za proizvoljan primer umeti da odredite da li je problem mašinskog učenja ili nije, ako jeste koja vrsta obuke će se primenjivati za rešavanje zadatog problema.",
+  "expected_sources": [
+   "L01_1",
+   "L01_2"
+  ],
+  "reference_answer": "Problem jeste problem mašinskog učenja ako zadovoljava definiciju: \"Program uči na osnovu iskustva E, s\nobzirom na zadatak T i meru performanse P, ako se njegove performanse u zadatku T, merene sa P, povećavaju sa\niskustvom E.\" (Mitchell, 1997)\nKljučna pitanja za klasifikaciju:\n 1. Da li postoje označeni podaci (labele)? → Da → Nadgledano učenje\n 2. Da li je izlaz diskretna kategorija? → Da → Klasifikacija; Ne (realan broj) → Regresija\n 3. Da li nema labela, ali postoji struktura u podacima? → Nenadgledano učenje\n 4. Da li agent uči kroz interakciju sa okruženjem putem nagrada? → Učenje sa podsticanjem\nPrimeri:\n Spam filtar obučen na mejlovima označenim kao spam/ham → Nadgledano učenje, klasifikacija\n Predviđanje koliko kg žita će se prodati u naredna 3 meseca → Nadgledano učenje, regresija\n Grupisanje novinskih članaka bez unapred zadatih kategorija → Nenadgledano učenje, klasterizacija\n Dijagnoza dijabetesa na osnovu medicinskih podataka → Nadgledano učenje, klasifikacija\n Sortiranje pošte po poštanskom broju → Nadgledano učenje, klasifikacija (ali može se isprogramirati\n pravilima → nije nužno MU)"
+ },
+ {
+  "id": "I.6",
+  "question": "Navesti i objasniti uloge pojedinih komponenti sistema za mašinsko učenje.",
+  "expected_sources": [
+   "L01_1",
+   "L01_2"
+  ],
+  "reference_answer": "Sistem za mašinsko učenje se sastoji od sledećih komponenti (videti pipeline: Real world → Measuring devices →\nPreprocessing → Dimensionality reduction → Prediction → Model selection → Analysis results):\n 1. Uređaji za merenje (Measuring devices) — senzori, kamere, baze podataka. Prikupljaju sirove podatke iz\n realnog sveta. Primer: CCD kamera koja snima ribu na pokretnoj traci.\n 2. Predobrada (Preprocessing) — priprema sirovih podataka za dalju obradu. Uključuje:\n filtriranje šuma\n ekstrakciju obeležja (feature extraction)\n normalizaciju podataka (Z-normalizacija: Xi′ = Xiσ^−μ^ , ili normalizacija opsega na [0, 1])\n segmentaciju\n 3. Redukcija dimenzionalnosti (Dimensionality reduction) — smanjenje broja obeležja uz očuvanje\n relevantnih informacija. Uključuje selekciju obeležja (feature selection) i projekciju obeležja (feature\n projection, npr. PCA, LDA).\n 4. Predikcija (Prediction) — primena algoritma učenja na pripremljenim podacima. Može biti:\n Klasifikacija — dodela klase uzorku\n Regresija — predviđanje kontinualne vrednosti\n Klasterizacija — grupisanje uzoraka\n Opis (Description) — otkrivanje strukture u podacima\n 5. Izbor modela (Model selection) — procena i poređenje različitih modela radi odabira optimalnog. Koriste se\n metode poput unakrsne validacije (cross-validation) i bootstrap metode. Ovaj korak sprečava\n natprilagođenje i obezbeđuje dobru generalizaciju."
+ },
+ {
+  "id": "II.1",
+  "question": "Kako se u praksi vrši izbor optimalnog modela (izbor vrednosti određenih slobodnih parametara/hiperparametara modela) i kako se vrši procena stope greške modela? Objasniti pojam stvarne stope greške.",
+  "expected_sources": [
+   "L03 Validacioni"
+  ],
+  "reference_answer": "U praksi se javljaju dva odvojena problema:\nSelekcija modela — određivanje optimalnih vrednosti slobodnih parametara (hiperparametara) modela (npr.\nred polinoma M , parametar regularizacije λ, broj suseda k kod KNN). Vrši se poređenjem performansi modela sa\nrazličitim vrednostima hiperparametara na skupu za validaciju (koji nije korišćen za obuku). Bira se model koji\ndaje najmanju grešku na skupu za validaciju.\nProcena stope greške — nakon što je odabran konačan model, njegova stvarna stopa greške procenjuje se na\nnezavisnom skupu za testiranje (koji nije korišćen ni za obuku ni za selekciju modela).\nStvarna stopa greške bila bi greška izmerena na celokupnoj populaciji (beskonačnom skupu novih uzoraka). U\npraksi je ne možemo izmeriti direktno jer imamo konačan broj uzoraka, pa je procenjujemo validacionim\nmetodama. Cilj svih validacionih postupaka je da što tačnije aproksimiraju ovu stvarnu meru greške."
+ },
+ {
+  "id": "II.2",
+  "question": "Objasniti u čemu se sastoji procena greške određenog modela resupstitucijom i navesti osnovne mane ovakvog načina procene greške.",
+  "expected_sources": [
+   "L03 Validacioni"
+  ],
+  "reference_answer": "Procena resupstitucijom (eng. resubstitution) — isti skup podataka koji je korišćen za obuku modela koristi se i\nza procenu greške tog istog modela. Greška se računa kao procenat pogrešno klasifikovanih uzoraka (ili MSE)\nna trening skupu.\nOsnovne mane:\n 1. Preterani optimizam — procena greške je sistematski niža od stvarne stope greške. Nije retko da se\n postigne 100% tačnost na trening skupu, što ni izbliza ne odražava realnu situaciju na novim podacima.\n 2. Natprilagođenje — konačni model biće natprilagođen trening podacima, jer je optimizovan upravo na\n njima, i neće imati dobru sposobnost generalizacije.\n 3. Problem je posebno izražen kod složenijih modela koji zavise od mnogo parametara."
+ },
+ {
+  "id": "II.3",
+  "question": "Koji se načini ponovnog uzorkovanja koriste kod metoda unakrsne validacije i koje su prednosti i mane pojedinih načina u odnosu na ostale?",
+  "expected_sources": [
+   "L03 Validacioni"
+  ],
+  "reference_answer": "Kod unakrsne validacije jedna runda obuhvata: podelu uzoraka na skup za obuku i skup za testiranje, obuku na\nskupu za obuku i procenu greške na skupu za testiranje. Konačna procena je prosek procena iz svih rundi: E^ =\n K\nK ∑i=1 Ei .\n1\nPostoje tri načina podele:\n1. Stohastičko poduzorkovanje — u svakoj rundi se nasumično bira fiksan broj uzoraka za test skup, ostali idu\nu skup za obuku.\n Prednost: Jednostavno, bolje od holdout metoda\n Mana: Isti uzorak može biti više puta u test skupu u različitim rundama, a nikad u skupu za obuku\n2. Unakrsna validacija sa K particija (K-fold cross-validation) — skup se deli na K jednakih podskupova; u rundi\ni koristi se i-ti podskup za testiranje, a ostalih K − 1 za obuku.\n Prednost: Svaki uzorak tačno jednom bude u test skupu → nema preklapanja\n Prednost: U praksi se najčešće koristi K = 10\n Mana: Sa porastom K raste računska kompleksnost\n3. Unakrsna validacija sa jednim izdvojenim elementom (Leave-One-Out, LOO) — specijalni slučaj K-fold sa\nK = N ; u svakoj rundi jedan uzorak je test skup.\n Prednost: Maksimalno koristi raspoložive podatke, minimalna šansa za natprilagođenje\n Mana: Izuzetno visoka računska kompleksnost (N iteracija, svaka sa obukom na N − 1 uzoraka)"
+ },
+ {
+  "id": "II.4",
+  "question": "U čemu su prednosti metoda procene greške modela ponovnim uzorkovanjem u odnosu na procenu greške na nezavisnom skupu za testiranje? U čemu su osnovne razlike između metoda unakrsne validacije i bootstrap metoda? Koje su prednosti bootstrap metoda?",
+  "expected_sources": [
+   "L03 Validacioni"
+  ],
+  "reference_answer": "Prednosti ponovnog uzorkovanja u odnosu na holdout metod:\n Svi raspoloživi podaci koriste se i za obuku i za testiranje — nema \"rasipanja\" podataka\n Procena greške je robusnija jer ne zavisi od jedne konkretne (potencijalno loše) podele na skup za obuku i\n testiranje\n Naročito korisno kada je raspoloživi skup podataka mali\nRazlike između unakrsne validacije i bootstrap metoda:\n Unakrsna validacija Bootstrap\n Način uzorkovanja Bez vraćanja Sa vraćanjem\n Veličina skupa za obuku Manji od N Uvek N (ali sa ponavljanjima)\n Veličina test skupa Fiksna (1/K deo) Promenljiva (uzorci koji nisu odabrani)\n Čuvanje stat. zakonitosti Narušava apriorne verovatnoće Očuvava apriorne verovatnoće klasa\nPrednosti bootstrap metoda:\n Uzorkovanje sa vraćanjem ne narušava statističke zakonitosti u podacima (npr. odnos broja uzoraka po\n klasama ostaje nepromenjen tokom čitavog procesa)\n Bootstrap omogućuje i procenu kvaliteta same procene greške — tj. može se proceniti centriranost i\n varijansa estimatora greške\n Važi i opštiji zaključak: bootstrap može proceniti centriranost i varijansu bilo kog estimatora (skalarnog ili\n vektorskog)"
+ },
+ {
+  "id": "II.5",
+  "question": "Objasniti osnovni princip i razloge za korišćenje trostruke podele podataka.",
+  "expected_sources": [
+   "L03 Validacioni"
+  ],
+  "reference_answer": "Problem: Kada je potrebno istovremeno sprovesti i selekciju modela i procenu stvarne stope greške, podela\npodataka na samo dva skupa (obuka + test) nije dovoljna — procena greške dobijena na skupu koji je korišćen\nza selekciju modela biće pristrasna (premala).\nPrincip trostruke podele — raspoloživi podaci se dele na tri disjunktna skupa:\n 1. Skup za obuku (training set) — koristi se za obuku modela, tj. određivanje parametara modela za svaki\n kandidat. Primer: koeficijenti polinoma w za zadati red M .\n 2. Skup za validaciju (validation set) — koristi se za podešavanje slobodnih parametara (hiperparametara) i\n selekciju najboljeg modela. Primer: biranje optimalnog reda polinoma M .\n 3. Skup za testiranje (test set) — koristi se isključivo za procenu performansi konačnog, već odabranog\n modela. Ovaj skup se ne sme koristiti ni u jednom prethodnom koraku.\nProcedura:\n 1. Podeliti podatke na sva tri skupa\n 2. Za svaki kandidat model: obučiti na skupu za obuku, evaluirati na skupu za validaciju\n 3. Odabrati model sa najmanjom greškom na skupu za validaciju\n 4. Finalni model obučiti na skupovima za obuku i validaciju zajedno\n 5. Proceniti stvarnu stopu greške na skupu za testiranje — i ne menjati više model\nRazlog za razdvajanje validacionog i test skupa: skup za validaciju nije objektivan za procenu stvarne greške\njer je direktno korišćen u procesu selekcije modela — procena bi bila pristrasno optimistična."
+ },
+ {
+  "id": "III.1",
+  "question": "Formulisati problem regresije i objasniti ga na odabranom primeru. Kada se regresija smatra linearnom?",
+  "expected_sources": [
+   "L02 ",
+   "L02_1",
+   "L03 Pristrasnost"
+  ],
+  "reference_answer": "Regresija je tehnika za predviđanje vrednosti kontinualne izlazne promenljive koja zavisi od određenih\nobeležja uzorka. Formalno, cilj je aproksimirati nepoznatu funkciju f : Rd → R na osnovu skupa za obuku\n{(x(i) , y (i) )}Ni=1 .\nPrimer: predviđanje cene stana na osnovu kvadrature. Trening skup sadrži parove (površina u m², cena u hiljadama\n$). Model treba da nauči vezu između površine i cene tako da za novu, neviđenu kvadraturu da što tačniju procenu\ncene.\nKada je regresija linearna? Regresija se smatra linearnom kada se pretpostavlja da je veza između obeležja x i\nizlazne promenljive y linearna funkcija parametara θ :\n hθ (x) = θ0 + θ1 x1 + θ2 x2 + ⋯ + θd xd = θ T x\nKljučno je da linearnost se odnosi na parametre θi , a ne nužno na obeležja. Zbog toga se model hθ (x) = θ0 +\nθ1 x + θ2 x2 takođe smatra linearnim (polinomna regresija), jer je linearan po θ ."
+ },
+ {
+  "id": "III.2",
+  "question": "Objasniti princip linearne regresije za slučaj jednog obeležja. Za dati skup za obuku {x(i) , y (i) }, i = 1, 2, … N , koja su dva osnovna načina za nalaženje vrednosti odgovarajućih parametara θ0 i θ1 ?                                                     ​       ​ Za slučaj jednog obeležja, hipoteza je: hθ (x) = θ0 + θ1 x ​                                       ​                   ​ gde je θ0 slobodni član (presečište sa y-osom), a θ1 nagib prave. Cilj je pronaći vrednosti θ0 i θ1 tako da hipoteza ​                                                        ​                                                                      ​       ​ što bolje opisuje trening skup. Za to se minimizuje funkcija cene — srednja kvadratna greška (MSE): N 1                         2 J(θ0 , θ1 ) =    ∑ (hθ (x(i) ) − y (i) ) 2N ​       ​                                 ​           ​               ​ i=1 Dva osnovna načina za nalaženje parametara: 1. Analitičko rešenje (normalne jednačine) — direktno izjednačavanje gradijenta funkcije cene sa nulom daje zatvorenu formulu: θ ∗ = (XT X)−1 XT y = X† y gde je X† pseudoinverzna matrica. Ovo se naziva pseudoinverzno rešenje ili normalna jednačina. Pogodno je kada je broj obeležja d mali (tipično d < 10 000), jer se rešava u jednom koraku bez iteracija.",
+  "expected_sources": [
+   "L02 ",
+   "L02_1",
+   "L03 Pristrasnost"
+  ],
+  "reference_answer": "2. Gradijentni silazak (gradient descent) — iterativni metod koji polazi od proizvoljnih vrednosti θ0 , θ1 i \npostepeno ih menja u smeru negativnog gradijenta funkcije cene:\n ∂\n θj := θj − α J(θ0 , θ1 ), j = 0, 1\n ∂θj\ngde je α brzina učenja (learning rate). Konkretno za linearnu regresiju:\n N\n 1\n θ0 := θ0 − α ∑ (hθ (x(i) ) − y (i) )\n N i=1\n N\n 1\n θ1 := θ1 − α ∑ (hθ (x(i) ) − y (i) ) x(i)\n N\n i=1\nPostupak se ponavlja do konvergencije (tj. dok promena J između iteracija ne postane manja od nekog praga ε)."
+ },
+ {
+  "id": "III.3",
+  "question": "Objasniti ulogu parametra brzine učenja kod metode gradijentnog silaska. Da li je kod ovog metoda neophodno aktivno prilagođavati brzinu učenja u zavisnosti od približavanja lokalnom minimumu i zbog čega? Kojih se još korisnih saveta treba pridržavati kod primene ove metode?",
+  "expected_sources": [
+   "L02 ",
+   "L02_1",
+   "L03 Pristrasnost"
+  ],
+  "reference_answer": "Uloga brzine učenja α:\nBrzina učenja α određuje veličinu koraka u svakoj iteraciji gradijentnog silaska:\n ∂\n θj := θj − α J(θ)\n ∂θj\n Ako je α premala — algoritam konvergira ispravno, ali sporo (potrebno mnogo iteracija).\n Ako je α prevelika — algoritam može da \"preskoči\" minimum i konvergencija je ugrožena (funkcija cene\n može čak i rasti).\nDa li je potrebno prilagođavati α tokom izvršavanja? — Ne, nije neophodno. Razlog je što se kako se\ntrenutna vrednost (θ0 , θ1 ) približava lokalnom minimumu, veličina gradijenta prirodno smanjuje, pa su i\nkoraci promene sve manji — čak i uz fiksno α. Algoritam se dakle automatski \"usporava\" pri ulasku u region\nminimuma bez potrebe za eksplicitnim smanjenjem α.\nKorisni saveti pri primeni gradijentnog silaska:\n Skaliranje obeležja — preporučuje se da sva obeležja imaju sličan opseg (npr. [−1, 1]). Bez normalizacije,\n konture funkcije cene su jako izduljene elipse što izaziva sporu, cik-cak konvergenciju.\n Oduzimanje srednje vrednosti — svim obeležjima (osim x0 = 1) oduzeti srednju vrednost. \n Praćenje konvergencije — treba pratiti grafik J(θ) u funkciji broja iteracija (npr. na svakih 100 iteracija).\n Ispravna konvergencija podrazumeva monotono opadanje J .\n Zaustavni kriterijum — konvergencija se može proglasiti kada je promena J(θ) između dve iteracije manja\n od nekog praga ε (npr. 10−3 ), mada je teško automatski podesiti odgovarajuće ε.\n Izbor α — dobra praksa je testirati više vrednosti (npr. početi od 0.001 i povećavati 3 puta:\n 0.001, 0.003, 0.01, 0.03, …) i izabrati onu koja daje brzu, stabilnu konvergenciju.\n Izostanak konvergencije je često znak da treba smanjiti α."
+ },
+ {
+  "id": "III.4",
+  "question": "Objasniti pojam regularizacije u kontekstu linearne regresije i objasniti na koje načine ona može da se primeni kod linearne regresije, šta se pritom menja i na koji način.",
+  "expected_sources": [
+   "L02 ",
+   "L02_1",
+   "L03 Pristrasnost"
+  ],
+  "reference_answer": "Regularizacija u kontekstu linearne regresije je tehnika koja ograničava (sužava) procene koeficijenata ka\nnuli kako bi se sprečilo natprilagođenje, smanjila varijansa koeficijenata i prevazišli numerički problemi (npr.\nkada je matrica XT X skoro singularna zbog kolinearnosti obeležja ili kada je d > N ).\nUmesto minimizacije samo RSS-a, minimizuje se regularizovana funkcija cene koja uključuje kazneni član koji\npenalizuje velike vrednosti koeficijenata.\nDva načina primene regularizacije:\n1. Ridge regresija (L2 regularizacija) — minimizuje se:\n N d\n 2\n ∑ (hθ (x ) − y ) + λ ∑ θj2\n (i) (i)\n i=1 j=1\ngde λ ≥ 0 je regularizacioni parametar koji se određuje kros-validacijom. Analitičko rešenje postaje:\n θ^ = (XT X + λI)−1 XT y\nDodavanjem λI matrica postaje regularna (invertibilna) čak i kada je XT X singularna. Mana: uključuje sva\nobeležja u model (nijedno θj ne postaje egzaktno nula).\n2. Lasso (L1 regularizacija) — minimizuje se:\n N 2 d\n (i) (i)\n ∑ (hθ (x ) − y ) + λ ∑ ∣θj ∣\n i=1 j=1\nZbog oblika L1 ograničenja (dijamant u prostoru parametara), za dovoljno veliko λ određeni koeficijenti\npostaju egzaktno nula — Lasso vrši implicitnu selekciju obeležja i daje redak (sparse) model. Vrednost λ se\nodređuje kros-validacijom.\nRazlika između Ridge i Lasso: Ridge smanjuje sve koeficijente ka nuli, ali ih nikad ne annulira potpuno; Lasso\nmože neke koeficijente postavljati na tačno nulu, čime efektivno isključuje odgovarajuća obeležja iz modela.\nNapomena: Pre primene regularizacije preporučuje se normalizacija obeležja, jer regularizacioni član menja\nprocene koeficijenata u zavisnosti od skale obeležja."
+ },
+ {
+  "id": "III.5",
+  "question": "Objasniti osnovni princip analitičke minimizacije funkcije cene (normalne jednačine, pseudoinverzno rešenje) u rešavanju problema linearne regresije. Kada ima smisla primenjivati ovaj pristup, a kada ne?",
+  "expected_sources": [
+   "L02 ",
+   "L02_1",
+   "L03 Pristrasnost"
+  ],
+  "reference_answer": "Princip analitičke minimizacije:\nFunkcija cene MSE zapisuje se u matričnom obliku:\n N 2\n JM SE (θ) = ∑ (hθ (x(i) ) − y (i) ) = ∥Xθ − y∥22 = (Xθ − y)T (Xθ − y)\n i=1\ngde je X matrica dizajna dimenzija N × (d + 1) (svaki red je jedan uzorak proširen sa x0 = 1), θ vektor parametara i \ny vektor ciljnih vrednosti.\nGradijent funkcije cene je:\n ∇θ JM SE (θ) = 2XT (Xθ − y)\nIzjednačavanjem gradijenta sa nulom dobija se normalna jednačina:\n XT Xθ ∗ = XT y\nAko XT X nije singularna, rešenje je:\n θ ∗ = (XT X)−1 XT y = X† y\nMatrica X† = (XT X)−1 XT naziva se pseudoinverzna matrica od X (važi X† X = I, ali u opštem slučaju XX† = I).\nKada ima smisla primeniti ovaj pristup:\n Kada je broj obeležja d mali (tipično d < 10 000) — inverzija matrice XT X dimenzija (d + 1) × (d + 1) je\n računski prihvatljiva.\n Kada obeležja nisu jako korelisana (nema kolinearnosti) — matrica XT X nije skoro singularna.\n Kada je broj uzoraka N veći od broja obeležja d — sistem je predodređen i rešenje postoji.\nKada nema smisla / kada je problematičan:\n Kada je d velik (tipično d > 10 000) — inverzija matrice postaje računski izuzetno zahtevna (O(d3 ) složenost).\n Kada su neka obeležja jako korelisana (problem kolinearnosti) — matrica XT X postaje skoro singularna, a\n manje sopstvene vrednosti (šum) dominiraju inverzijom, uzrokujući numeričke probleme.\n Kada je d > N — matrica XT X je singularna i inverzija ne postoji. U tim slučajevima koriste se alternativni\n pristupi: gradijentni silazak, selekcija obeležja, redukcija dimenzionalnosti ili regularizacija (Ridge/Lasso)."
+ },
+ {
+  "id": "III.6",
+  "question": "Objasniti pojmove pristrasnosti (necentriranosti) i varijanse procene određene slučajne veličine.",
+  "expected_sources": [
+   "L02 ",
+   "L02_1",
+   "L03 Pristrasnost"
+  ],
+  "reference_answer": "Pri proceni nekog parametra θ na osnovu uzorka X , procena θ^ je slučajna veličina (jer zavisi od konkretnog\nuzorka). Kvalitet procene se meri pomoću dve veličine:\nPristrasnost (necentriranost) (bias) — meri koliko je procena u proseku udaljena od prave vrednosti\nparametra:\n bias(θ^) = EX (θ^) − θ\n Ako je bias(θ^) = 0, procena je nepristrasna (centrirana) — u proseku pogađa pravu vrednost.\n Ako je bias(θ^) = 0, procena je pristrasna — čak i sa beskonačno mnogo podataka, procena bi konvergirala\n ka pogrešnoj vrednosti.\nPrimer: ispitivanjem mišljenja samo jedne grupe birača (npr. samo iz jednog grada) dobija se pristrasna procena\nglasačkih namera celokupnog biračkog tela — čak i da povećamo uzorak unutar te grupe, rezultati bi ostali\npristrasni.\nVarijansa — meri koliko se procena menja od uzorka do uzorka, tj. koliko je procena nestabilna:\n var(θ^) = EX [(θ^ − EX (θ^))2 ]\n Mala varijansa znači da bi različiti trening skupovi davali slične procene.\n Velika varijansa znači da je procena osetljiva na konkretni trening skup — mali trening skupovi tipično daju\n veliku varijansu.\nPrimer: mali uzorak birača daje veliku varijansu — ponavljanjem ankete na drugom malom uzorku dobili bismo\nznatno drugačije rezultate.\nKompromis između pristrasnosti i varijanse: teško je istovremeno minimizovati obe veličine. Smanjenje\npristrasnosti (npr. fleksibilnijim modelom) obično povećava varijansu i obrnuto.\nStandardna greška (SE) procene koeficijenta θ^i u linearnoj regresiji:\n σ 2 (θ^i )\n SE 2 (θ^i ) =\n N\nkoristi se za računanje 95% intervala poverenja: [θ^i − 2SE(θ^i ), θ^i + 2SE(θ^i )], koji sa verovatnoćom 0,95 sadrži\npravu vrednost θi ."
+ },
+ {
+  "id": "III.7",
+  "question": "Objasniti, bez izvođenja, dekompoziciju greške (očekivanje kvadratne greške): pristrasnost, varijansa i minimalna dostižna greška. Kompromis između centriranosti (nepristrasnosti) procene i njene varijanse.",
+  "expected_sources": [
+   "L02 ",
+   "L02_1",
+   "L03 Pristrasnost"
+  ],
+  "reference_answer": "Dekompozicija greške (Bias-Variance Decomposition):\nNeka je t = f (x) + ε stvarna vrednost izlaza za uzorak x, gde je f (x) = E[t∣x] optimalna predikcija i ε šum svojstven\npodacima sa var(ε) = σε2 . Za procenu y(x; X) dobijenu na trening skupu X , očekivana srednja kvadratna greška\n(MSE) može se razložiti na tri člana:\n 2\n E [(y(x; X) − t)2 ] = E [(y(x; X) − EX [y(x; X)])2 ] + (EX [y(x; X)] − f (x))\n + E [(f (x) − t)2 ] \n VARIJANSA KVADRAT PRISTRASNOSTI min. dostižna greˇska (σε2 ) \nIntuitivno:\n Varijansa — meri koliko se procena y(x; X) menja kada bi se treniranje vršilo na različitim trening skupovima\n Xi . Visoka varijansa odgovara natprilagođenom modelu: model \"uči\" šum trening skupa i svaki put daje\n drugačije procene.\n Kvadrat pristrasnosti (bias²) — meri koliko je prosečna procena (po svim mogućim trening skupovima)\n udaljena od optimalne predikcije f (x). Visoka pristrasnost odgovara podprilagođenom (previše\n jednostavnom) modelu koji ne može da uhvati pravu strukturu podataka.\n Minimalna dostižna greška (irreducible error) — greška usled šuma ε svojstvenog podacima. Ne zavisi od\n modela i ne može se smanjiti ni jednim modelom — predstavlja donji limit greške koji nije moguće preći.\nKompromis između pristrasnosti i varijanse (Bias-Variance Trade-off):\nPovećanjem kompleksnosti modela (npr. povećanjem reda polinoma, broja parametara):\n Pristrasnost opada — fleksibilniji model bolje aproksimira pravu funkciju.\n Varijansa raste — fleksibilniji model je osetljiviji na konkretan trening skup.\nUkupna test greška je zbir oba člana (plus ireducibilna greška). Postoji optimalna kompleksnost modela pri kojoj\nje zbir pristrasnosti² i varijanse minimalan — to je tačka u kojoj test greška dostiže minimum. Sa leve strane\ndominira pristrasnost (model je previše jednostavan — underfitting), a sa desne strane dominira varijansa (model\nje previše složen — overfitting).\nPrimer: trening greška monotono opada sa porastom kompleksnosti modela, dok test greška ima karakterističan\noblik slova U — najpre opada zbog smanjenja pristrasnosti, a zatim raste zbog povećanja varijanse."
+ },
+ {
+  "id": "IV.1",
+  "question": "Objasniti primenu Bayesove teoreme u kontekstu problema klasifikacije. Šta su apriorna, aposteriorna verovatnoća i verodostojnost klase? Zbog čega se u praksi retko pristupa problemima odlučivanja direktnom primenom Bayesove teoreme?",
+  "expected_sources": [
+   "L04"
+  ],
+  "reference_answer": "Bayesova teorema u klasifikaciji formalizuje kako da kombinujemo prethodno znanje o klasama sa\ninformacijom koju nosi konkretan opserviran uzorak x:\n p(x∣ωi )P (ωi ) p(x∣ωi )P (ωi )\n P (ωi ∣x) = = K\n p(x)\n ∑ p(x∣ωj )P (ωj )\n j=1 \ngde je ωj j -ta klasa, a x vektor obeležja.\nApriorna verovatnoća klase ωj — P (ωj ) (prior):\nVerovatnoća da uzorak pripada klasi ωj bez obzira na to kako uzorak izgleda (bez obzira na konkretno x).\nOdslikava naše prethodno znanje o problemu pre merenja. Primer: koliko je verovatno da je riba na uzgajalištu\nlosos (P (ω1 )) ili brancin (P (ω2 )) — bez ikakve informacije o konkretnoj ribi.\nAposteriorna verovatnoća klase ωj — P (ωj ∣x) (posterior):\nVerovatnoća da uzorak pripada klasi ωj imajući u vidu to kako uzorak izgleda (kada je opserviran konkretan\nuzorak x). Nakon merenja x, verovatnoća klase ωj više nije P (ωj ), već postaje P (ωj ∣x). Primer: nakon što izmerimo\ndužinu i intenzitet krljušti konkretne ribe, ažuriramo procenu verovatnoće da je ona losos.\nVerodostojnost/izglednost — p(x∣ωi ) (likelihood): \nRaspodela obeležja x u klasi ωi — class-conditional probability density function. Kao funkcija od x za\nfiksiranu klasu ωi , ukazuje na izglednost opservacije x ako je stvarna klasa ωi : L(ω = ωi ∣x) = p(x∣ωi ). Za iste\napriorne verovatnoće, klasa za koju je p(x∣ωi ) veće je izglednije prava kategorija. Primer: dužina ribe zavisi od\nvrste — losos i brancin imaju različite raspodele dužina.\np(x) je normalizaciona konstanta koja osigurava da se aposteriorne verovatnoće po svim klasama sabiraju na 1.\nZašto se u praksi retko koristi direktna Bayesova klasifikacija?\nRaspodele obeležja unutar klasa p(x∣ωi ) su najčešće složene i nisu poznate — moraju se proceniti iz podataka,\nšto je teško posebno u visokodimenzionalnim prostorima. U takvim situacijama je često bolje direktno\nodređivati granice odlučivanja (linearne diskriminantne funkcije, perceptroni, SVM, neuralne mreže), koje su u\nopštem slučaju suboptimalne u odnosu na Bayesove klasifikatore, ali su praktičnije."
+ },
+ {
+  "id": "IV.2",
+  "question": "Izvesti formulaciju LR testa (testa na osnovu količnika izglednosti) za slučaj dve klase različitih apriornih verovatnoća, uz pretpostavku da se uzorak klasifikuje u onu klasu za koju je odgovarajuća aposteriorna verovatnoća veća.",
+  "expected_sources": [
+   "L04"
+  ],
+  "reference_answer": "Polazna tačka — Bayesovo pravilo odlučivanja za binarnu klasifikaciju: dodeliti x klasi ω1 ako je P (ω1 ∣x) > \nP (ω2 ∣x), tj.:\n ω1 \n P (ω1 ∣x) ≷P (ω2 ∣x) \n ω2 \nPrimenom Bayesove teoreme:\n p(x∣ω1 )P (ω1 ) ω1 p(x∣ω2 )P (ω2 ) \n ≷\n p(x) p(x)\n ω2 \nPošto p(x) > 0 i ne utiče na smer nejednakosti, može se eliminisati:\n ω1 \n p(x∣ω1 )P (ω1 ) ≷p(x∣ω2 )P (ω2 )\n ω2 \nDeljenjem sa p(x∣ω2 )P (ω1 ) dobija se LR test (test količnika izglednosti):\n p(x∣ω1 ) ω1 P (ω2 ) \n Λ(x) = ≷\n p(x∣ω2 ) ω2 P (ω1 )\ngde se Λ(x) naziva količnik izglednosti (Likelihood Ratio). Uzorak x se klasifikuje u ω1 ako je količnik izglednosti \nveći od praga PP (ω 2)\n (ω1 ) , a inače u ω2 .\nNapomena: Pretpostavka je da su raspodele verovatnoće obeležja u pojedinim klasama (p(x∣ωi )) i apriorne \nverovatnoće klasa (P (ωi )) poznate.\nPrimer: Ako su apriorne verovatnoće jednake (P (ω1 ) = P (ω2 )), prag postaje 1, pa se bira klasa sa većom \nizglednosti. Ako je P (ω1 ) = 2P (ω2 ), prag je 12 — granica odlučivanja pomera se ka centru raspodele sa manjom\napriornom verovatnoćom (ω2 )."
+ },
+ {
+  "id": "IV.3",
+  "question": "Kako se određuje verovatnoća greške? Pokazati da pravilo odlučivanja na osnovu LR testa minimizuje verovatnoću greške. Bayesova stopa greške.",
+  "expected_sources": [
+   "L04"
+  ],
+  "reference_answer": "Određivanje verovatnoće greške:\nBez obzira na optimalno pravilo odlučivanja, greške su neizbežne. Za datu opservaciju x, aposteriorna\nverovatnoća greške je:\n P (ω2 ∣x) ako je izabrano ω1\n P (greške∣x) = {\n P (ω1 ∣x) ako je izabrano ω2\nUkupna verovatnoća greške dobija se integracijom po celom prostoru obeležja (teorema totalne verovatnoće):\n P (greške) = ∫ P (greške∣x) dx\nZa slučaj dve klase, sa regionima odlučivanja R1 i R2 : \n P (greške) = P (ω1 ) ∫ p(x∣ω1 ) dx + P (ω2 ) ∫ p(x∣ω2 ) dx\n R2 R1 \n ε1 ε2 \ngde je ε1 verovatnoća da se uzorak iz ω1 klasifikuje u ω2 i obrnuto.\nDokaz da LR test minimizuje verovatnoću greške:\nPošto je P (greške) = ∫ P (greške∣x) dx, dovoljno je minimizovati P (greške∣x) za svako x ponaosob — tada će i čitav\nintegral biti minimizovan.\nU svakoj tački x′ :\n Ako izaberemo ω1 : greška je P (ω2 ∣x′ )\n Ako izaberemo ω2 : greška je P (ω1 ∣x′ )\nDa bi greška u tački x′ bila minimalna, treba izabrati klasu sa većom aposteriornom verovatnoćom — što je\nupravo Bayesovo/LR pravilo. Za bilo koji drugi prag (ALT pravilo), postoje tačke x′ u kojima će verovatnoća\ngreške biti veća od one koju za isto x′ postiže LR pravilo.\nBayesova stopa greške:\nMinimalna verovatnoća greške koja se postiže korišćenjem LR pravila odlučivanja naziva se Bayesova stopa\ngreške. Ona predstavlja teorijski minimum greške — najmanji mogući nivo greške koji ijedan klasifikator može\npostići na datom problemu (s obzirom na raspoloživa obeležja i raspodele klasa). Nije moguće konstruisati bolji\nklasifikator."
+ },
+ {
+  "id": "IV.4",
+  "question": "Objasniti pojam Bayesovog rizika i dati njegovu matematičku definiciju.",
+  "expected_sources": [
+   "L04"
+  ],
+  "reference_answer": "U opštem slučaju cena pogrešne klasifikacije nije ista za sve kombinacije stvarnih i predviđenih klasa. Primer:\nklasifikovati bolesnog pacijenta kao zdravog mnogo je opasnije nego klasifikovati zdravog kao bolesnog.\nFunkcija cene Cij (loss function) formalizuje ovaj koncept:\n Cij = Cena(ωi ∣ωj )\n — cena izbora klase ωi ako je ωj prava klasa \nBayesov rizik je očekivana vrednost cene (tj. prosečna cena po svim mogućim klasifikacionim odlukama i svim\nmogućim stvarnim klasama):\n K K\n R = E[C] = ∑ ∑ Cij ⋅ P [odabrano ωi a stvarna klasa je ωj ]\n i=1 j=1\nšto se može zapisati i kao:\n K K K K\n R = ∑ ∑ Cij ⋅ P (x ∈ Ri ∣ωj ) ⋅ P (ωj ) = ∑ ∑ Cij ⋅ P (ωj ) ∫ p(x∣ωj ) dx\n i=1 j=1 i=1 j=1 Ri \nAlternativna formulacija — rizik klasifikacije uzorka x u klasu ωi : \n K\n R(αi ∣x) = ∑ Cij ⋅ P (ωj ∣x)\n j=1\nOptimalna odluka za dati x je ona klasa ωi koja minimizuje R(αi ∣x)."
+ },
+ {
+  "id": "IV.5",
+  "question": "Izvesti pravilo odlučivanja koje minimizuje Bayesov rizik za slučaj dve klase, za date apriorne verovatnoće klasa i date vrednosti cena pogrešne/ispravne klasifikacije.",
+  "expected_sources": [
+   "L04"
+  ],
+  "reference_answer": "Za K = 2 klase, rizik izbora klase ωi za dato x je: \n R(ω1 ∣x) = C11 P (ω1 ∣x) + C12 P (ω2 ∣x)\n R(ω2 ∣x) = C21 P (ω1 ∣x) + C22 P (ω2 ∣x)\nBira se klasa ω1 ako je R(ω1 ∣x) < R(ω2 ∣x):\n ω1 \n C11 P (ω1 ∣x) + C12 P (ω2 ∣x) ≶C21 P (ω1 ∣x) + C22 P (ω2 ∣x)\n ω2 \nPregrupisavanjem:\n ω1 \n (C12 − C22 )P (ω2 ∣x) ≶(C21 − C11 )P (ω1 ∣x)\n ω2 \nZamenom aposteriornih verovatnoća putem Bayesove teoreme (P (ωi ∣x) ∝ p(x∣ωi )P (ωi )) i deljenjem, dobija se LR \ntest koji minimizuje Bayesov rizik:\n p(x∣ω1 ) ω1 (C12 − C22 ) P (ω2 ) \n Λ(x) = ≷ ⋅\n p(x∣ω2 ) ω2 (C21 − C11 ) P (ω1 )\nInterpretacija praga: prag zavisi i od odnosa apriornih verovatnoća i od asimetrije cena. Ako je C21 ≫ C12 \n(greška u smeru ω2 → ω1 je skuplja), prag se smanjuje — lakše ćemo klasifikovati u ω1 kako bismo izbegli skupu\ngrešku.\nZaključak: minimizacija Bayesovog rizika se svodi na primenu LR testa, samo sa modifikovanim pragom koji\nuzima u obzir i cene klasifikacije."
+ },
+ {
+  "id": "IV.6",
+  "question": "Ukratko opisati kako se pravilo odlučivanja na osnovu minimizacije verovatnoće greške i na osnovu minimizacije Bayesovog rizika uopštava na slučaj više od dve klase.",
+  "expected_sources": [
+   "L04"
+  ],
+  "reference_answer": "Minimizacija verovatnoće greške (više klasa):\nVerovatnoća tačne klasifikacije je:\n K K\n P (tačno) = 1 − P (greška) = ∑ P (ωi ) ∫ p(x∣ωi ) dx = ∑ ∫ P (ωi ∣x)p(x) dx\n i=1 Ri \n i=1 Ri \nMaksimizacija P [tačno] podrazumeva maksimizaciju svakog integrala Ii = ∫Ri P (ωi ∣x)p(x) dx ponaosob. Za svako x \ntreba odabrati klasu za koju je P (ωi ∣x) maksimalno — Ri treba definisati kao region u kom je P (ωi ∣x) najveće.\nDakle, i u slučaju više klasa MAP kriterijum minimizuje verovatnoću greške.\nMinimizacija Bayesovog rizika (više klasa):\nBayesov rizik sa K klasa:\n K K\n R = ∑ ∫ ∑ Cij ⋅ P (ωj ) ⋅ p(x∣ωj ) dx\n i=1 Ri j=1 \nMinimizacija se postiže minimizacijom svakog integrala ponaosob: uzorak x smestiti u region Ri ako je zbir \n∑j Cij P (ωj )p(x∣ωj ) manji od odgovarajućeg zbira za svaku drugu klasu ωk , tj. odabrati klasu ωi za koju je:\n K\n R(αi ∣x) = ∑ Cij ⋅ P (ωj ∣x)\n minimalno\n j=1\nšto se može i preformulisati kao LR test između svaka dva para klasa:\n p(x∣ωi ) (Cjj − Cij ) P (ωj )\n > ⋅ , ∀j = i\n p(x∣ωj ) (Cji − Cii ) P (ωi )"
+ },
+ {
+  "id": "IV.7",
+  "question": "Definisati pojam diskriminantne funkcije i navesti čemu je jednaka diskriminantna funkcija određene klase u slučaju primene Bayesovog kriterijuma, odlučivanja na osnovu aposteriorne verovatnoće (MAP) i odlučivanja na osnovu izglednosti (ML).",
+  "expected_sources": [
+   "L04"
+  ],
+  "reference_answer": "Diskriminantna funkcija je mera gi (x) koja se izračunava za svaku klasu ωi i na osnovu koje se donosi odluka o\nklasifikaciji. Pravilo odlučivanja glasi:\n dodeli x klasi ωi ako je gi (x) ≥ gj (x) za svako j = i\nSva razmatrana pravila imaju istu strukturu — bira se klasa koja maksimizuje odgovarajuću diskriminantnu\nfunkciju. Ista monotona transformacija (npr. dodavanje konstante ili logaritmovanje) primenjena na sve\ndiskriminantne funkcije ne menja rezultat klasifikacije.\nDiskriminantne funkcije za tri osnovna kriterijuma:\n Kriterijum Diskriminantna funkcija gi (x) \n Bayesov (minimizacija rizika) gi (x) = −R(αi ∣x) = − ∑j Cij P (ωj ∣x)\n MAP (minimizacija verovatnoće greške) gi (x) = P (ωi ∣x)\n ML (maksimalna izglednost) gi (x) = p(x∣ωi )\nVeze između kriterijuma:\n Bayesov kriterijum je najopštiji — minimizuje očekivanu cenu uz proizvoljne cene Cij . \n MAP kriterijum je specijalan slučaj Bayesovog kada su cene simetrične: Cij = 0 za i = j i Cij = 1 za i = j — \n minimizuje verovatnoću greške.\n ML kriterijum je specijalan slučaj MAP-a kada su apriorne verovatnoće jednake P (ω1 ) = P (ω2 ) = … = K1 — \n maksimizuje samo izglednost p(x∣ωi ). \nU praksi je direktna primena ovih kriterijuma retko moguća jer raspodele p(x∣ωi ) nisu poznate. Zato se pribegava \nmetodama koje direktno određuju granice odlučivanja (linearne diskriminantne funkcije, perceptroni, SVM,\nneuralne mreže), koje su u opštem slučaju suboptimalne u odnosu na Bayesove klasifikatore."
+ },
+ {
+  "id": "V.1",
+  "question": "Navesti tipične primere izgleda 1-D i 2-D Gaussovih raspodela i na njima objasniti parametre koji ih opisuju.",
+  "expected_sources": [
+   "L05"
+  ],
+  "reference_answer": "1-D Gaussova raspodela N (μ, σ 2 ) opisana je izrazom:\n 1 (x−μ)2\n fX (x) = e− 2σ2 \n 2π σ \n μ — srednja vrednost (pozicija vrha zvonaste krive)\n σ 2 — varijansa (širina krive; veća varijansa = plosnatija i šira kriva)\n2-D (višedimenzionalna) Gaussova raspodela N (μ, Σ) opisana je izrazom:\n 1 1 ⊤ −1\n fx (x) = e− 2 (x−μ) Σ (x−μ)\n (2π)d/2 ∣Σ∣1/2\n μ — vektor srednjih vrednosti (određuje centar raspodele)\n Σ — kovarijansna matrica (određuje oblik i orijentaciju izokriva)\nTipični primeri izgleda izokriva u 2-D:\n 1. Σ = σ 2 I (skalarna matrica) — izokrive su kružnice (hipersfere u višim dimenzijama); sve dimenzije imaju\n jednaku varijansu i nisu korelisane.\n 2. Σ = diag(σ12 , σ22 ) (dijagonalna matrica, σ1 = σ2 ) — izokrive su elipse čije su ose paralelne koordinatnim\n osama; dimenzije nisu korelisane ali imaju različite varijanse.\n 3. Σ nedijagonalna — izokrive su elipse čije su ose paralelne karakterističnim vektorima (sopstvenim\n vektorima) matrice Σ; postoji korelacija između dimenzija."
+ },
+ {
+  "id": "V.2",
+  "question": "Izvesti opšti oblik diskriminantne funkcije za klasu čija je apriorna verovatnoća P [ωi ] a gustina                                                                                                                                       ​ raspodele verovatnoće N (μi , σi2 ). Zbog čega se klasifikator na bazi ovakve diskriminantne funkcije naziva ​        ​ kvadratnim klasifikatorom?",
+  "expected_sources": [
+   "L05"
+  ],
+  "reference_answer": "Polazeći od MAP diskriminante:\n p[x∣ωi ]P [ωi ] 1 1 ⊤ −1 P [ωi ]\n gi (x) = P [ωi ∣x] = = e− 2 (x−μi ) Σi (x−μi ) ⋅\n p[x] (2π) ∣Σi ∣\n d/2 1/2 p[x]\nKako p[x] ne zavisi od klase, može se izostaviti. Primenom logaritma (monotona transformacija, ne menja\nargmax) i eliminacijom konstante (2π )d/2 , dobija se:\n 1 1\n gi (x) = − (x − μi )⊤ Σ−1\n i (x − μi ) + ln P [ωi ] − ln ∣Σi ∣\n 2 2\nRazvojem kvadratnog člana:\n 1 1 ⊤ −1 1 ⊤ −1 1 ⊤ −1 1\n gi (x) = − x⊤ Σ−1\n i x + x Σi μi + μi Σi x − μi Σi μi + ln P [ωi ] − ln ∣Σi ∣\n 2 2 2 2 2\nOvaj izraz je kvadratna funkcija po x (pojavljuje se član x⊤ Σ−1\n i x), zbog čega se klasifikatori zasnovani na ovoj \ndiskriminantnoj funkciji nazivaju kvadratnim klasifikatorima."
+ },
+ {
+  "id": "V.3",
+  "question": "Neka je potrebno formulisati pravilo odlučivanja u problemu klasifikacije pri čemu su gustine raspodele verovatnoće svih klasa Gaussove raspodele. Kada će granice odlučivanja između klasa biti linearne (hiperravni), a kada ne?",
+  "expected_sources": [
+   "L05"
+  ],
+  "reference_answer": "Granice odlučivanja dobijaju se iz uslova gi (x) = gj (x). \nGranice su LINEARNE (hiperravni) kada sve klase dele istu kovarijansnu matricu, tj. Σi = Σ za sve i. U tom\nslučaju kvadratni član − 12 x⊤ Σ−1 x je isti za sve klase i otkazuje se u razlici gi (x) − gj (x) = 0, čime diskriminanta\npostaje linearna po x. Ovo važi za slučajeve 1, 2 i 3 (gde je Σi = Σ). \nGranice NISU linearne kada klase imaju različite kovarijansne matrice, Σi = Σj . Tada se kvadratni član − 12 x⊤ Σ−1\n i x\nne može otkazati, diskriminantna funkcija ostaje kvadratna po x, a granice odlučivanja su kvadratne površi\n(hiperelipsoidi ili hiperparaboloidi). Ovo važi za slučajeve 4 i 5."
+ },
+ {
+  "id": "VI.1",
+  "question": "Navesti i ukratko opisati dva osnovna pristupa koja se koriste za procenu uslovnih gustina raspodele verovatnoće uzoraka pojedinih klasa.",
+  "expected_sources": [
+   "L06"
+  ],
+  "reference_answer": "Pretpostavlja se unapred određeni oblik raspodele (npr. normalna raspodela), a zatim se procenjuju njeni\nparametri (npr. srednja vrednost i varijansa) na osnovu skupa uzoraka za obuku. Dva najčešća pristupa su:\n Procena maksimalnom izglednosti (ML) — parametri se tretiraju kao fiksni ali nepoznati; biraju se\n vrednosti koje maksimizuju verodostojnost posmatranih uzoraka.\n Bayesova procena — parametri se tretiraju kao slučajne promenljive sa poznatom apriornom raspodelom;\n procenjuje se aposteriorna raspodela parametara datih uzoraka.\n2. Neparametarska procena gustine verovatnoće\nNe pretpostavlja se unapred nikakav oblik raspodele. Gustina se procenjuje direktno iz podataka. Tipični primeri\nsu:\n Procena gustine pomoću kernela (Parzen-ov prozor)\n Metoda k najbližih suseda"
+ },
+ {
+  "id": "VI.2",
+  "question": "Objasniti princip procene nepoznatog vektora parametara θ određene raspodele na osnovu maksimizacije izglednosti skupa uzoraka za obuku.",
+  "expected_sources": [
+   "L06"
+  ],
+  "reference_answer": "Pretpostavimo da imamo skup od N međusobno nezavisnih i jednako raspodeljenih (i.i.d.) uzoraka X =\n{x(1) , x(2) , … , x(N ) } izvučenih iz raspodele p(x∣θ) sa nepoznatim vektorom parametara θ .\nZbog nezavisnosti uzoraka, izglednost (verodostojnost) parametra θ u odnosu na posmatrane uzorke je:\n N\n p(X ∣θ) = ∏ p(x(k) ∣θ)\n k=1\nML procena bira onaj θ koji maksimizuje ovu funkciju:\n θ^ = arg max p(X ∣θ) \n θ\nIz analitičkih razloga, u praksi se radi sa log-izglednosti (logaritam je monotona funkcija pa ne menja argmax):\n N\n θ^ = arg max ∑ ln p(x(k) ∣θ )\n θ\n k=1\nAko je p(X ∣θ) diferencijabilna, optimalni parametri nalaze se iz uslova:\n N\n ∇θ l(θ) = ∑ ∇θ ln p(x(k) ∣θ) = 0\n k=1\nIntuitivno, biramo vrednost parametra koja se najbolje „uklapa\" u posmatrane uzorke."
+ },
+ {
+  "id": "VI.3",
+  "question": "Izvesti izraz za procenu srednje vrednosti μ i varijanse σ 2 1D Gaussove raspodele na osnovu maksimizacije izglednosti skupa uzoraka za obuku. Zbog čega procena σ 2 dobijena na ovaj način nije centrirana i koja se procena najčešće koristi umesto nje?",
+  "expected_sources": [
+   "L06"
+  ],
+  "reference_answer": "Dat je skup uzoraka X = {x(1) , … , x(N ) } iz raspodele p(x) = N (μ, σ 2 ). Vektor parametara je θ = [θ1 , θ2 ]⊤ = [μ, σ 2 ]⊤ . \nGradijent log-izglednosti izjednačavamo sa nulom:\n N 1 (k) N\n θ2\n (x − θ1 )\n (k)\n ∇θ ∑ ln p(x ∣θ) = ∑ [ 1 2] = 0\n (k)\n − 2θ2 + (x 2θ−θ2 1 )\n k=1 k=1\n 2\nRešavanjem po θ1 i θ2 dobijamo ML procene:\n N N\n 1 1\n μ^ = ∑ x(k) σ^ = 2\n ∑ (x(k) − μ^)2\n N N\n k=1 k=1\nZašto ML procena varijanse nije centrirana?\nML procena varijanse koristi μ^ (procenu srednje vrednosti) umesto prave vrednosti μ. Izračunavanjem\nmatematičkog očekivanja:\n N\n 1 N −1 2\n E{σ^ } = E { ∑ (x(k) − μ^)2 } =\n 2\n σ = σ2\n N N\n k=1\nProcena je dakle necentrirana (pristrasna) — sistematski potcenjuje pravu varijansu za faktor NN−1 . \nZa N → ∞ ova greška teži nuli (procena je asimptotski centrirana), ali je primetna kod uzoraka malog obima.\nCentrirana procena koja se najčešće koristi u praksi je:\n N N\n 2 1 ^= 1\n σ^ = ∑ (x(k) − μ^)2 Σ ∑ (xk − μ ^ )⊤\n ^ )(xk − μ\n N −1 N −1\n k=1 k=1"
+ },
+ {
+  "id": "VI.4",
+  "question": "Izvesti izraz za procenu srednje vrednosti μ 1-D Gaussove raspodele na osnovu maksimizacije izglednosti skupa uzoraka za obuku, pod uslovom da je varijansa σ 2 poznata. Koje su karakteristike ove procene?",
+  "expected_sources": [
+   "L06"
+  ],
+  "reference_answer": "Dat je skup uzoraka X = {x(1) , … , x(N ) } iz raspodele p(x) = N (μ, σ 2 ), pri čemu je σ 2 poznata, a θ = μ jedini\nnepoznati parametar.\nLog-izglednost je:\n N N\n (k) 1 1\n l(μ) = ∑ ln p(x ∣μ) = ∑ [ln − 2 (x(k) − μ)2 ]\n 2π σ 2σ\n k=1 k=1\nUslov prvog izvoda jednak nuli:\n N N\n ∂l(μ) ∂ 1 1\n = ∑ {− 2 (x(k) − μ)2 } = 2 ∑ (x(k) − μ) = 0\n ∂μ ∂μ 2σ σ\n k=1 k=1\nOdakle direktno sledi:\n N\n 1\n μ^ = ∑ x(k)\n N\n k=1\nKarakteristike ove procene:\n Centriranost: Procena je centrirana (nepristrasna), jer E{μ^} = μ. \n Konzistentnost: Sa povećanjem broja uzoraka N , procena konvergira ka pravoj vrednosti μ.\n Intuitivna prihvatljivost: ML procena srednje vrednosti jednaka je uzoračkoj (aritmetičkoj) srednjoj\n vrednosti, što je prirodan i intuitivan rezultat.\n Efikasnost: Ova procena dostiže Cramér-Rao donju granicu, tj. ima minimalnu varijansu među svim\n nepristrasnim procenama."
+ },
+ {
+  "id": "VII.1",
+  "question": "Objasniti osnovni princip, prednosti i nedostatke histograma kao metode za procenu gustine raspodele verovatnoće.",
+  "expected_sources": [
+   "L07"
+  ],
+  "reference_answer": "Osnovni princip: Uzoračko područje deli se na jednake ćelije (binove) širine h, a gustina verovatnoće u svakoj\nćeliji procenjuje se kao relativna frekvencija uzoraka koji u nju padaju:\n broj uzoraka u binu koji sadrži x\n p^(x) =\n N ⋅h\nPrednosti:\n Izuzetno jednostavan za implementaciju i vizuelizaciju.\n Nema pretpostavki o obliku raspodele.\n Računski veoma efikasan.\nNedostaci:\n Procena zavisi od izbora širine bina h i položaja granica binova — različiti izbori mogu dati veoma različite\n procene.\n Procena je diskontinualna (stepena funkcija), pa ne odražava glatku prirodu stvarne raspodele.\n Loše skalira sa dimenzijom prostora obeležja: za d dimenzija i M binova po dimenziji, ukupan broj binova je\n M d (problem prokletstva dimenzionalnosti).\n Slabo iskorišćen skup uzoraka — većina binova ostaje prazna u višedimenzionalnom prostoru."
+ },
+ {
+  "id": "VII.2",
+  "question": "Dati opštu formulaciju neparametarske estimacije gustine raspodele verovatnoće.",
+  "expected_sources": [
+   "L07"
+  ],
+  "reference_answer": "Opšti izraz za neparametarsku procenu gustine verovatnoće u tački x glasi:\n k\n p(x) ≅\n NV\ngde je:\n N — ukupan broj uzoraka u skupu za obuku,\n V — volumen oblasti oko tačke x,\n k — broj uzoraka koji se nalaze unutar oblasti zapremine V .\nIntuicija: verovatnoća da uzorak padne unutar oblasti V oko tačke x je P ≈ p(x) ⋅ V , a od N uzoraka očekujemo\nk = N ⋅ P da padnu unutar te oblasti, odakle direktno sledi gornji izraz."
+ },
+ {
+  "id": "VII.3",
+  "question": "Koja dva načina procene gustine raspodele verovatnoće proizlaze iz opšte formulacije neparametarske estimacije? Šta je kod ova dva načina isto, a šta različito?",
+  "expected_sources": [
+   "L07"
+  ],
+  "reference_answer": "Iz opšteg izraza p(x) ≅ k/(N V ) proizlaze dva pristupa, zavisno od toga koja veličina se fiksira a koja određuje:\nPristup 1 — Fiksiranje volumena V (KDE — procena pomoću kernela):\n Volumen V je unapred zadat (fiksan).\n Broji se koliko uzoraka k pada unutar te oblasti.\n Tipičan primer: Parzenov prozor / procena gustine pomoću kernela.\nPristup 2 — Fiksiranje broja suseda k (kNN metoda):\n Broj uzoraka k koji se uzima u obzir je unapred zadat (fiksan).\n Oblast se širi sve dok ne obuhvati tačno k uzoraka, čime se određuje V .\n Tipičan primer: metoda k najbližih suseda (kNN).\nŠto je isto: Oba pristupa koriste isti osnovni izraz p(x) ≅ k/(N V ); oba su neparametarska (ne pretpostavljaju\noblik raspodele); oba koriste lokalne informacije iz okoline tačke x.\nŠto je različito: Kod KDE volumen je fiksan a k se menja od tačke do tačke; kod kNN je k fiksan a volumen se\nprilagođava lokalnoj gustini uzoraka."
+ },
+ {
+  "id": "VII.4",
+  "question": "Objasniti pojam Parzenovog prozora, dati njegovu definiciju i objasniti njegove nedostatke.",
+  "expected_sources": [
+   "L07"
+  ],
+  "reference_answer": "Parzenov prozor je metoda neparametarske procene gustine verovatnoće sa fiksiranim volumenom. Oko tačke\nprocene x postavlja se hiperkocka stranice h (Parzenov prozor), a gustina se procenjuje na osnovu broja uzoraka\nkoji padaju unutar nje.\nFormalno se uvodi funkcija kernela φ(u) definisana kao:\n 1, ∣uj ∣ ≤ 12 za sve j = 1, … , d\n φ(u) = {\n 0, inače\nBroj uzoraka unutar hiperkocke zapremine V = hd tada je:\n N\n x − x(n)\n k = ∑ φ( )\n h\n n=1\na procena gustine postaje:\n N\n 1 1 x − x(n)\n p^(x) = ∑ d φ( )\n N h h\n n=1\nNedostaci:\n Procena je diskontinualna — rezultuje stepenom funkcijom jer pravougaoni kernel nije glatka funkcija.\n Osetljivost na izbor h: suviše malo h → procena je zašumljena i ima nagle skokove; suviše veliko h →\n procena je preglađena i gube se lokalne karakteristike raspodele.\n Uzorci koji su unutar prozora tretiraju se jednako bez obzira na rastojanje od tačke procene."
+ },
+ {
+  "id": "VII.5",
+  "question": "U kakvoj su matematičkoj vezi stvarna gustina raspodele verovatnoće i njena procena pomoću kernela? Kako bi kernel trebalo da izgleda pa da očekivanje estimacije pomoću kernela bude upravo jednako stvarnoj gustini raspodele verovatnoće? Zbog čega to u praksi ipak nije dobro rešenje?",
+  "expected_sources": [
+   "L07"
+  ],
+  "reference_answer": "Matematička veza: Procena gustine pomoću kernela K je konvolucija stvarne gustine p(x) sa kernelom:\n N\n 1\n p^(x) = ∑ Kh (x − x(n) ) = (p ∗ Kh )(x)\n N\n n=1\npa je očekivanje procene:\n E{p^(x)} = ∫ p(x′ )Kh (x − x′ ) dx′ = (p ∗ Kh )(x)\nUslov za nepristrasnost: Da bi E{p^(x)} = p(x), kernel bi morao biti Dirakova delta funkcija Kh (u) = δ(u), jer je p ∗\nδ = p.\nZašto to nije dobro rešenje u praksi: Dirakova delta funkcija nije realizabilna kao praktičan kernel — ona bi\nznačilo da se pri proceni u tački x uzima u obzir jedino da li postoji uzorak koji se tačno nalazi u toj tački, što u\nkontinualnom prostoru gotovo nikad nije slučaj. Rezultujuća procena bila bi praktično svuda jednaka nuli (osim\ntačno u uzorcima), te ne bi imala smisla."
+ },
+ {
+  "id": "VII.6",
+  "question": "Objasniti prednosti korišćenja glatkih kernela. Zbog čega je izbor širine kernela u praksi problematičan i koji se koraci mogu preduzeti u pravcu rešavanja tog problema?",
+  "expected_sources": [
+   "L07"
+  ],
+  "reference_answer": "Prednosti glatkih kernela (npr. Gaussovog kernela):\nUmesto pravougaonog prozora, koristi se glatka funkcija koja uzorcima bliskim tački procene dodeljuje veću\ntežinu nego udaljenijim:\n 1 (n) 2\n ∥x−x ∥\n − 2h2\n Kh (x − x(n) ) = e \n (2πh2 )d/2\n Procena je glatka i diferencijabilna (nema diskontinuiteta).\n Prirodno daje veću težinu uzorcima koji su bliži tački procene.\n Bolje numeričke osobine u praksi.\nZašto je izbor širine h problematičan:\nŠirina kernela h (bandwidth) direktno kontroliše kompromis između pristrasnosti i varijanse procene:\n Malo h → mala pristrasnost, velika varijansa (procena je zašumljena i overfitovana na podatke).\n Veliko h → velika pristrasnost, mala varijansa (procena je preglađena, gube se lokalne strukture).\nOptimalna vrednost h zavisi od nepoznate raspodele p(x) koju tek procenjujemo, što čini problem kružnim.\nMogući pristupi rešavanju:\n Unakrsna validacija (cross-validation): h se bira tako da minimizuje grešku procene na validacionom\n skupu.\n Pravila palca (rule of thumb): npr. Silvermanova formula h = 1.06σ^ N −1/5 za jednodimenzioni slučaj sa\n Gaussovim kernelom.\n Adaptivni kerneli: širina h se lokalno prilagođava gustini uzoraka — u oblastima manje gustine koristi se\n širi kernel."
+ },
+ {
+  "id": "VII.7",
+  "question": "Zbog čega primena standardnog izraza za procenu gustine raspodele verovatnoće na osnovu kernela u višedimenzionalnom prostoru često nije dobro rešenje? Šta se dobija primenom separabilnih kernela?",
+  "expected_sources": [
+   "L07"
+  ],
+  "reference_answer": "Problem u višedimenzionalnom prostoru:\nU d-dimenzionalnom prostoru, volumen hiperkocke stranice h raste kao hd , dok broj uzoraka koji padaju unutar\nnje ostaje ograničen. Posledice su:\n Za fiksiran broj uzoraka N , gustina uzoraka u okolini svake tačke drastično opada s dimenzijom (prokletstvo\n dimenzionalnosti).\n Da bi procena bila pouzdana, potreban broj uzoraka eksponencijalno raste sa dimenzijom.\n Standardni (sferični) kernel Kh (∥x − x(n) ∥) tretira sve dimenzije jednako, što je neprikladno ako dimenzije\n imaju različite varijanse ili relevantnosti.\nSeparabilni kerneli:\nSeparabilni kernel je proizvod jednodimenzionalnih kernela po svakoj dimenziji:\n d\n K(x) = ∏ k(xj )\n j=1\nPrednosti:\n Svaka dimenzija se tretira nezavisno, što odgovara pretpostavci nekorelisanosti obeležja.\n Različite širine kernela hj mogu se primeniti po pojedinim dimenzijama, čime se prilagođava razlikama u\n varijansama obeležja.\n Efikasnije računanje u višedimenzionalnom slučaju — dovoljno je procenjivati po svakoj dimenziji zasebno."
+ },
+ {
+  "id": "VII.8",
+  "question": "Objasniti osnovnu ideju i prednosti naivnog Bayesovog klasifikatora.",
+  "expected_sources": [
+   "L07"
+  ],
+  "reference_answer": "Osnovna ideja:\nNaivni Bayesov klasifikator zasniva se na Bayesovom pravilu odlučivanja:\n ω\n ^ = arg max p(x∣ωi )P (ωi )\n ωi \npri čemu se uvodi pretpostavka uslovne nezavisnosti obeležja unutar svake klase:\n d\n p(x∣ωi ) = ∏ p(xj ∣ωi )\n j=1\nOvo znači da se d-dimenzionalna uslovana gustina raspodele p(x∣ωi )\n zamenjuje proizvodom d\njednodimenzionalnih gustina, od kojih svaku možemo zasebno proceniti iz uzoraka (parametarski ili\nneparametarski).\nPrednosti:\n Drastično smanjenje broja parametara: Umesto procene jedne d-dimenzionalne gustine (što zahteva\n eksponencijalno mnogo uzoraka), procenjuje se d jednodimenzionalnih gustina — ogromna ušteda u\n podacima i računanju.\n Otpornost na prokletstvo dimenzionalnosti: Budući da se svaka dimenzija tretira nezavisno, metoda\n dobro funkcioniše čak i za velik broj obeležja.\n Jednostavnost implementacije i brza obuka.\n Iznenađujuće dobri rezultati u praksi — čak i kada pretpostavka o nezavisnosti nije strogo ispunjena,\n naivni Bayesov klasifikator često daje konkurentne rezultate (npr. u klasifikaciji teksta).\n Lako se proširuje na različite tipove raspodela po pojedinim obeležjima (Gaussova, Bernulijeva,\n multinomijalna itd.)."
+ },
+ {
+  "id": "VIII.1",
+  "question": "Objasniti osnovni princip estimacije gustine raspodele verovatnoće metodom k najbližih suseda i navesti osnovne nedostatke ove metode.",
+  "expected_sources": [
+   "L08"
+  ],
+  "reference_answer": "Neparametarska procena gustine verovatnoće zasniva se na opštem izrazu:\n k\n p(x) ≅\n NV\ngde je N ukupan broj uzoraka, k broj uzoraka unutar oblasti zapremine V oko tačke x. Ovaj izraz može se\nkoristiti na dva načina: fiksiranjem V i određivanjem k (KDE), ili fiksiranjem k i određivanjem minimalnog V —\nšto je upravo princip kNN metode.\nU kNN metodi oko tačke procene x širi se hipersfera sve dok ne obuhvati tačno k uzoraka iz skupa za obuku.\nProcena gustine tada postaje:\n k\n p(x) ≅\n N ⋅ cd ⋅ Rkd (x)\ngde je Rk (x) rastojanje od tačke x do njenog k -tog najbližeg suseda, a cd volumen jedinične sfere u d-\ndimenzionalnom prostoru.\nOsnovni nedostaci kNN procene gustine verovatnoće:\n Procena je podložna lokalnom šumu, naročito za malo k .\n Metoda proizvodi procenu sa veoma jakim \"repovima\" — gustina je spora da opadne daleko od podataka.\n Pošto funkcija Rk (x) nije diferencijabilna, procena gustine ima diskontinuitete.\n Rezultujuća procena ne zadovoljava uslov normalizacije — njen integral po celom prostoru često\n divergira, pa nije validna funkcija gustine verovatnoće."
+ },
+ {
+  "id": "VIII.2",
+  "question": "Pokazati na koji način se metodom k najbližih suseda može aproksimirati (optimalan) Bayesov klasifikator.",
+  "expected_sources": [
+   "L08"
+  ],
+  "reference_answer": "Neka je dat skup od N uzoraka za obuku, pri čemu iz svake klase ωi ima Ni uzoraka. Oko nepoznatog uzorka x \npostavlja se hipersfera zapremine V koja sadrži ukupno k uzoraka, od kojih iz klase ωi ima ki . \nRaspodela obeležja za svaku klasu estimira se kNN metodom:\n ki\n p^kN N (x∣ωi ) =\n Ni V\nBezuslovna gustina raspodele obeležja estimira se kao:\n k\n p^kN N (x) =\n NV\nApriorne verovatnoće klasa estimiraju se relativnom učestanošću:\n Ni\n P (ωi ) =\n N\nPrimenom Bayesove formule dobija se aposteriorna verovatnoća:\n ki Ni\n ⋅\n p^kN N (x∣ωi ) ⋅ P (ωi ) Ni V N ki\n p^kN N (ωi ∣x) = = =\n p^kN N (x) k k\n NV\nZaključak: kNN klasifikator dodeljuje uzorak klasi čiji je broj suseda ki najveći u sferi oko x, što odgovara klasi s \nmaksimalnom aposteriornom verovatnoćom — tj. Bayesovom klasifikatoru. Bayesov klasifikator je dokazano\noptimalan (minimizuje ukupnu grešku klasifikacije), pa kNN za dovoljno veliko N predstavlja njegovu\nkonzistentnu aproksimaciju."
+ },
+ {
+  "id": "VIII.3",
+  "question": "Objasniti uticaj izbora parametra k na tačnost procene gustine raspodele verovatnoće metodom k najbližih suseda.",
+  "expected_sources": [
+   "L08"
+  ],
+  "reference_answer": "Parametar k direktno određuje kompromis između varijanse i pristranosti procene:\n Suviše malo k (npr. k = 1): Oblast oko svake tačke je vrlo mala, pa procena odražava lokalni šum. Funkcija\n Rk (x) skokovito se menja od tačke do tačke, što uzrokuje nagle skokove u proceni — visoka varijansa, niska\n pristranost.\n Suviše veliko k : Hipersfera obuhvata i veoma udaljene uzorke, pa procena gubi lokalni karakter i postaje\n zagladjena. Lokalne strukture raspodele (modovi, dolovi) se zamagljuju — niska varijansa, visoka pristranost.\n Optimalno k : Treba birati vrednost koja daje dovoljno glatku, ali lokalno verno aproksimiranu procenu. Sa\n rastom broja uzoraka N , procena postaje sve tačnija za isti k , jer je skup za obuku gušći.\n Poseban slučaj k = 1 (metoda najbližeg suseda) je izuzetno jednostavan pristup koji uz dovoljno velik skup\n za obuku ipak postiže solidne rezultate.\n k ne sme biti preveliko u odnosu na ukupan broj uzoraka N , jer bi se tada svi uzorci nalazili u sferi i\n procena bi bila globalna, bez ikakvog lokalnog karaktera."
+ },
+ {
+  "id": "VIII.4",
+  "question": "Uporediti metode ranog i kasnog učenja. Kojoj grupi pripada metoda k najbližih suseda i po kojim se sve njenim karakteristikama to vidi?",
+  "expected_sources": [
+   "L08"
+  ],
+  "reference_answer": "Metode mašinskog učenja dele se na metode kasnog učenja (lazy learning) i metode ranog učenja (eager\nlearning):\n Osobina Rano učenje Kasno učenje\n Obuka Eksplicitna, pre klasifikacije Odlaže se do trenutka klasifikacije\n Memorija Uzorci se prevode u model i mogu se Celokupan trening skup mora da se čuva\n uzoraka odbaciti\n Klasifikacija Brza (koristi komprimovani model) Spora (koristi ceo trening skup u trenutku\n odluke)\n Fleksibilnost Model je fiksan nakon obuke Lokalno prilagodljiva odluka\n Primeri Logistička regresija, perceptron, naivni kNN\n Bayes\nkNN pripada metodama kasnog učenja, što se vidi po sledećim karakteristikama:\n Obrada trening uzoraka odlaže se do trenutka kada stigne zahtev za klasifikacijom — klasičnog procesa\n \"obuke\" zapravo nema.\n U odgovoru na svaki zahtev koristi se celokupan trening skup — ništa se ne komprimuje u model.\n Nakon klasifikacije svi rezultati se odbacuju i sve se radi iznova za sledeći zahtev.\n Metoda ima visoke zahteve za memorijskim prostorom (čuva sve uzorke) i računski je zahtevna u fazi\n klasifikacije (treba naći k najbližih od N uzoraka).\n Klasifikacija je sporija što je trening skup veći — što je tačniji, to je sporiji."
+ },
+ {
+  "id": "VIII.5",
+  "question": "Koji se problemi mogu javiti ako pojedina obeležja u okviru primene metode k najbližih suseda imaju bitno različite dinamičke opsege (redove veličine) i šta se može preduzeti u cilju rešavanja tog problema?",
+  "expected_sources": [
+   "L08"
+  ],
+  "reference_answer": "Problem: Osnovno kNN pravilo utvrđuje bliskost uzoraka na osnovu euklidskog rastojanja:\n D\n ′\n d(x, x ) = ∑ (xk − x′k )2\n k=1\nAko neko obeležje ima znatno veći dinamički opseg od ostalih, ono dominira u računanju rastojanja, bez obzira\nna svoju stvarnu informativnost za klasifikaciju. Na primer, ako irelevantno obeležje x2 ima vrednosti reda\nveličine 100 puta veće od relevantnog obeležja x1 , kNN klasifikator sa euklidskim rastojanjem daje veoma loše\nrezultate jer gotovo zanemaruje x1 . \nMoguća rešenja:\n 1. Normalizacija obeležja — sva obeležja se transformišu tako da imaju nultu sredinu i jediničnu varijansu (\n μi = 0, σi = 1). Ovo je brz i efikasan postupak, ali ne rešava problem ako veliki broj obeležja nosi malo\n informacije korisne za klasifikaciju.\n 2. Ponderisanje obeležja (feature weighting) — uvodi se ponderisana metrika:\n D\n ′\n dw (x, x ) =\n ∑ (wk (xk − x′k ))2\n k=1\ngde težinski faktor wk odražava informativnost k -tog obeležja za klasifikaciju. Težinski faktori mogu se odrediti:\n Metodama na bazi performansi (omotači, wrappers) — iterativnim praćenjem tačnosti klasifikatora pri\n različitim vrednostima težina; daju odlično rešenje, ali su računski zahtevni.\n Metodama na bazi unapred definisane funkcije (filtri) — analizom korelacije ili transinformacije između\n svakog obeležja i oznake klase; brže, ali ne uzima direktno u obzir klasifikator.\nNapomena: Ponderisanje obeležja razlikuje se od ponderisanja rastojanja (davanja veće težine bližim susedima)\n— pokazalo se da ponderisanje rastojanja ne poboljšava performanse kNN klasifikatora."
+ },
+ {
+  "id": "VIII.6",
+  "question": "Navesti i ukratko objasniti dva najčešće korišćena načina na koja se može ubrzati pretraga prostora obeležja u cilju identifikacije k najbližih suseda datoj tački.",
+  "expected_sources": [
+   "L08"
+  ],
+  "reference_answer": "Naivan pristup zahteva računanje rastojanja do svih N uzoraka, rangiranje i odabir k najmanjih — što je veoma\nnepraktično za velike N i d. Dva standardna pristupa za prevazilaženje ovog problema su:\n1. Bucketing (Eliasov algoritam)\nProstor obeležja se deli na identične ćelije jednakih dimenzija. Sve tačke koje određena ćelija sadrži čuvaju se u\nlisti. Pri klasifikaciji:\n Ćelije se ispituju u redosledu rastućeg rastojanja od uzorka x koji se klasifikuje.\n Za svaku ćeliju računaju se rastojanja od x do svih tačaka unutar ćelije.\n Pretraga se završava kad rastojanje od x do neke ćelije postane veće od rastojanja do najbliže već posećene\n tačke — dalje ćelije sigurno ne sadrže bliže susede.\n2. k-d stabla (k-dimenziona stabla)\nk-d stablo je hijerarhijska struktura koja rekurzivno deli prostor obeležja na dva potprostora. Konstrukcija:\n Izabere se proizvoljna dimenzija; identifikuje se medijan uzoraka po toj dimenziji.\n Prostor se podeli na dva potprostora u toj tački; postupak se iterativno ponavlja dok broj tačaka u svakom\n pravougaoniku ne padne ispod praga.\n Dobijena podela je finija tamo gde je gustina uzoraka veća.\nPri klasifikaciji algoritam najpre silazi do lista u kom se nalazi uzorak x, a zatim ispituje susedne ćelije ako se\npreklapaju sa loptom čiji je centar x, a poluprečnik jednak trenutnom najbližem rastojanju — čime se efikasno\nograničava pretraga."
+ },
+ {
+  "id": "IX.1",
+  "question": "Objasniti osnovni princip logističke regresije. Šta u ovom slučaju predstavljaju vrednosti diskriminantnih funkcija pojedinih klasa?",
+  "expected_sources": [
+   "L09"
+  ],
+  "reference_answer": "Logistička regresija je metoda za rešavanje problema binarne (i višeklasne) klasifikacije kod koje se izlazna\npromenljiva modeluje kao verovatnoća pripadnosti klasi. Za razliku od linearne regresije, čiji izlaz nije ograničen\nna interval [0, 1] i nije pogodan za procenu verovatnoće, logistička regresija koristi logističku (sigmoidnu)\nfunkciju:\n 1\n g(t) = , g(t) ∈ (0, 1)\n 1 + e−t\nHipoteza logističke regresije za binarni slučaj glasi:\n 1\n hθ (x) = g (θ T x) = T = P (y = 1∣x, Θ)\n 1 + e−θ x\nInterpretacija je probabilistička: hθ (x) predstavlja verovatnoću da uzorak x pripada klasi y = 1, parametrizovanu\nvektorom θ .\nModel se zasniva na logit transformaciji — logaritmu kvote (log odds):\n P (y = 1∣x, Θ)\n log ( ) = θ 0 + θ 1 x1 + ⋯ + θ d xd\n 1 − P (y = 1∣x, Θ)\n p\ngde je odds = 1−p kvota (kreće se od 0 do ∞), a logit je njen logaritam.\nVrednosti diskriminantnih funkcija (hθ (x)) u logističkoj regresiji direktno predstavljaju aposteriorne\nverovatnoće klasa — za razliku od linearne diskriminantne analize gde su to samo skorovi bez probabilističke\ninterpretacije. Granica odlučivanja (hθ (x) = 0.5, tj. θ T x = 0) je linearna, ali uvođenjem nelinearnih članova (x21 , x22 , ...) \nmogu se dobiti i nelinearne granice."
+ },
+ {
+  "id": "IX.2",
+  "question": "Definisanje funkcije cene kod logističke regresije. Na kom principu se zasniva, prikazati korake kojima se dolazi do konačne formulacije funkcije cene.",
+  "expected_sources": [
+   "L09"
+  ],
+  "reference_answer": "Funkcija cene kod logističke regresije zasniva se na principu maksimalne verodostojnosti (maximum\nlikelihood).\nKorak 1 — Funkcija verodostojnosti:\nZa binarni problem, verovatnoća posmatranog uzorka (x(i) , y (i) ) je:\n P (y = 1∣x) = hθ (x) ako y (i) = 1\n P (y = 0∣x) = 1 − hθ (x) ako y (i) = 0\nFunkcija verodostojnosti (pod pretpostavkom nezavisnosti uzoraka) je:\n l(Θ) = ∏ P (y = 1∣x, Θ) ⋅ ∏ (1 − P (y = 1∣x, Θ))\n (i) (i)\n i: y =1 i: y =0\nKorak 2 — Funkcija cene po uzorku:\nMaksimizacija l(Θ) ekvivalentna je minimizaciji negativnog log-verodostojnosti. Definiše se cena po uzorku:\n − ln hθ (x), y=1\n Cost(hθ (x), y) = {\n − ln(1 − hθ (x)), y=0\nIntuicija: ako je y = 1 a model predviđa hθ (x) ≈ 0, cena → ∞; ako predviđa hθ (x) ≈ 1, cena → 0.\nKorak 3 — Kompaktna formulacija:\nOba slučaja mogu se spojiti u jedan izraz:\n Cost(hθ (x), y) = −y ln hθ (x) − (1 − y) ln(1 − hθ (x))\nKorak 4 — Ukupna funkcija cene (log-loss / binary cross-entropy):\n N N\n 1 1\n J(Θ) = ∑ Cost(hθ (x(i) ), y (i) ) = − ∑ [y (i) ln hθ (x(i) ) + (1 − y (i) ) ln(1 − hθ (x(i) ))]\n N i=1 N i=1\nKorak 5 — Minimizacija gradijentnim silaskom:\nFunkcija J(Θ) je konveksna, pa se minimizuje metodom opadanja gradijenta. Pravilo ažuriranja parametara je\nformalno identično onom kod linearne regresije:\n N\n 1 (i)\n θj := θj − α ∑ (hθ (x(i) ) − y (i) ) xj , j = 0, 1, … , d\n N\n i=1"
+ },
+ {
+  "id": "IX.3",
+  "question": "Dati geometrijsku interpretaciju linearne (binarne) klasifikacije. Kako se ovaj pristup generalizuje na slučaj više od dve klase?",
+  "expected_sources": [
+   "L09"
+  ],
+  "reference_answer": "Geometrijska interpretacija binarne linearne klasifikacije:\nLinearna diskriminantna funkcija definisana je kao:\n g(x) = wT x + w0 \nUzorak se dodeljuje klasi ω1 ako g(x) > 0, a klasi ω2 ako g(x) < 0.\nSkup tačaka za koje je g(x) = 0 čini hiperavan odlučivanja (u 2D: pravu; u 3D: ravan). Dve klase su linearno\nrazdvojive ako postoji takva hiperavan koja ih u potpunosti razdvaja.\nKljučna geometrijska svojstva:\n Vektor w je ortogonalan na hiperavan odlučivanja. To se vidi iz: ako su x1 i x2 dve tačke na hiperravni, tada \n wT x1 + w0 = wT x2 + w0 = 0, odakle wT (x1 − x2 ) = 0.\n ∣g(x)∣ je mera euklidskog rastojanja tačke x od hiperravni odlučivanja: r = g(x)/∥w∥.\n Slobodni prag w0 pomera hiperavan paralelno sebi — određuje rastojanje hiperravni od koordinatnog\n početka: d = w0 /∥w∥.\nGeneralizacija na više od dve klase (C > 2):\nVišeklasna klasifikacija višestrukom primenom binarne klasifikacije ima nedostatke: mogu se javiti sporni\nregioni (ambiguous regions) gde nijedno pravilo ne daje jednoznačnu odluku.\nIspravno rešenje je da se svakoj klasi ωi dodeli jedinstvena diskriminantna funkcija gi (x) = wiT x + wi0 .\nKlasifikator tada dodeljuje uzorak x klasi ωi ako je:\n gi (x) > gj (x),\n ∀j = i\nPovrši odlučivanja između klasa ωi i ωj definisane su uslovom gi (x) = gj (x), što su linearne hiperravni. Ovim\npristupom prostori klasa su uvek konveksni i nema spornih regiona."
+ },
+ {
+  "id": "IX.4",
+  "question": "Definisati pojam i matematički model perceptrona. Kako se pomoću ovakvih struktura može rešavati problem klasifikacije u dve klase, a kako problem klasifikacije u više od dve klase?",
+  "expected_sources": [
+   "L09"
+  ],
+  "reference_answer": "Pojam i matematički model perceptrona:\nPerceptron (Rosenblatt, 1965) je elementarni model mašine za učenje namenjen rešavanju problema linearne\nklasifikacije. Predstavlja skalarnu funkciju više ulaznih promenljivih xi , od kojih se svaka množi odgovarajućim\ntežinskim faktorom wi , a izlaz je nelinearna funkcija težinskog zbira:\n d\n izlaz = f (w0 + ∑ wi xi ) = f (wT x)\n i=1\ngde je w0 prag (bias), w vektor težina, a f aktivaciona funkcija (npr. predznak ili sigmoidna funkcija). Perceptron\nje u stanju da automatski odredi vrednosti težina w iz uzoraka koristeći algoritam učenja, i predstavlja osnovu\nveštačkih neuralnih mreža.\nKlasifikacija u dve klase:\nUzorak se klasifikuje na osnovu znaka izlaza perceptrona:\n ω1 , wT x > 0\n y = sign(wT x) ⇒ {\n ω2 , wT x < 0\nGranica odlučivanja wT x = 0 je linearna hiperavan u prostoru obeležja.\nKlasifikacija u više od dve klase:\nZa C klasa koristi se C perceptrona, po jedan za svaku klasu. Svaki perceptron i implementira diskriminantnu\nfunkciju gi (x) = wiT x. Uzorak se klasifikuje u klasu čiji perceptron daje najveći odziv:\n y^ = arg max gi (x)\n i\nAko su odzivi svih perceptrona normalizovani zbirom svih odziva (softmax normalizacija), zbir normalizovanih\nodziva postaje jednak 1, pa se odziv svakog perceptrona može interpretirati kao verovatnoća pripadnosti\nodgovarajućoj klasi."
+ },
+ {
+  "id": "IX.5",
+  "question": "Opisati metod perceptronskog učenja. U čemu je razlika između grupnog i pojedinačnog režima perceptronskog učenja? Kada algoritam perceptronskog učenja konvergira ka ispravnom rešenju, a kada ne?",
+  "expected_sources": [
+   "L09"
+  ],
+  "reference_answer": "Metod perceptronskog učenja:\nNeka trening skup X = {x(1) , … , x(N ) } sadrži uzorke klasa ω1 i ω2 , uz pretpostavku linearne razdvojivosti. Prag w0\nse uključuje u težinski vektor uvođenjem x0 = 1, pa je g(x) = wT x.\nSkup za obuku se normalizuje: uzorcima klase ω2 menja se predznak (x ← −x), čime se problem svodi na\npronalaženje w takvog da važi wT x > 0 za sve uzorke.\nZa funkciju cene usvaja se perceptronska kriterijumska funkcija:\n JP (w) = ∑ (−wT x)\n x∈XM \ngde je XM skup pogrešno klasifikovanih uzoraka. Pošto je za te uzorke wT x < 0, funkcija JP je uvek\nnenegativna i jednaka je nuli samo kada su svi uzorci ispravno klasifikovani.\nGradijent funkcije cene je:\n ∇w JP (w) = ∑ (−x)\n x∈XM \nGrupni (batch) režim:\nU svakoj iteraciji k u ažuriranju učestvuju svi pogrešno klasifikovani uzorci:\n w(k + 1) = w(k) + α ∑ x \n x∈XM \nPojedinačni (online) režim:\nUzorci x(i) ulaze u algoritam ciklično, jedan za drugim. Ažuriranje se vrši samo na osnovu uzorka koji je u koraku\nk bio pogrešno klasifikovan:\n w(k + 1) = w(k) + αx(k)\nProcedura: početi od proizvoljnog w(0); za svaki uzorak proveriti klasifikaciju; ako je pogrešna, ažurirati w;\nponavljati dok svi uzorci nisu ispravno klasifikovani (XM = ∅). \nKonvergencija:\n Ako su klase linearno razdvojive, obe verzije perceptronskog učenja konvergiraju ka ispravnom rešenju\n u konačno mnogo koraka (perceptronska teorema konvergencije).\n Ako klase nisu linearno razdvojive, perceptronsko učenje neće konvergirati — uvek postoje pogrešno\n klasifikovani uzorci, pa se w neprestano menja. Moguća rešenja:\n Usvajanje promenljive brzine učenja α(k) → 0 kada k → ∞.\n Korišćenje algoritma džepa (pocket algorithm) koji tokom iteracija pamti best-so-far rešenje i ažurira ga\n samo ako se nađe bolje — pod određenim uslovima konvergira ka suboptimalnom rešenju s\n minimalnim brojem pogrešnih klasifikacija."
+ },
+ {
+  "id": "X.1",
+  "question": "Objasniti osnovnu ideju i dati matematičku formulaciju optimizacionog problema kod klasifikatora maksimalne margine. Objasniti pojam vektora nosača. Šta su glavni nedostaci ovakvog klasifikatora?",
+  "expected_sources": [
+   "L10"
+  ],
+  "reference_answer": "Osnovna ideja:\nKlasifikator maksimalne margine rešava problem binarne klasifikacije pronalaženjem optimalne hiperravni\nrazdvajanja u prostoru obeležja. Hiperravan u d dimenzija je afini potprostor dimenzije d − 1 oblika:\n θ 0 + θ 1 x1 + θ 2 x2 + … + θ d xd = 0\nZa linearno razdvojive uzorke postoji beskonačno mnogo hiperravni razdvajanja. Hiperravan koja je suviše blizu\nuzoraka za obuku biće osetljiva na šum i sklona lošijem uopštavanju. Stoga se bira hiperravan koja je najviše\nudaljena od svih uzoraka — tj. hiperravan sa najvećom marginom.\nMargina se definiše kao minimalno rastojanje između uzoraka iz skupa za obuku i površi odlučivanja. Za\nkanonički normalizovanu hiperravan (gde diskriminantna funkcija poprima vrednost ±1 za uzorke najbliže ravni)\nrastojanje od najbližeg uzorka do ravni je ∥θ∥\n 1 , a ukupna margina iznosi:\n 2\n M=\n ∥θ∥\nMatematička formulacija:\nMaksimizacija margine M = ∥θ∥\n 2 ekvivalentna je minimizaciji ∥θ∥2 . Optimizacioni problem glasi:\n 1\n minimizaciju J(θ) = ∥θ∥2\n 2\n (i) (i)\n pod ograničenjem yi ⋅ (θ0 + θ1 x1 + … + θd xd ) ≥ 1,\n ∀i = 1, 2, … , N\nFunkcija J(θ) je kvadratna, što garantuje jedinstven globalni minimum bez lokalnih minimuma. Za rešavanje\nse koristi Lagranžova optimizaciona tehnika, koja vodi do dualnog problema:\n N N N\n 1\n max LD (α) = ∑ αi − ∑ ∑ αi αj yi yj xTj xi\n 2\n α\n i=1 i=1 j=1\nuz ograničenja αi ≥ 0 i ∑Ni=1 αi yi = 0.\nPojam vektora nosača:\nIz uslova optimalnosti (KKT uslova) sledi da za svaki uzorak važi:\n αi [yi (θ T xi + θ0 ) − 1] = 0,\n ∀i\nDakle, za svaki uzorak ili je αi = 0 (ograničenje nije aktivno — uzorak je daleko od margine), ili je αi > 0 i yi (θ T xi +\nθ0 ) = 1 (ograničenje je aktivno — uzorak leži tačno na granici margine). Uzorci za koje je αi > 0 nazivaju se\nvektori nosači (support vectors). Optimalni težinski vektor izražava se kao:\n N\n θ = ∑ α i y i xi \n i=1\ni samo vektori nosači imaju αi > 0, pa samo vektori nosači definišu optimalnu hiperravan — zamenom celog\ntrening skupa samo vektorima nosačima rešenje ostaje isto.\nGlavni nedostaci:\n Neprimenljiv za linearno nerazdvojive uzorke — ako klase nisu linearno razdvojive, problem nema\n rešenje.\n Visoka osetljivost na pojedinačne uzorke — položaj hiperravni drastično se može promeniti uvođenjem\n jednog novog uzorka, što ukazuje na visoku varijansu i overfitting.\n Generalno, procena je možda dobro centrirana, ali ima izuzetno visoku varijansu zbog zavisnosti od malog\n broja uzoraka koji su blizu margine."
+ },
+ {
+  "id": "X.2",
+  "question": "Objasniti osnovnu ideju i dati matematičku formulaciju optimizacionog problema kod klasifikatora blage margine (klasifikatora na bazi vektora nosača). Šta su u ovom slučaju vektori nosači? Šta su ograničenja ovakvog klasifikatora?",
+  "expected_sources": [
+   "L10"
+  ],
+  "reference_answer": "Osnovna ideja:\nKlasifikator blage margine (soft margin classifier) je proširenje klasifikatora maksimalne margine koje dozvoljava\nda poneki uzorak iz skupa za obuku bude sa pogrešne strane margine, pa i sa pogrešne strane same\nhiperravni. Ovo je neizbežno kada uzorci nisu linearno razdvojivi, a i u linearno razdvojivom slučaju daje\nrobustniji klasifikator koji je manje osetljiv na pojedinačne uzorke.\nMatematička formulacija:\nUvode se pomoćne (slack) promenljive εi ≥ 0 koje mere koliko koji uzorak zalazi na pogrešnu stranu margine:\n N\n 1\n minimizaciju J(θ) = ∥θ∥2 + C ∑ εi\n 2\n i=1\n (i) (i)\n pod ograničenjem yi ⋅ (θ0 + θ1 x1 + … + θd xd ) ≥ 1 − εi ,\n ∀i\n εi ≥ 0,\n ∀i\nInterpretacija pomoćnih promenljivih:\n εi = 0: uzorak je ispravno klasifikovan i van margine,\n 0 < εi ≤ 1: uzorak je unutar margine ali ispravno klasifikovan,\n εi > 1: uzorak je sa pogrešne strane hiperravni (pogrešno klasifikovan).\nParametar C je regularizacioni parametar koji se može posmatrati kao \"budžet\" za ukupno dozvoljeno\nodstupanje εi :\n Veliko C : mali \"budžet\" za greške → klasifikator teži da ispravno klasifikuje sve uzorke → manja margina,\n veća kompleksnost, potencijalni overfitting.\n Malo C : veći \"budžet\" za greške → šira margina, manji broj vektora nosača, jednostavniji model →\n potencijalni underfitting.\nVrednost C se u praksi određuje unakrsnom validacijom (cross-validation).\nVektori nosači u ovom slučaju:\nVektori nosači su sada uzorci koji se nalaze na margini ili s pogrešne strane margine (tj. uzorci za koje je εi > 0 \nili koji su tačno na granici margine). Njihov broj zavisi od vrednosti C — manje C znači više vektora nosača. Kao i\nranije, vektor θ se dobija kao linearna kombinacija samo vektora nosača, dok uzorci koji su daleko od granice\nodlučivanja uopšte ne utiču na položaj hiperravni.\nOgraničenja:\n Klasifikator je i dalje linearan — postoje situacije kada linearne granice odlučivanja, bez obzira na vrednost C\n , nisu odgovarajuće (npr. kada su klase koncentrično raspoređene).\n Za nelinearne probleme neophodno je proširenje prostora obeležja ili primena kernel pristupa."
+ },
+ {
+  "id": "X.3",
+  "question": "Objasniti osnovnu ideju mašina na bazi vektora nosača. Objasniti kako se konstrukcija nelinearne hiperpovrši razdvajanja u niskodimenzionalnom prostoru obeležja svodi na konstrukciju (linearne) hiperravni razdvajanja u visokodimenzionalnom prostoru obeležja. Ideja za prelazak na nelinearni SVM, kernel trick.",
+  "expected_sources": [
+   "L10"
+  ],
+  "reference_answer": "Osnovna ideja SVM:\nKada linearne granice odlučivanja nisu dovoljne, problem se rešava u dve etape:\n 1. Nelinearno preslikavanje uzoraka iz originalnog d-dimenzionalnog prostora u novi, višedimenzionalni\n prostor: z = h(x)\n 2. Konstrukcija optimalne linearne hiperravni razdvajanja u tom višedimenzionalnom prostoru.\nGranica odlučivanja koja je linearna u proširenom prostoru odgovara nelinearnoj granici u originalnom\nprostoru obeležja.\nPrimer: Uzorci u 2D prostoru (x1 , x2 ) koji nisu linearno razdvojivi mogu postati linearno razdvojivi uvođenjem\npreslikavanja u 3D:\n x = (x1 , x2 ) → z = h(x) = (x21 ,\n 2 x1 x2 , x22 ) = (z1 , z2 , z3 )\nPrelaz u višedimenzionalni prostor, međutim, pogoršava problem manjka podataka i povećava računsku\nsloženost — stoga je potrebno osmisliti efikasan način uvođenja nelinearnosti.\nKernel trick:\nKljučna opservacija je da se u Lagranžovom dualnom problemu i pri klasifikaciji uzorci pojavljuju isključivo u\nobliku skalarnih proizvoda ⟨xi , xj ⟩. Linearni klasifikator na bazi vektora nosača može se zapisati kao:\n f (x) = θ T x + θ0 = ∑ αi yi xTi x + θ0\n i∈S\ngde je S skup vektora nosača. Ako se uzorci preslika u prostor h(x), svi skalarnii proizvodi postaju ⟨h(xi ), h(xj )⟩. \nUmesto da se eksplicitno računa skupo preslikavanje h(x), uvodi se kernel funkcija koja direktno izračunava\nskalarni proizvod u višedimenzionalnom prostoru:\n K(x, xi ) = ⟨h(x), h(xi )⟩\n ← kernel trick\nDiskriminantna funkcija SVM tada postaje:\n f (x) = θ0 + ∑ αi yi K (x, xi )\n i∈S\nOvo je računski izuzetno efikasno jer: (1) nikad nije potrebno eksplicitno računati preslikavanje h(x) koje može\nbiti beskonačnodimenzionalno, i (2) skalarni proizvodi se računaju samo za vektore nosače (za sve ostale uzorke\nαi = 0).\nČesto korišćene kernel funkcije:\n Polinomijalni kernel stepena m > 0:\n d m\n (i) (j) (i) (j)\n K(x , x ) = ( 1 + ∑ xk xk ) \n k=1\n Radijalni (Gaussov) kernel:\n (i) (j) 2\n ∑d (x −x )\n − k=1 2k 2 k\n (i) (j)\n K(x , x ) = e σ\nRadijalni kernel odgovara beskonačnodimenzionalnom prostoru obeležja i omogućava modelovanje proizvoljno\nsloženih granica odlučivanja."
+ },
+ {
+  "id": "X.4",
+  "question": "Prednosti metode vektora nosača pri rešavanju problema klasifikacije.",
+  "expected_sources": [
+   "L10"
+  ],
+  "reference_answer": "Metoda vektora nosača prevazilazi ograničenja brojnih klasičnih metoda i poseduje niz važnih prednosti:\nMatematičke i optimizacione prednosti:\n Nema lokalnih minimuma — optimizacioni problem (minimizacija kvadratne funkcije uz linearna\n ograničenja) je konveksno kvadratno programiranje sa jedinstvenim globalnim minimumom, što garantuje\n uvek isto optimalno rešenje.\n Optimalno rešenje se može naći u polinomijalnom vremenu efikasnim numeričkim solverima.\n Rezultati su stabilni i ponovljivi — za razliku od neuralnih mreža gde slučajnost inicijalizacije težinskih\n koeficijenata može davati različita rešenja.\nStrukturne prednosti:\n Optimalno rešenje je retko (sparse) — zavisi samo od malog podskupa uzoraka (vektora nosača), što ga\n čini memorijski efikasnim i pogodnim za interpretaciju.\n Kontrola složenosti modela nezavisna je od dimenzionalnosti prostora obeležja — kompleksnost je\n regulisana parametrom C i izborom kernel funkcije, a ne brojem dimenzija. Zahvaljujući kernel tricku,\n klasifikacija se može vršiti u beskonačnodimenzionalnim prostorima bez eksplicitnog izračunavanja\n koordinata u tim prostorima.\n Uzorci daleko od granice odlučivanja ne utiču na model — za razliku od metoda zasnovanih na MSE,\n SVM je \"robusna\" metoda koja zanemaruje lako klasifikovane uzorke.\nPraktične prednosti:\n Mali broj hiperparametara koji se biraju unakrsnom validacijom: regularizacioni parametar C , izbor kernel\n funkcije i njenih parametara (npr. σ za radijalni kernel ili stepen m za polinomijalni).\n Elegantna i teorijski dobro zasnovana metoda učenja — zasnovana na principu strukturne minimizacije\n rizika iz teorije statističkog učenja.\n Primenjiva i na nelinearne probleme putem kernel tricka, bez eksplicitnog uvođenja nelinearnih obeležja i\n bez pogoršanja problema prokletstva dimenzionalnosti."
+ },
+ {
+  "id": "XI.1",
+  "question": "Objasniti proceduru obuke (formiranja) stabla odluke u slučaju klasifikacije/regresije.",
+  "expected_sources": [
+   "L11 - Stabla"
+  ],
+  "reference_answer": "Stablo odluke je metoda ranog nadgledanog učenja primenljiva i za klasifikaciju i za regresiju. Struktura stabla\nsastoji se od korenskog čvora, internih čvorova (u kojima se postavljaju pitanja) i terminalnih čvorova\n(listova, u kojima se donosi odluka).\nSkup pitanja:\nPre obuke, za svako obeležje definiše se standardni skup pitanja:\n Za numeričko obeležje: pitanja oblika \"Da li je vrednost obeležja iznad praga t?\" za sve relevantne pragove\n t (tipično srednje vrednosti između susednih različitih vrednosti u trening skupu).\n Za kategoričko obeležje: pitanja o pripadnosti pojedinim kategorijama ili njihovim particijama.\nAlgoritam obuke — pohlepna rekurzivna binarna podela:\nPretraživanje svake moguće podele prostora nije izračunljivo, pa se koristi top-down pohlepna strategija\n(greedy):\n 1. Počinje se od celog trening skupa u korenskom čvoru.\n 2. Za svaki čvor pretražuju se sva pitanja iz standardnog skupa i bira se ono koje maksimizuje smanjenje\n nečistoće potomaka:\n Δi(t) = i(t) − pL ⋅ i(tL ) − pR ⋅ i(tR )\ngde su pL , pR udeli uzoraka koji idu u levi/desni podskup, a i(t) mera nečistoće čvora.\n 3. Čvor se deli na dva potomka prema izabranom pitanju, a postupak se rekurzivno nastavlja na svakom\n potomku dok nije ispunjen zaustavni kriterijum.\nMere nečistoće za klasifikaciona stabla (gde je p(j∣t) zastupljenost klase j u čvoru t):\n Entropija: i(t) = − ∑j p(j∣t) log p(j∣t)\n Ginijev indeks diverziteta: i(t) = ∑Cj=1 p(j∣t)(1 − p(j∣t)) = 1 − ∑j p2 (j∣t)\nZa regresiona stabla koristi se pad srednje kvadratne greške (MSE) kao kriterijum podele.\nOdluka u terminalnim čvorovima:\n Klasifikacija: klasa se dodeljuje po većinskom principu — klasa koja je najzastupljenija među trening\n uzorcima u tom listu.\n Regresija: predviđena vrednost je srednja vrednost izlaznih promenljivih trening uzoraka koji se nalaze u\n tom listu.\nGeometrijski, obuka odgovara podeli prostora obeležja na višedimenzionalne pravougaonike\n(hiperpravougaonike) koji se ne preklapaju — u svakom regionu Rj donosi se ista odluka."
+ },
+ {
+  "id": "XI.2",
+  "question": "Diskutovati računarsku kompleksnost klasifikacije/regresije primenom stabla odluke, i to posebno u fazi obuke, a posebno u fazi primene.",
+  "expected_sources": [
+   "L11 - Stabla"
+  ],
+  "reference_answer": "Faza obuke — visoka kompleksnost:\nObuka je generalno računski zahtevna jer za svaki čvor i svako moguće pitanje treba izračunati smanjenje\nnečistoće koje bi ta podela prouzrokovala. Ako ima Q pitanja i N uzoraka u čvoru, za svaki nivo stabla potrebno\nje O(Q ⋅ N ) operacija. Ukupna složenost raste sa dubinom stabla i brojem obeležja.\nZa ublažavanje računskog tereta moguće je:\n Optimalnu podelu čvora ne tražiti na osnovu svih N uzoraka, već na osnovu slučajnog podskupa određene\n veličine — kada se optimalno pitanje nađe, ceo čvor se podeli po tom kriterijumu.\n Ako se dozvoli kombinovanje obeležja, skup pitanja drastično raste i kompleksnost se dodatno povećava,\n mada i u tom slučaju postoje efikasni algoritmi za nalaženje potencijalno najkorisnijih kombinacija.\nFaza primene — izuzetno brza:\nUprkos složenosti obuke, stabla odluke su ekstremno brza u fazi eksploatacije. Klasifikacija ili regresija novog\nuzorka svodi se na prolaz niz stablo od korena do lista — u svakom čvoru se evaluira jedno pitanje i bira grana.\nBroj operacija je proporcionalan dubini stabla D, što je tipično O(log N ) za uravnotežena stabla — to je\nzanemarljivo brzo za bilo koju praktičnu primenu."
+ },
+ {
+  "id": "XI.3",
+  "question": "Objasniti prednosti i mane stabala odluke u rešavanju problema klasifikacije/regresije.",
+  "expected_sources": [
+   "L11 - Stabla"
+  ],
+  "reference_answer": "Prednosti:\n Nezavisnost od tipa podataka — mogu se koristiti i za numerička i za kategorička obeležja bez posebne\n obrade.\n Kompaktnost i brzina u fazi primene — prolaz kroz stablo je izuzetno brz.\n Laka interpretabilnost — model je transparentan i human-readable; svaki put od korena do lista\n objašnjava zašto je doneta određena odluka.\n Transparentnost u pogledu greške — lako je pratiti koje uzorke stablo pogrešno klasifikuje i zašto.\n Invarijantnost na monotonu transformaciju obeležja — skaliranje ili normalizacija obeležja ne utiču na\n rezultat (pitanja se zasnivaju na poređenjima, ne na apsolutnim vrednostima).\n Robustnost na besmislena obeležja ili pitanja — irelevantno obeležje retko će biti identifikovano kao\n najuspešnije za podelu čvora.\n Robustnost na uzorke koji značajno odstupaju od populacije (outliers) — ekstremne vrednosti utiču\n samo na pitanje u koje su granicu svrstane, ne i na celokupan model.\n Nisu zahtevna — u osnovnoj verziji potrebno je specificirati samo obeležja, kriterijum podele i kriterijum za\n veličinu stabla.\nMane:\n Fragmentacija podataka — kako se stablo dublje gradi, svaki čvor sadrži sve manji broj uzoraka; podaci\n koji završe u nekom čvoru nevidljivi su za ostatak stabla i ne doprinose globalnoj slici.\n Velika varijansa — mala promena u trening skupu može dovesti do bitno drugačijeg stabla; stabla su\n nestabilni klasifikatori.\n Generalno lošije performanse u poređenju sa naprednijim metodama (SVM, neuralne mreže) kada se\n koristi jedno stablo.\n Sklonost natprilagođenju ako se stablo razgrana previše — potrebno je orezivanje ili drugi mehanizam\n regularizacije."
+ },
+ {
+  "id": "XI.4",
+  "question": "Na koji način se vrši izbor modela kod stabla odluke ukoliko se koristi orezivanje dubljeg stabla?",
+  "expected_sources": [
+   "L11 - Stabla"
+  ],
+  "reference_answer": "Određivanje kriterijuma zaustavljanja rasta stabla nije jednostavno: previše podela vodi natprilagođenju (velika\nvarijansa), a premalo podela vodi underfittingu (velika necentriranost). Prerano zaustavljanje je problematično\njer neka manje značajna podela može kasnije dovesti do mnogo bolje podele.\nProcedura orezivanja (pruning):\nBolja opcija je najpre izgraditi veoma veliko stablo T0 (npr. do praga minimalnog broja uzoraka u listu), a zatim\nga orezati (cost complexity pruning). Posmatra se sekvenca podstabala dobijena minimizacijom regularizovanog\nkriterijuma:\n ∣T ∣\n ∑ ∑ (yi − y^Rj )2 + α∣T ∣\n j=1 i: xi ∈Rj \ngde ∣T ∣ označava broj terminalnih čvorova (regiona Rj ) stabla T , y^Rj je srednja vrednost izlazne promenljive\ntrening uzoraka u regionu Rj , a α ≥ 0 je regularizacioni parametar koji kontroliše kompromis između\nprilagođenja podacima i kompleksnosti stabla.\nAlgoritam izbora modela:\n 1. Pohlepnom rekurzivnom binarnom podelom izgraditi veoma veliko stablo T0 . \n 2. Za svaku nenegativnu vrednost α odrediti odgovarajuće podstablo minimizacijom gornje funkcije — dobija\n se sekvenca ugnježdenih stabala.\n 3. Kros-validacijom sa K podela odabrati optimalnu vrednost α:\n Ponavljati korake 1 i 2 na (K − 1) particija trening podataka.\n Proceniti grešku (MSE ili čistoća čvorova) na preostaloj particiji.\n Usrednjiti rezultate iz svih prolaza i izabrati α koje daje najmanju prosečnu grešku.\n 4. Kao rezultat vratiti podstablo iz koraka 2 koje odgovara izabranoj vrednosti α.\nVeće α kažnjava kompleksnost jače i vodi manjim stablima (manje listova), dok α = 0 odgovara originalnom\nneoorezanom stablu T0 ."
+ },
+ {
+  "id": "XI.5",
+  "question": "Objasniti ideju bootstrap agregacije. Koji jednostavan način procene greške je ovim pristupom omogućen? Šta je još specifično za random forest?",
+  "expected_sources": [
+   "L11 - Stabla"
+  ],
+  "reference_answer": "Bootstrap agregacija (Bagging):\nStabla odluke imaju visoku varijansu — mala promena u trening skupu može dovesti do bitno drugačijeg stabla.\nBagging (bootstrap aggregation) koristi statističku osobinu da usrednjavanje N nezavisnih uzoraka varijanse σ 2\nsmanjuje varijansu srednje vrednosti na σ 2 /N .\nPošto je na raspolaganju samo jedan trening skup, koristi se bootstrap metod: generišu se B novih trening\nskupova nasumičnim uzorkovanjem sa vraćanjem iz originalnog skupa (svaki bootstrap skup ima isti broj\nuzoraka, ali se neki uzorci ponavljaju, a drugi izostaju). Na svakom bootstrap skupu obučava se posebno stablo\nf^b , a konačna procena je prosek svih stabala:\n B\n 1\n f^bag (x) = ∑ f^b (x)\n B b=1\nKod klasifikacije se kao konačna odluka uzima klasa koja je većinski izabrana (majority voting) na osnovu\nodluka B stabala.\nOut-of-bag procena greške:\nSvako stablo obučava se na jednom bootstrap skupu koji u proseku koristi oko 2/3 uzoraka iz originalnog\ntrening skupa. Preostalih oko 1/3 uzoraka koji nisu korišćeni za obuku tog stabla nazivaju se out-of-bag (OOB)\nuzorci za dato stablo. Za svaki uzorak iz trening skupa moguće je predvideti izlaz na osnovu odluka svih stabala\nza koje je taj uzorak bio OOB (biće ih oko B/3). Ako je B dovoljno veliko, ovako dobijena procena greške je\nekvivalentna leave-one-out kros-validaciji za bagging — i to bez dodatnog računskog troška.\nRandom Forest — specifičnosti:\nRandom Forest je unapređenje bagging metode malim trikom koji dekoreliše stabla. Naime, ako jedan snažan\nprediktor dominira u svim stablima, stabla će biti međusobno jako korelisana, pa usrednjavanje neće značajno\nsmanjiti varijansu. Rešenje je: u svakom čvoru se slučajno bira p od d obeležja, i podela je dozvoljena samo na\nosnovu nekog od tih p obeležja. Tipičan izbor je p = d ili p = d/2.\nOvim se svako stablo pravi na slučajnom podskupu obeležja, čime se postiže dekorelacija stabala i dalje\nsmanjenje varijanse ansambla — uz zadržavanje iste pristranosti kao kod pojedinačnih stabala."
+ },
+ {
+  "id": "XI.6",
+  "question": "Kako se utvrđuje značajnost obeležja kod random forest?",
+  "expected_sources": [
+   "L11 - Stabla"
+  ],
+  "reference_answer": "Random Forest prirodno pruža mogućnost procene važnosti pojedinih obeležja (variable importance) na\nosnovu njihovog prosečnog doprinosa smanjenju nečistoće u svim stablima ansambla.\nZa regresiona stabla (Bagging, RF):\nBeleži se smanjenje MSE usled podele na osnovu određenog obeležja, uprosečeno na osnovu svih B stabala.\nVelika prosečna vrednost smanjenja MSE ukazuje na značajno obeležje.\nZa klasifikaciona stabla (Bagging, RF):\nPosmatra se smanjenje Ginijevog indeksa kada se podela vrši na osnovu određenog obeležja, uprosečeno nad\nsvim čvorovima i svim B stablima. Bitna je i verovatnoća da se stigne do čvora u kojoj se vrši podela na osnovu\ndatog obeležja — ona se procenjuje kao količnik broja uzoraka koji su dospeli do tog čvora i ukupnog broja\ntrening uzoraka.\nNa osnovu ovih vrednosti formira se rang lista obeležja koja omogućava identifikaciju najinformativnijih\nobeležja za dati problem — čime Random Forest služi i kao alat za selekciju obeležja, pored primarne uloge\nklasifikatora ili regresora."
+ },
+ {
+  "id": "XI.7",
+  "question": "Objasniti ideju boosting-a kao ansambalske metode na primeru regresije.",
+  "expected_sources": [
+   "L11 - Stabla"
+  ],
+  "reference_answer": "Osnovna ideja:\nBoosting je generalan ansambalski pristup koji se može primeniti na mnoge metode mašinskog učenja. Za\nrazliku od bagginga, gde se stabla obučavaju nezavisno jedno od drugog, kod boostinga stabla se obučavaju\nsekvencijalno — svako sledeće stablo se obučava na osnovu informacija dobijenih od prethodno obučenih\nstabala. Boosting tehnika uči polako: svako novo stablo obučava se nad rezidualima (greškama) trenutnog\nmodela, umesto nad originalnim izlazima.\nAlgoritam boostinga za regresiona stabla:\n 1. Inicijalizovati procenu f^(xi ) = 0 i rezidualne greške ri = yi za svaki uzorak xi .\n 2. Za b = 1, 2, … , B ponavljati:\n Obučiti b-to stablo f^b sa m podela (tj. m + 1 terminalnih čvorova) nad skupom\n {(x1 , r1 ), (x2 , r2 ), … , (xN , rN )}.\n Ažurirati ukupnu procenu dodavanjem skaliranog novog stabla: f^(xi ) ← f^(xi ) + λf^b (xi ) \n Korigovati rezidualne greške: ri ← ri − λf^b (xi ) \n 3. Konačni model je suma svih stabala:\n B\n f^(x) = ∑ λf^b (x)\n b=1\nKljučni hiperparametri:\n Broj stabala B : Boosting je skloniji natprilagođenju sa rastom B (za razliku od bagginga i RF). Optimalna\n vrednost se određuje kros-validacijom.\n Parametar učenja λ (shrinkage): tipično mali broj (0.001–0.01); kontroliše brzinu učenja. Manje λ zahteva\n veće B za isti kvalitet modela, ali generalno daje bolje rezultate.\n Broj podela po stablu m: kontroliše kompleksnost pojedinačnih stabala i dubinu interakcije obeležja. Za\n m = 1 (stablo sa jednom podelom, tzv. decision stump ili panj) model postaje aditivan — svako stablo\n uključuje samo jednu promenljivu."
+ },
+ {
+  "id": "XII.1",
+  "question": "Kako se perceptron (neuron) može modifikovati tako da vrši nelinearnu klasifikaciju i koja su ograničenja tog pristupa? Na koji način neuronske mreže rešavaju ovaj problem?",
+  "expected_sources": [
+   "L11 - Neuronske"
+  ],
+  "reference_answer": "Perceptron (i neuron sa sigmoidnom aktivacionom funkcijom) realizuje linearnu granicu odlučivanja u prostoru\nulaznih obeležja, što znači da može ispravno klasifikovati uzorke jedino ako su klase linearno razdvojive. Da bi se\nnelinearna granica odlučivanja postigla linearnim modelom, potrebno je primeniti transformaciju ulaza h(x) koja\nbi obezbedila linearnu separabilnost u višedimenzionalnom prostoru:\n y^(x) = f (θ T h(x) + θ0 )\nPostoje dva osnovna pristupa za izbor transformacije h(x):\n1. Generička preslikavanja u prostor beskonačnih dimenzija (kao kod SVM s kernel trikom) — ne zahtevaju\ndomensko znanje, ali često pokazuju lošu generalizaciju.\n2. Manuelni izbor transformacije od strane domenskog eksperta — zahteva dobro poznavanje oblasti. Na\nprimer, za nelinearnu klasifikaciju u logističku regresiju mogu se uključiti kvadratni, kubni i viši stepeni obeležja:\n y^(x) = f (θ0 + θ1 x1 + θ2 x2 + θ3 x1 x2 + θ4 x21 + θ5 x22 + …)\nOgraničenje ovog pristupa je što sa porastom broja dimenzija postaje izuzetno nepraktičan — broj članova\neksponencijalno raste.\nNeuronske mreže rešavaju ovaj problem kombinovanjem neurona u više slojeva, čime se transformacija h(x)\nuči automatski iz podataka. Skriveni sloj mreže uči nelinearnu reprezentaciju ulaznih obeležja, a izlazni sloj na\nosnovu te reprezentacije vrši klasifikaciju:\n (2)\n a1 = f (θ (2)T a(1) ) = f (θ (2)T h(θ (1) , x))\nNa taj način težine θ (1) i θ (2) uče se u postupku obuke tako da se dobiju željeni izlazi, a mreža sama otkriva\nkorisnu nelinearnu reprezentaciju podataka, bez ručnog projektovanja transformacije."
+ },
+ {
+  "id": "XII.2",
+  "question": "Dati primer jednostavne neuronske mreže s jednim skrivenim slojem i predstaviti zavisnost aktivacionih funkcija od ulaznih veličina uz korišćenje matričnog zapisa.",
+  "expected_sources": [
+   "L11 - Neuronske"
+  ],
+  "reference_answer": "Razmatramo mrežu sa propagacijom unapred koja ima ulazni sloj (sloj 0) sa x0 , x1 , x2 , x3 , jedan skriveni sloj (sloj 1) \n (1) (1) (1) (1) (2)\nsa neuronima a1 , a2 , a3 i slobodnim članom a0 = 1, te izlazni sloj (sloj 2) sa jednim neuronom a1 .\nMatrica težina Θ(1) dimenzija 3 × 4 povezuje ulazni sa skrivenim slojem, a matrica Θ(2) dimenzija 1 × 4 skriveni sa\nizlaznim slojem.\nAktivacije skrivenog sloja računaju se kao:\n (1) (1) (1) (1) (1) (1)\n aj = f (θj0 x0 + θj1 x1 + θj2 x2 + θj3 x3 ) = f (zj ) ,\n j = 1, 2, 3\nšto se u matričnom zapisu piše kao:\n a(1) = f (z(1) ) = f (Θ(1) x)\nAktivacija izlaznog sloja računa se na osnovu izlaza skrivenog sloja:\n (2) (2) (1) (2) (1) (2) (1) (2) (1) (2)\n a1 = f (θ10 a0 + θ11 a1 + θ12 a2 + θ13 a3 ) = f (z1 )\ntj. matrično:\n a(2) = f (z(2) ) = f (Θ(2) a(1) )\nIzlaz mreže je hΘ (x) = a(2)\n 1 . Ovaj postupak izračunavanja od ulaza ka izlazu naziva se propagacija unapred\n(forward propagation). Matrice Θ(r) definišu ponašanje mreže i podešavaju se u procesu obuke."
+ },
+ {
+  "id": "XII.3",
+  "question": "Navesti osnovne principe obuke neuronske mreže. Kada se smatra da je u postupku obuke nastupila konvergencija? Da li postoji rizik od upadanja algoritma za obuku u lokalni minimum?",
+  "expected_sources": [
+   "L11 - Neuronske"
+  ],
+  "reference_answer": "Obuka neuronske mreže se svodi na nalaženje sinaptičkih težina koje minimizuju odgovarajuću funkciju cene J\n(npr. srednju kvadratnu grešku ili unakrsnu entropiju). Pošto je zavisnost funkcije cene od težina nelinearna,\nkoriste se iterativne tehnike. Standardni algoritam obuke je algoritam propagacije unazad (backpropagation),\nkoji se sastoji od četiri koraka:\n1. Inicijalizacija: Sve težine se inicijalizuju malim slučajnim vrednostima (ne nulama — nulta inicijalizacija bi\nuzrokovala da se svi neuroni istog sloja ponašaju identično).\n2. Propagacija unapred: Za svaki uzorak x(i) izračunavaju se aktivacije svih slojeva zj(r) (i) i a(r)\n j (i), te vrednost \nfunkcije cene J(Θ)(i).\n3. Propagacija unazad: Za svaki uzorak x(i) i svaki neuron izlaznog sloja izračunava se senzitivnost:\n (L) (L)\n δj (i) = ej (i) ⋅ f ′ (zj (i))\na potom za svaki neuron u preostalim slojevima:\n (r−1) (r−1) (r−1)\n δj (i) = ej\n (i) ⋅ f ′ (zj\n (i)), r = L, L − 1, … , 2\n (r−1)\npri čemu je ej (i) = ∑kk=1\n r (r)\n (r)\n δk (i) ⋅ θkj . \n4. Rafiniranje težina: Sinaptičke težine se koriguju gradijentnim silaskom:\n N\n (r) (r) 1\n θ j (novo) = θ j (staro) − α ∑ δ r (i)a(r−1) (i)\n N i=1 j\nKoraci 2–4 ponavljaju se do ispunjenja izlaznog kriterijuma.\nKonvergencija se smatra nastupelom kada funkcija cene J padne ispod unapred zadatog praga, ili kada se\nnjena vrednost ne menja značajno u određenom broju uzastopnih iteracija.\nRizik od lokalnog minimuma: Za razliku od linearnih modela, funkcija cene neuronske mreže zbog\nnelinearnosti može imati složen nekonveksan oblik sa velikim brojem lokalnih minimuma. Algoritam propagacije\nunazad ne garantuje konvergenciju ka globalnom minimumu — postoji rizik zaglavljivanja u lokalnom\nminimumu. U praksi se preporučuje reinicijalizacija algoritma iz različitih skupova početnih uslova."
+ },
+ {
+  "id": "XII.4",
+  "question": "Od čega zavisi brzina konvergencije algoritma za obuku neuronske mreže i kako se na nju može uticati?",
+  "expected_sources": [
+   "L11 - Neuronske"
+  ],
+  "reference_answer": "Brzina konvergencije algoritma za obuku neuronske mreže primarno zavisi od:\nBrzine učenja α — određuje veličinu koraka pri ažuriranju težina. Premala vrednost α daje sporu, ali stabilnu\nkonvergenciju; prevelika vrednost može uzrokovati oscilacije i promašivanje minimuma.\nVarijante gradijentnog silaska:\n Grupni (batch) gradijentni silazak — ažuriranje tek nakon analize svih uzoraka; tačnija estimacija gradijenta,\n ali sporije iteracije.\n Uzoračka (stochastic) varijanta — ažuriranje nakon svakog uzorka; brže iteracije, veća slučajnost pomaže\n izlasku iz lokalnih minimuma, ali je estimacija gradijenta šumovitija.\n Mini-batch varijanta — kompromis između prethodno navedenih.\nUvođenje momenta ubrzava konvergenciju ublažavanjem oscilatornog ponašanja gradijenta između\nsukcesivnih koraka:\n N\n (r) (r)\n Δθ j (novo) = −α ∑ δjr (i)a(r−1) (i) − βΔθ j (staro)\n i=1\ngde je β faktor momenta (tipično između 0,1 i 0,8). Momenat efektivno uvećava brzinu učenja kada je gradijent\naproximativno konstantan, a smanjuje je kada osciluje. Napomena: pri aproximiranju stvarnog minimuma\nmomenat može izazvati blage oscilacije oko minimuma.\nAdaptivna brzina učenja — eksplicitno promenljiva vrednost α tokom obuke pruža bolju kontrolu\nkonvergencije od fiksne vrednosti.\nNormalizacija i dekorelacija ulaza — skaliranje obeležja na sličan opseg (standardizacija) i uklanjanje korelacija\n(npr. primenom PCA) pre obuke značajno ubrzava konvergenciju, jer sprečava zasićenje neurona i smanjuje\nverovatnoću zaglavljivanja u nepovoljnim lokalnim minimumima."
+ },
+ {
+  "id": "XII.5",
+  "question": "Koji problemi nastaju ako je struktura mreže složenija (npr. ako mreža ima više slojeva ili više neurona po slojevima) nego što je to za dati skup za obuku potrebno? Kako je moguće izbeći preteranu obučenost mreže (eng. overtraining)?",
+  "expected_sources": [
+   "L11 - Neuronske"
+  ],
+  "reference_answer": "Ako je mreža previše složena u odnosu na veličinu skupa za obuku, dolazi do natprilagođenja (overfitting):\nmreža se suviše prilagodi uzorcima za obuku i \"pamti\" šum umesto da nauči generalne zakonitosti, što rezultuje\nlošom generalizacijom na novim podacima. Količina izračunavanja je tada i nepotrebno velika.\nDa bi se izbegle navedene posledice, primenjuju se sledeće tehnike regularizacije:\nRano zaustavljanje obuke (early stopping) — izdvaja se poseban validacioni skup podataka i obuka se prekida\nkada greška na validacionom skupu počne da raste, iako greška na skupu za obuku i dalje opada.\nOgraničavanje L1 ili L2 norme parametara — norma parametara uključuje se u funkciju cene, čime se u toku\nobuke istovremeno minimizuje i greška i veličina parametara, što sprečava \"eksplodiranje\" težina.\nDropout — u svakoj iteraciji obuke svaki neuron se s određenom verovatnoćom isključuje iz mreže i ne\nučestvuje u toj iteraciji. Time se mreža stimuliše da distribuira naučene zavisnosti na više neurona, umesto da se\noslanja na mali broj jako specijalizovanih. Može se posmatrati kao ansambalsko učenje, jer se u svakoj iteraciji\nefektivno obučava drugačija podmreža.\nAugmentacija podataka — veštačkim modifikovanjem postojećih uzoraka (rotacije, skaliranja, dodavanje šuma\ni sl.) uvećava se raspoloživi skup podataka, čime se smanjuje rizik od preobučenosti."
+ },
+ {
+  "id": "XIII.1",
+  "question": "Objasniti potrebu za smanjenjem dimenzionalnosti i dva osnovna pristupa smanjenju dimenzionalnosti. Ako se transformacijom polaznog vektora obeležja x dobija ciljni vektor obeležja y niže dimenzionalnosti, kada je ta transformacija optimalna?",
+  "expected_sources": [
+   "L13"
+  ],
+  "reference_answer": "Problem dimenzionalnosti (curse of dimensionality) nastaje pri analizi multivarijabilnih podataka kada broj\ndimenzija prostora raste. Za d dimenzija potrebno je N d uzoraka da bi se zadržala ista gustina uzoraka, a\neksponencijalni rast kompleksnosti gustine raspodele čini modelovanje sve težim. Pored toga, za zadatu veličinu\nskupa uzoraka postoji maksimalni broj obeležja koji, kada se prekorači, rezultuje opadanjem performansi\nklasifikatora — ovaj efekat poznat je kao Hughesov fenomen.\nDva osnovna pristupa smanjenju dimenzionalnosti:\n1. Odabir (selekcija) obeležja — biranje podnačupa od M najrelevantnijih obeležja iz skupa svih d obeležja, bez\nkombinovanja:\n x1 x i1 \n x= \n ⋮ ⟶ ⋮ \n xd x iM\n2. Izdvajanje obeležja — formiranje manjeg skupa novih obeležja kombinovanjem postojećih (linearno: y =\nWx, ili nelinearno: y = f (x)).\nOptimalnost transformacije: Transformacija y = f (x) : Rd → RM , M < d, smatra se optimalnom ako ne izaziva\npovećanje verovatnoće greške klasifikacije — tj. ako Bayesovo pravilo odlučivanja primenjeno u reduciranom\nprostoru RM daje jednaku tačnost klasifikacije kao i u polaznom prostoru Rd . Opšti način nalaženja ovakve\ntransformacije ne postoji jer optimalnost zavisi od konkretnog problema, ali pod pretpostavkom linearnosti\nproblem postaje znatno jednostavniji."
+ },
+ {
+  "id": "XIII.2",
+  "question": "Neka se izdvajanje obeležja u cilju redukcije dimenzionalnosti vrši na osnovu funkcije y = f (x). Koja se dva osnovna pristupa razlikuju u zavisnosti od toga koje kriterijume koristi funkcija cilja koju treba maksimizovati/minimizovati?",
+  "expected_sources": [
+   "L13"
+  ],
+  "reference_answer": "U zavisnosti od kriterijuma koji koristi funkcija cilja, tehnike linearnog izdvajanja obeležja dele se u dve\nkategorije:\n1. Reprezentacija — cilj preslikavanja je da što tačnije predstavi skup uzoraka u prostoru sa manjim brojem\ndimenzija. Teži se minimalnoj grešci rekonstrukcije originalnih podataka iz smanjenog prostora. Ovaj kriterijum\nkoristi PCA (razlaganje na glavne komponente), koja pronalazi pravce maksimalne varijanse i nije nužno\noptimalna sa stanovišta diskriminacije između klasa.\n2. Klasifikacija — cilj preslikavanja je da pojača diskriminaciju između klasa u prostoru s manjim brojem\ndimenzija. Uzimaju se u obzir oznake klasa pojedinih uzoraka i traži se projekcija koja maksimizuje separabilnost\nklasa u smanjenom prostoru. Ovaj kriterijum koristi LDA (linearna diskriminantna analiza). Pravac maksimalne\ndiskriminacije ne mora se poklapati sa pravcem maksimalne varijanse, pa LDA u problemima klasifikacije po\npravilu daje bolje rezultate od PCA."
+ },
+ {
+  "id": "XIII.3",
+  "question": "Neka je, u okviru PCA, potrebno predstaviti slučajni vektor x u prostoru sa manjim brojem dimenzija. Da bi on pri tome bio predstavljen sa minimalnom srednjekvadratnom greškom, kako treba odabrati vektore baze φi u novom vektorskom prostoru? Šta je glavni nedostatak ovakve reprezentacije?",
+  "expected_sources": [
+   "L13"
+  ],
+  "reference_answer": "Kolika je greška i kako se bira broj osnovnih komponenti?\nSlučajni vektor x ∈ Rd aproksimira se sa M < d baznih vektora:\n M d\n ^ (M ) = ∑ ai φi + ∑ bi φi\n x \n i=1 i=M +1\ngde su ai = xT φi projekcije vektora x na bazne vektore, a bi = E{ai } su optimalne konstante kojima se zamenjuju\nizostavljene koordinate (dobijaju se minimizacijom greške).\nMera greške reprezentacije (srednja kvadratna greška aproksimacije) jednaka je:\n d\n ε2 (M ) = ∑ φTi Σx φi \n i=M +1\nMinimizacijom ovog izraza metodom Lagrangeovih multiplikatora uz ograničenje ortonormalnosti vektora φi\ndobija se da vektori baze φi moraju biti karakteristični vektori kovarijansne matrice Σx , i to oni kojima\nodgovaraju M najvećih karakterističnih vrednosti λi . Greška reprezentacije iznosi tada:\n d\n 2\n ε (M ) = ∑ λi \n i=M +1\ntj. suma karakterističnih vrednosti koje su izostavljene iz reprezentacije.\nBroj komponenti M bira se tako da se zadrži dovoljno velik udeo ukupne varijanse, najčešće primenom\nkriterijuma:\n M\n ∑i=1 λi\n ≥ 0,99\n d\n ∑i=1 λi \ntj. bira se najmanji M koji objašnjava 99% ukupne varijanse.\nGlavni nedostatak PCA je da ne uzima u obzir oznake klasa pojedinih uzoraka — PCA vrši samo rotaciju\nkoordinatnog prostora poravnavajući ose sa pravcima maksimalne varijanse, ali nema nikakve garancije da će ti\npravci biti dobri za diskriminaciju između klasa. Pravac sa maksimalnom varijansom i pravac sa maksimalnom\ndiskriminatornom informacijom ne moraju se poklapati."
+ },
+ {
+  "id": "XIII.4",
+  "question": "Šta je osnovni zadatak LDA? Ako se polazni vektorski prostor projektuje na jedan pravac (na vektorski prostor dimenzije 1), navesti funkciju cilja koja se pri tome koristi i objasniti zbog čega je takav izbor opravdan, a zatim diskutovati i krajnji izraz za optimalni pravac w∗ na koji je potrebno izvršiti projekciju.",
+  "expected_sources": [
+   "L13"
+  ],
+  "reference_answer": "Osnovni zadatak LDA je smanjenje dimenzionalnosti prostora obeležja uz očuvanje što više diskriminatornih\ninformacija između klasa. Za razliku od PCA, LDA uzima u obzir oznake klasa i traži projekciju koja maksimizuje\nseparabilnost klasa u smanjenom prostoru.\nZa slučaj dveju klasa, projektovanjem uzoraka x na pravac w dobijaju se skalari y = wT x. Naivna funkcija cilja —\nrastojanje između projekcija vektora srednjih vrednosti klasa ∣μ~1 − μ~2 ∣ — nije dovoljna jer ne uzima u obzir \nraspršenost uzoraka unutar klasa.\nFisherova linearna diskriminanta koristi kao funkciju cilja odnos međuklasnog rasipanja i unutarklasnog\nrasipanja projektovanih uzoraka:\n ∣μ~1 − μ~2 ∣2 w T SB w\n J(w) = ~2 ~2 = T\n s1 + s2 w SW w\ngde je SB = (μ1 − μ2 )(μ1 − μ2 )T matrica međuklasnog rasipanja, a SW = S1 + S2 matrica unutarklasnog\nrasipanja (zbir matrica rasipanja pojedinih klasa u polaznom prostoru obeležja). Ovaj izbor je opravdan jer teži\nprojekciji kod koje su uzorci iste klase zbijeni zajedno (mali nazivnik), a centroidi klasa što udaljeniji (veliki\nbrojnik).\nMaksimizacijom J(w) izjednačavanjem gradijenta po w sa nulom dobija se optimalni pravac projekcije:\n w∗ = arg max J(w) = S−1\n W (μ1 − μ2 ) \n w\nDakle, optimalni pravac w∗ dobija se množenjem inverzom matrice unutarklasnog rasipanja sa razlikom vektora\nsrednih vrednosti klasa. Ako su raspodele klasa izotropne (kovarijansne matrice proporcionalne identičnoj\nmatrici), S−1\n W je skalarna i w je proporcionalan razlici μ1 − μ2 . U opštem slučaju, SW \"koriguje\" pravac uzimajući u\n ∗ −1\nobzir oblik i orijentaciju raspodela klasa."
+ },
+ {
+  "id": "XIII.5",
+  "question": "Na koje se sve načine primena LDA u binarnoj klasifikaciji može uopštiti na slučaj više od dve klase? Koja je najveća dimenzionalnost novog prostora obeležja koji se primenom LDA može konstruisati? Koja su druga važna ograničenja LDA?",
+  "expected_sources": [
+   "L13"
+  ],
+  "reference_answer": "Uopštenje LDA na K > 2 klasa može se postići na dva načina:\n1. Višestrukom primenom binarne klasifikacije — korišćenjem strategije \"jedan protiv svih\" ili \"svako protiv\nsvakog\".\n2. Direktnom generalizacijom u više dimenzija — umesto jedne projekcije y , traži se m projekcija [y1 , y2 , … , ym ] \ndefinisanih projekcionom matricom W = [w1 w2 … wm ], y = WT x. Generalizovana matrica međuklasnog\nrasipanja je:\n K\n SB = ∑ Ni (μi − μ)(μi − μ)T\n i=1\n K\na matrica unutarklasnog rasipanja: SW = ∑i=1 Si . Optimalna matrica projekcije W∗ maximizuje odnos\ndeterminanata J(W) = ∣WT S B W∣/∣WT S\n W W∣\n i čine je karakteristični vektori matrice S−1\n W SB koji odgovaraju \nnajvećim karakterističnim vrednostima.\nNajveća dimenzionalnost novog prostora: Pošto je SB zbir K matrica ranga najviše 1, a između μ i pojedinih μi\npostoji linearna zavisnost, matrica SB ima rang najviše K − 1. Stoga postoji najviše K − 1 karakterističnih vrednosti\n W SB različitih od nule, što znači da LDA može konstruisati novi prostor obeležja dimenzionalnosti najviše m ≤\nS−1 \nK − 1.\nOstala važna ograničenja LDA:\nLDA je parametarski metod koji pretpostavlja da su obeležja unutar klasa raspodeljena po Gaussovoj\n(unimodalnoj) raspodeli. Ako raspodele značajno odstupaju od Gaussove (multimodalne, jako asimetrične), LDA\nprojekcije neće moći da očuvaju kompleksnu strukturu podataka neophodnu za klasifikaciju. LDA je neuspešna i\nkada se diskriminatorna informacija ne nalazi u srednjoj vrednosti, već u varijansi uzoraka unutar klasa. Na ovaj\nnedostatak se može odgovoriti primenom neparametarskih varijanti LDA (npr. Fukunagina metoda),\nortonormalne LDA ili nelinearnih metoda (višeslojni perceptroni za nelinearnu diskriminantnu analizu)."
+ }
+]

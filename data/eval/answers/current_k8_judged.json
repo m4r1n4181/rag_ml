@@ -1,0 +1,403 @@
+{
+ "I.2": {
+  "coverage": [
+   "partial",
+   "yes",
+   "partial",
+   "no",
+   "yes",
+   "no",
+   "no"
+  ],
+  "completeness": 0.42857142857142855,
+  "unsupported": [
+   "To je ključni cilj mašinskog učenja, jer model treba da radi dobro na neviđenim podacima, a ne samo na podacima na kojima je obučavan.",
+   "Natprilagođenje se javlja kada model postane previše kompleksan i počne da uči šum umesto opštih zakonitosti (delimično izvedeno iz konteksta, ali formulacija o 'opštim zakonitostima' nije u izvorima).",
+   "Model je savršeno naučio trening podatke, ali nije generalizovao na nove, stvarne podatke.",
+   "Kombinovanjem ovih tehnika postiže se balans između prilagođavanja podacima i sposobnosti modela da generalizuje na nove podatke."
+  ],
+  "faithfulness": 0.8181818181818181
+ },
+ "I.4": {
+  "coverage": [
+   "partial",
+   "yes",
+   "yes",
+   "partial",
+   "no",
+   "no",
+   "partial"
+  ],
+  "completeness": 0.5,
+  "unsupported": [
+   "Cilj klasifikacije: određivanje klase kojoj pripada novi uzorak na osnovu dostupnih podataka (nije eksplicitno navedeno u kontekstu).",
+   "Klasterizacija deluje bez unapred poznatih izlaznih vrednosti (nije eksplicitno navedeno u izvoru, mada se podrazumeva iz nenadgledanog učenja).",
+   "Navođenje Praktikum str. 101 karakteristika (kriterijumi podele, prosek u listu) kao opšte karakteristike regresije i klasifikacije — odnosi se samo na stabla odlučivanja, a odgovor to ne navodi."
+  ],
+  "faithfulness": 0.8636363636363636
+ },
+ "II.3": {
+  "coverage": [
+   "partial",
+   "partial",
+   "no",
+   "yes",
+   "partial",
+   "yes",
+   "yes"
+  ],
+  "completeness": 0.6428571428571429,
+  "unsupported": [
+   "Stohastičko poduzorkovanje je opisano kao osnovni pristup gde se skup deli na dva komplementarna podskupa sa različitim podelama - to je opis jedne runde unakrsne validacije, a ne specifičnosti stohastičkog poduzorkovanja (kontekst ne objašnjava poduzorkovanje).",
+   "Bootstrap se navodi kao način ponovnog uzorkovanja kod unakrsne validacije, iako ga kontekst izdvaja kao posebnu grupu metoda (nasuprot unakrsnoj validaciji).",
+   "Mana bootstrap-a je navedena samo kao različita veličina test skupa, što kontekst ne predstavlja kao manu u poređenju sa drugim načinima."
+  ],
+  "faithfulness": 0.8421052631578947
+ },
+ "II.4": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "yes",
+   "yes",
+   "yes"
+  ],
+  "completeness": 0.9375,
+  "unsupported": [
+   "Svaki uzorak se koristi tačno jednom za testiranje (kod unakrsne validacije) – nije eksplicitno u kontekstu za K particija, ali je blisko izvoru 6",
+   "U svakoj rundi, K-1 particija se koristi za obuku, a preostala za testiranje – kontekst (izvor 6) govori o M-1 podskupova, pa je ovo samo prilagođeno oznaci K"
+  ],
+  "faithfulness": 0.875
+ },
+ "III.2": {
+  "coverage": [
+   "yes",
+   "partial",
+   "yes",
+   "no",
+   "no",
+   "partial",
+   "yes"
+  ],
+  "completeness": 0.5714285714285714,
+  "unsupported": [
+   "Iterativni pristup je fleksibilniji i primenjiv i na kompleksnije probleme.",
+   "Analitičko rešenje je pogodno za manji broj obeležja jer se dobija direktno (nije u kontekstu, samo u tekstu pitanja)."
+  ],
+  "faithfulness": 0.8571428571428572
+ },
+ "III.4": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "no",
+   "partial",
+   "yes",
+   "yes"
+  ],
+  "completeness": 0.7857142857142857,
+  "unsupported": [
+   "Lasso koristi L1 normu umesto L2 norme (kontekst ne pominje eksplicitno L1/L2 nazive; ovo je opšte znanje, mada se iz ograničenja na slajdu 29 može naslutiti)",
+   "Veliki broj obeležja: tvrdnja da je inverzija računski zahtevna kada je d > N je spojena sa 10.000 obeležja, a izvor to vezuje samo za veliki broj obeležja (iskrivljeno spajanje uslova)",
+   "Smanjenje varijanse čini model robusnijim (izvor govori samo o smanjenju varijanse)"
+  ],
+  "faithfulness": 0.8636363636363636
+ },
+ "IV.3": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "partial",
+   "yes"
+  ],
+  "completeness": 0.8571428571428571,
+  "unsupported": [
+   "Bayesova stopa greške predstavlja teorijsku donju granicu greške i služi kao referentna tačka za evaluaciju performansi praktičnih klasifikatora.",
+   "Ovo je ekvivalentno LR testu sa simetričnim cenama, što se može pokazati primenom Bayesovog kriterijuma (slajd 20)."
+  ],
+  "faithfulness": 0.8666666666666667
+ },
+ "IV.4": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "no",
+   "partial"
+  ],
+  "completeness": 0.7142857142857143,
+  "unsupported": [],
+  "faithfulness": 1.0
+ },
+ "V.2": {
+  "coverage": [
+   "yes",
+   "partial",
+   "partial",
+   "yes",
+   "yes",
+   "yes"
+  ],
+  "completeness": 0.8333333333333334,
+  "unsupported": [
+   "U specijalnom slučaju kada su sve kovarijansne matrice iste, kvadratni članovi se poništavaju i diskriminantna funkcija postaje linearna (citirano kao slajd 9, a slajd 9 govori samo o Σ=σ²I, ne o opštem Σ_i=Σ)"
+  ],
+  "faithfulness": 0.9090909090909091
+ },
+ "VI.3": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "yes"
+  ],
+  "completeness": 1.0,
+  "unsupported": [
+   "Ova procena je centrirana jer je E{σ̂²} = σ² (centriranost procene sa N−1 nije eksplicitno pokazana u kontekstu)"
+  ],
+  "faithfulness": 0.9285714285714286
+ },
+ "VII.3": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "no",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.6428571428571429,
+  "unsupported": [
+   "Oba pristupa takođe zahtevaju iste uslove konvergencije: V se smanjuje, k raste, a k_N/N teži nuli (the context states these as general conditions for the estimate, not as conditions that both KDE and kNN share)",
+   "Praktikum, str. 55 jasno pokazuje da ova dva pristupa predstavljaju alternativne primene iste opšte formulacije (the Praktikum excerpt on p. 55 does not say this)"
+  ],
+  "faithfulness": 0.8181818181818181
+ },
+ "VII.6": {
+  "coverage": [
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "no",
+   "no",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.625,
+  "unsupported": [
+   "Glatki kerneli čine rezultate lakšim za interpretaciju (zbog kontinuiteta procene).",
+   "Glatki kernel određuje bolji oblik modova, što omogućava bolju reprezentaciju stvarne raspodele (slajd 18 samo kaže da izbor kernela određuje oblik modova)."
+  ],
+  "faithfulness": 0.8947368421052632
+ },
+ "VII.8": {
+  "coverage": [
+   "partial",
+   "yes",
+   "yes",
+   "yes",
+   "no",
+   "no",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.5625,
+  "unsupported": [
+   "Citiranje Praktikuma, str. 66 za tvrdnju da naivni Bayesov klasifikator pretpostavlja samo uslovnu nezavisnost umesto opšte nezavisnosti – ta tvrdnja potiče iz slajda 28 (Predavanje: KDE), a ne iz Praktikuma."
+  ],
+  "faithfulness": 0.9230769230769231
+ },
+ "VIII.4": {
+  "coverage": [
+   "yes",
+   "yes",
+   "partial",
+   "no",
+   "yes",
+   "yes",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.6875,
+  "unsupported": [
+   "Metode ranog učenja obavljaju obradu uzoraka za obuku pre nego što se javi zahtev za klasifikacijom (the 'pre' framing is not stated in the sources, only implied by contrast)"
+  ],
+  "faithfulness": 0.95
+ },
+ "VIII.5": {
+  "coverage": [
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no",
+   "no"
+  ],
+  "completeness": 0.0,
+  "unsupported": [],
+  "faithfulness": 1.0
+ },
+ "IX.3": {
+  "coverage": [
+   "yes",
+   "partial",
+   "yes",
+   "partial",
+   "no",
+   "yes",
+   "yes",
+   "partial"
+  ],
+  "completeness": 0.6875,
+  "unsupported": [
+   "Direktna generalizacija (višestruke diskriminantne funkcije) može dovesti do spornih regiona; u kontekstu sporni regioni se vezuju za višestruku primenu binarne klasifikacije, a ne za pristup sa maksimumom diskriminantnih funkcija."
+  ],
+  "faithfulness": 0.9411764705882353
+ },
+ "IX.5": {
+  "coverage": [
+   "partial",
+   "yes",
+   "yes",
+   "yes",
+   "partial",
+   "yes",
+   "yes"
+  ],
+  "completeness": 0.8571428571428571,
+  "unsupported": [],
+  "faithfulness": 1.0
+ },
+ "X.4": {
+  "coverage": [
+   "partial",
+   "yes",
+   "partial",
+   "partial",
+   "partial",
+   "partial",
+   "partial"
+  ],
+  "completeness": 0.5714285714285714,
+  "unsupported": [
+   "Polinomijalno vreme rešavanja \"garantuje pronalaženje globalnog optimuma\" (kontekst to ne tvrdi eksplicitno)",
+   "Elegantna matematička osnova \"omogućava teorijsku analizu i razumevanje ponašanja klasifikatora\"",
+   "Kontrola složenosti nezavisna od dimenzionalnosti je \"važna pri radu sa visokodimenzionalnim podacima\""
+  ],
+  "faithfulness": 0.7857142857142857
+ },
+ "XI.2": {
+  "coverage": [
+   "yes",
+   "no",
+   "yes",
+   "yes",
+   "partial",
+   "no"
+  ],
+  "completeness": 0.5833333333333334,
+  "unsupported": [
+   "Ručna formacija obeležja može značajno smanjiti prostor pretrage (kontekst samo kaže da se obeležja mogu formirati ručno, ne i da to smanjuje prostor pretrage).",
+   "Ova asimetrija između kompleksne obuke i brze primene čini stabla odluke atraktivnom opcijom za primene gde je brzina predviđanja kritična (zaključak nije eksplicitno u kontekstu)."
+  ],
+  "faithfulness": 0.8461538461538461
+ },
+ "XI.7": {
+  "coverage": [
+   "partial",
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "yes",
+   "partial"
+  ],
+  "completeness": 0.875,
+  "unsupported": [
+   "Boosting ne smanjuje varijansu kroz prosečavanje nezavisnih modela, već gradi model koji se fokusira na korekciju grešaka prethodnih stabala (zaključak o razlici u odnosu na smanjenje varijanse nije eksplicitno u kontekstu)"
+  ],
+  "faithfulness": 0.9411764705882353
+ },
+ "XII.1": {
+  "coverage": [
+   "yes",
+   "yes",
+   "no",
+   "no",
+   "no",
+   "yes",
+   "partial"
+  ],
+  "completeness": 0.5,
+  "unsupported": [
+   "Obuka se vrši pomoću algoritma propagacije unazad (backpropagation), koji omogućava efikasno učenje težinskih koeficijenata kroz sve slojeve mreže.",
+   "Neuronska mreža automatski uči kako transformisati ulaze kroz skrivene slojeve, a zatim primenjuje linearnu klasifikaciju na transformisanim obeležjima."
+  ],
+  "faithfulness": 0.8571428571428572
+ },
+ "XII.2": {
+  "coverage": [
+   "yes",
+   "partial",
+   "yes",
+   "partial",
+   "partial",
+   "partial",
+   "yes"
+  ],
+  "completeness": 0.7142857142857143,
+  "unsupported": [
+   "Sigmoidalna funkcija je zadata formulom σ(z) = 1/(1+e^{-z}) (formula se ne navodi u kontekstu).",
+   "Izbor aktivacione funkcije f je kritičan.",
+   "a^{(1)}_j = f(Θ^{(1)}_j · x) ne uvodi se u kontekstu kao zapis, ali je posledica navedenog."
+  ],
+  "faithfulness": 0.8235294117647058
+ },
+ "XIII.2": {
+  "coverage": [
+   "yes",
+   "partial",
+   "partial",
+   "partial",
+   "yes",
+   "no"
+  ],
+  "completeness": 0.5833333333333334,
+  "unsupported": [
+   "Izbor između ova dva pristupa zavisi od konkretnog problema i toga šta je važnije: da li je prioritet očuvanje strukture podataka ili postizanje bolje separacije klasa u redukovanom prostoru."
+  ],
+  "faithfulness": 0.8888888888888888
+ },
+ "XIII.4": {
+  "coverage": [
+   "partial",
+   "partial",
+   "partial",
+   "no",
+   "yes",
+   "no",
+   "no"
+  ],
+  "completeness": 0.35714285714285715,
+  "unsupported": [
+   "Eksplicitan izraz za w* se obično dobija rešavanjem karakteristične jednačine (nije u datom kontekstu kao rešenje za w*)"
+  ],
+  "faithfulness": 0.9285714285714286
+ }
+}
