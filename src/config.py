@@ -17,6 +17,8 @@ class Settings(BaseSettings):
 
     # Embeddings (why e5 over MiniLM: see README, Results)
     embedding_model: str = "intfloat/multilingual-e5-large-instruct"
+    # "bfloat16" halves the model's RAM (~1.8 GB instead of ~2.9 GB) with the same retrieval metrics
+    embedding_dtype: str = "float32"
     query_instruction: str = (
         "Given a student question about machine learning course material, "
         "retrieve the lecture slides or textbook passages that answer it"

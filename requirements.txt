@@ -10,11 +10,11 @@ chromadb==0.5.23
 rank-bm25==0.2.2
 
 # Embeddings / reranker
-sentence-transformers==2.7.0
+sentence-transformers==3.0.1
 transformers==4.40.2
 huggingface-hub==0.24.7
 tokenizers==0.19.1
-torch==2.2.2
+torch==2.5.1
 numpy<2.0.0
 
 # LLM

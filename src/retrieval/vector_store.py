@@ -19,7 +19,12 @@ def get_embedder() -> SentenceTransformer:
     global _embedder
     if _embedder is None:
         logger.info(f"Loading embedding model {settings.embedding_model}")
-        _embedder = SentenceTransformer(settings.embedding_model)
+        kwargs = {}
+        if settings.embedding_dtype != "float32":
+            import torch
+            kwargs["torch_dtype"] = getattr(torch, settings.embedding_dtype)
+        # model_kwargs only when needed, so float32 also works with older sentence-transformers
+        _embedder = SentenceTransformer(settings.embedding_model, **({"model_kwargs": kwargs} if kwargs else {}))
     return _embedder
 
 

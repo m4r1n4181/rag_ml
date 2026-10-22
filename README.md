@@ -49,7 +49,7 @@ Answering
 
 | Component | Choice | Why |
 |---|---|---|
-| Embeddings | `intfloat/multilingual-e5-large-instruct` | Trained for retrieval and multilingual. Beat the original MiniLM on every metric: Recall@10 0.42 → 0.54, MRR 0.71 → 0.91. ~0.6 s per query on CPU, fine for chat. |
+| Embeddings | `intfloat/multilingual-e5-large-instruct` | Trained for retrieval and multilingual. Beat the original MiniLM on every metric: Recall@10 0.42 → 0.54, MRR 0.71 → 0.91. ~0.6 s per query on CPU, fine for chat. The demo runs it in bfloat16 to fit a 2.7 GB hosting plan: 1.8 GB instead of 2.9 GB RAM, same test metrics (Recall@10 0.597 vs 0.591, MRR 0.947 vs 0.937). |
 | Chunking | One slide = one chunk; textbook in 800-char chunks with 150 overlap | Slides are short and self-contained; textbook pages are long prose. |
 | Context header | Every chunk starts with `Predavanje: <lecture> \| Slajd: <title>` | A slide titled "Lasso" never says "regularization" or "linear regression". The header adds that context. MRR 0.91 → 0.94, Recall@10 0.54 → 0.59. |
 | Vector store | ChromaDB (persistent, cosine) | Simple, local, enough for ~800 chunks. |
@@ -162,30 +162,18 @@ streamlit run ui/app.py
 The index (`data/chroma_db`) is included. Rebuild it with `python build_db.py` only if you change
 the embedding model, chunking or the PDFs (PDFs go in `data/raw/`, not included).
 
+With Docker instead (CPU-only PyTorch, the embedding model is downloaded at build time):
+
+```bash
+docker build -t ml-assistant .
+docker run -p 7860:7860 -e ANTHROPIC_API_KEY=... ml-assistant
+```
+
 Check retrieval for any question, without API calls:
 
 ```bash
 python debug_retrieval.py "Objasniti regularizaciju kod linearne regresije"
 ```
-
-## Deploy (Hugging Face Spaces, free CPU)
-
-1. Create a Space with the **Docker** SDK.
-2. In the Space settings, add a secret `ANTHROPIC_API_KEY`.
-3. Push this repository to the Space. The Space's `README.md` must start with:
-   ```yaml
-   ---
-   title: ML Course Assistant
-   sdk: docker
-   app_port: 7860
-   ---
-   ```
-   Hugging Face only accepts binary files (slide images, the index) through Git LFS:
-   `git lfs track "*.png" "*.sqlite3" "*.bin"` before committing to the Space.
-
-The `Dockerfile` installs CPU-only PyTorch and downloads the embedding model at build time. The
-app needs ~3 GB of RAM. Set a monthly spend limit in the Anthropic console; the per-session cap
-(`MAX_QUESTIONS_PER_SESSION`) only slows down abuse.
 
 ## Tests and evaluation
 
