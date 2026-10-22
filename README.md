@@ -4,7 +4,8 @@ A study assistant for the university course *Mašinsko učenje 1* (Machine Learn
 Students ask questions in Serbian and get answers built **only** from the lecture slides and the
 course textbook, with every source cited and the original slide shown next to the answer.
 
-**Live demo:** _add link after deploying_
+**Live demo:** [ml-course-assistant.streamlit.app](https://ml-course-assistant.streamlit.app/)
+(free hosting: if the app has been idle, click "Yes, get this app back up" and allow about a minute to start)
 
 What makes this more than a "chat with PDF" project is the evaluation. Every design choice was
 tested on 72 official exam questions, decided on a dev split and reported on a held-out test split.
